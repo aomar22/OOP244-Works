@@ -1,4 +1,5 @@
-# OOP244NHH
+# OOP244-Works
 Amany Omar
-aomar22@myseneca.ca
-Student ID# 126 127 166
+Student No: 126127166
+Email: aomar22@myseneca.ca
+OOP244NHH
