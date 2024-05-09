@@ -1,0 +1,4 @@
+#ifndef SENECA_SHOPPINGLIST_H
+#define SENECA_SHOPPINGLIST_H
+
+#endif 
