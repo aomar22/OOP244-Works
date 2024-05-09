@@ -1,2 +1,17 @@
-﻿  w1p1.cpp
-  lab1.vcxproj -> C:\CPA-Winter2024\OOP244\OOP244-Works\WS01\lab\x64\Debug\lab.exe
+﻿  File.cpp
+C:\CPA-Winter2024\OOP244\OOP244-Works\WS01\lab\File.h(7,23): error C2065: 'ShoppingRec': undeclared identifier
+  (compiling source file 'File.cpp')
+  
+C:\CPA-Winter2024\OOP244\OOP244-Works\WS01\lab\File.h(7,36): error C2065: 'rec': undeclared identifier
+  (compiling source file 'File.cpp')
+  
+C:\CPA-Winter2024\OOP244\OOP244-Works\WS01\lab\File.h(8,41): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  (compiling source file 'File.cpp')
+  
+C:\CPA-Winter2024\OOP244\OOP244-Works\WS01\lab\File.h(8,41): error C2143: syntax error: missing ',' before '*'
+  (compiling source file 'File.cpp')
+  
+C:\CPA-Winter2024\OOP244\OOP244-Works\WS01\lab\File.cpp(26,6): error C2365: 'freadShoppingRec': redefinition; previous definition was 'data variable'
+  C:\CPA-Winter2024\OOP244\OOP244-Works\WS01\lab\File.h(7,6):
+  see declaration of 'freadShoppingRec'
+  

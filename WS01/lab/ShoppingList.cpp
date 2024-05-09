@@ -1,8 +1,14 @@
 //A module to hold the direct shopping list-related functions, global variables and constants.
+#include <iostream>
 #include "ShoppingList.h"
+#include "File.h"
+#include "ShoppingRec.h"
+#include "Utils.h"
+
+using namespace std;
 const int MAX_NO_OF_RECS = 15;
 ShoppingRec recs[MAX_NO_OF_RECS] = {};
-int noOfRecs = 0;
+
 bool loadList() {
     ShoppingRec shpr = {};
     bool ok = false;

@@ -1,6 +1,9 @@
 //A module to hold the general utility functions for the applications. 
 // This file may be moved to other workshops and assignments if needed.
+
+#include <iostream>
 #include "Utils.h"
+using namespace std;
 
 void flushkeys() {
     while (cin.get() != '\n');
