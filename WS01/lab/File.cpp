@@ -1,6 +1,7 @@
 //A module to hold the functions and global variables related to File processing.
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+#include <stdio.h>
 #include <cstdio>
 #include <cstdlib>
 #include "File.h"

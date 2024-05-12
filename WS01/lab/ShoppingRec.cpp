@@ -25,4 +25,3 @@ void toggleBoughtFlag(ShoppingRec* rec) {
 bool isShoppingRecEmpty(const ShoppingRec* shp) {
     return shp->m_title[0] == 0;
 }
-

@@ -6,6 +6,7 @@
 #include "Utils.h"
 
 using namespace std;
+//const bool APP_OS_WINDOWS = false;
 const int MAX_NO_OF_RECS = 15;
 ShoppingRec recs[MAX_NO_OF_RECS] = {};
 

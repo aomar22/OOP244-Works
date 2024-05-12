@@ -15,12 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="w1p1.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="shoppingListApp_prof.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="File.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -31,6 +25,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="w1p1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

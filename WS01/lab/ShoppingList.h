@@ -3,7 +3,7 @@
 
 
 int noOfRecs = 0;
-
+const bool APP_OS_WINDOWS = false;
 bool loadList();
 void displayList();
 void removeBoughtItems();

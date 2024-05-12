@@ -3,12 +3,36 @@
   "WorkspaceRootPath": "C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{38E241F6-3C51-4128-9385-CCC612EB46EC}|lab1.vcxproj|C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\ShoppingList.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{38E241F6-3C51-4128-9385-CCC612EB46EC}|lab1.vcxproj|solutionrelative:ShoppingList.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{38E241F6-3C51-4128-9385-CCC612EB46EC}|lab1.vcxproj|C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\File.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{38E241F6-3C51-4128-9385-CCC612EB46EC}|lab1.vcxproj|solutionrelative:File.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{38E241F6-3C51-4128-9385-CCC612EB46EC}|lab1.vcxproj|C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\File.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{38E241F6-3C51-4128-9385-CCC612EB46EC}|lab1.vcxproj|solutionrelative:File.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38E241F6-3C51-4128-9385-CCC612EB46EC}|lab1.vcxproj|C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\ShoppingRec.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{38E241F6-3C51-4128-9385-CCC612EB46EC}|lab1.vcxproj|solutionrelative:ShoppingRec.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38E241F6-3C51-4128-9385-CCC612EB46EC}|lab1.vcxproj|C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\ShoppingList.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{38E241F6-3C51-4128-9385-CCC612EB46EC}|lab1.vcxproj|solutionrelative:ShoppingList.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38E241F6-3C51-4128-9385-CCC612EB46EC}|lab1.vcxproj|C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\w1p1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{38E241F6-3C51-4128-9385-CCC612EB46EC}|lab1.vcxproj|solutionrelative:w1p1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38E241F6-3C51-4128-9385-CCC612EB46EC}|lab1.vcxproj|C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\ShoppingRec.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{38E241F6-3C51-4128-9385-CCC612EB46EC}|lab1.vcxproj|solutionrelative:ShoppingRec.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38E241F6-3C51-4128-9385-CCC612EB46EC}|lab1.vcxproj|C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\Utils.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{38E241F6-3C51-4128-9385-CCC612EB46EC}|lab1.vcxproj|solutionrelative:Utils.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,30 +42,108 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ShoppingRec.h",
+              "DocumentMoniker": "C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\ShoppingRec.h",
+              "RelativeDocumentMoniker": "ShoppingRec.h",
+              "ToolTip": "C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\ShoppingRec.h",
+              "RelativeToolTip": "ShoppingRec.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAGAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-05-12T17:43:21.732Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ShoppingRec.cpp",
+              "DocumentMoniker": "C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\ShoppingRec.cpp",
+              "RelativeDocumentMoniker": "ShoppingRec.cpp",
+              "ToolTip": "C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\ShoppingRec.cpp",
+              "RelativeToolTip": "ShoppingRec.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-05-12T17:38:13.394Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Utils.cpp",
+              "DocumentMoniker": "C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\Utils.cpp",
+              "RelativeDocumentMoniker": "Utils.cpp",
+              "ToolTip": "C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\Utils.cpp",
+              "RelativeToolTip": "Utils.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-05-12T17:38:11.705Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "w1p1.cpp",
+              "DocumentMoniker": "C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\w1p1.cpp",
+              "RelativeDocumentMoniker": "w1p1.cpp",
+              "ToolTip": "C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\w1p1.cpp",
+              "RelativeToolTip": "w1p1.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-05-12T17:23:43.241Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ShoppingList.h",
+              "DocumentMoniker": "C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\ShoppingList.h",
+              "RelativeDocumentMoniker": "ShoppingList.h",
+              "ToolTip": "C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\ShoppingList.h",
+              "RelativeToolTip": "ShoppingList.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-05-12T17:12:32.897Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "ShoppingList.cpp",
+              "DocumentMoniker": "C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\ShoppingList.cpp",
+              "RelativeDocumentMoniker": "ShoppingList.cpp",
+              "ToolTip": "C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\ShoppingList.cpp",
+              "RelativeToolTip": "ShoppingList.cpp",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAAB8AAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-05-12T16:46:15.957Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "File.cpp",
               "DocumentMoniker": "C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\File.cpp",
               "RelativeDocumentMoniker": "File.cpp",
               "ToolTip": "C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\File.cpp",
               "RelativeToolTip": "File.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAYAAAA",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAABsAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-05-09T19:58:54.683Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "File.h",
               "DocumentMoniker": "C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\File.h",
               "RelativeDocumentMoniker": "File.h",
               "ToolTip": "C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\File.h",
               "RelativeToolTip": "File.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-05-09T19:58:52.071Z",
               "EditorCaption": ""

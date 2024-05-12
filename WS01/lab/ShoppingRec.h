@@ -1,6 +1,6 @@
 #ifndef SENECA_SHOPPINGREC_H
 #define SENECA_SHOPPINGREC_H
- 
+
 const int MAX_TITLE_LENGTH = 50;
 const int MAX_QUANTITY_VALUE = 50;
 

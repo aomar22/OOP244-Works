@@ -2,6 +2,8 @@
 // This file may be moved to other workshops and assignments if needed.
 
 #include <iostream>
+#include <cstdio>
+#include <cstdlib>
 #include "Utils.h"
 using namespace std;
 
