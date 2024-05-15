@@ -129,10 +129,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="File.cpp" />
+    <ClCompile Include="ShoppingApp.cpp" />
     <ClCompile Include="ShoppingList.cpp" />
     <ClCompile Include="ShoppingRec.cpp" />
     <ClCompile Include="Utils.cpp" />
-    <ClCompile Include="w1p1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shoppinglist.csv" />

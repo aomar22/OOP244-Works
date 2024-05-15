@@ -1,14 +1,14 @@
-//A module to hold the direct shopping list-related functions, global variables and constants.
 #include <iostream>
 #include "ShoppingList.h"
 #include "File.h"
 #include "ShoppingRec.h"
 #include "Utils.h"
-
 using namespace std;
-//const bool APP_OS_WINDOWS = false;
+using namespace seneca;
+
 const int MAX_NO_OF_RECS = 15;
-ShoppingRec recs[MAX_NO_OF_RECS] = {};
+ShoppingRec recs[MAX_NO_OF_RECS];
+int noOfRecs;
 
 bool loadList() {
     ShoppingRec shpr = {};
@@ -92,9 +92,6 @@ void removeItemfromList() {
 bool listIsEmpty() {
     return noOfRecs == 0;
 }
-
-
-
 void displayList() {
     for (int i = 0; i < noOfRecs; i++) {
         cout << (i + 1) << "-";

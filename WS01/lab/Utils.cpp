@@ -1,6 +1,6 @@
 //A module to hold the general utility functions for the applications. 
 // This file may be moved to other workshops and assignments if needed.
-
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>

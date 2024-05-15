@@ -2,9 +2,8 @@
  variables, constants and the ShoppingRec structure.*/
 #include <iostream>
 #include "ShoppingRec.h"
+#include "ShoppingList.h"
 #include "Utils.h"
-
-using namespace std;
 
 ShoppingRec getShoppingRec() {
     ShoppingRec R = {};

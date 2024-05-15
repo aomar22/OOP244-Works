@@ -27,7 +27,7 @@
     <ClCompile Include="Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="w1p1.cpp">
+    <ClCompile Include="ShoppingApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
