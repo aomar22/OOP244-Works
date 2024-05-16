@@ -15,10 +15,6 @@
       "RelativeMoniker": "D:0:0:{38E241F6-3C51-4128-9385-CCC612EB46EC}|lab1.vcxproj|solutionrelative:ShoppingList.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{38E241F6-3C51-4128-9385-CCC612EB46EC}|lab1.vcxproj|C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\ShoppingApp.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{38E241F6-3C51-4128-9385-CCC612EB46EC}|lab1.vcxproj|solutionrelative:ShoppingApp.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{38E241F6-3C51-4128-9385-CCC612EB46EC}|lab1.vcxproj|C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\File.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{38E241F6-3C51-4128-9385-CCC612EB46EC}|lab1.vcxproj|solutionrelative:File.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -37,6 +33,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{38E241F6-3C51-4128-9385-CCC612EB46EC}|lab1.vcxproj|C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\File.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{38E241F6-3C51-4128-9385-CCC612EB46EC}|lab1.vcxproj|solutionrelative:File.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\ShoppingApp.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ShoppingApp.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -50,7 +50,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "ShoppingRec.h",
               "DocumentMoniker": "C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\ShoppingRec.h",
               "RelativeDocumentMoniker": "ShoppingRec.h",
@@ -58,12 +58,11 @@
               "RelativeToolTip": "ShoppingRec.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-05-16T12:52:01.649Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-16T12:52:01.649Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "Utils.h",
               "DocumentMoniker": "C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\Utils.h",
               "RelativeDocumentMoniker": "Utils.h",
@@ -71,8 +70,7 @@
               "RelativeToolTip": "Utils.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAWAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-05-16T12:51:53.868Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-16T12:51:53.868Z"
             },
             {
               "$type": "Document",
@@ -82,7 +80,7 @@
               "RelativeDocumentMoniker": "Utils.cpp",
               "ToolTip": "C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\Utils.cpp",
               "RelativeToolTip": "Utils.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-05-16T12:51:10.566Z",
               "EditorCaption": ""
@@ -97,12 +95,11 @@
               "RelativeToolTip": "ShoppingRec.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-05-16T12:51:00.022Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-16T12:51:00.022Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "File.cpp",
               "DocumentMoniker": "C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\File.cpp",
               "RelativeDocumentMoniker": "File.cpp",
@@ -110,12 +107,11 @@
               "RelativeToolTip": "File.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-05-09T19:58:54.683Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-09T19:58:54.683Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
               "Title": "File.h",
               "DocumentMoniker": "C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\File.h",
               "RelativeDocumentMoniker": "File.h",
@@ -123,8 +119,7 @@
               "RelativeToolTip": "File.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-05-09T19:58:52.071Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-09T19:58:52.071Z"
             },
             {
               "$type": "Document",
@@ -136,12 +131,11 @@
               "RelativeToolTip": "ShoppingList.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-05-12T16:46:15.957Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-12T16:46:15.957Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 6,
               "Title": "ShoppingList.h",
               "DocumentMoniker": "C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\ShoppingList.h",
               "RelativeDocumentMoniker": "ShoppingList.h",
@@ -149,12 +143,11 @@
               "RelativeToolTip": "ShoppingList.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-05-12T17:12:32.897Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-12T17:12:32.897Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "ShoppingApp.cpp",
               "DocumentMoniker": "C:\\CPA-Winter2024\\OOP244\\OOP244-Works\\WS01\\lab\\ShoppingApp.cpp",
               "RelativeDocumentMoniker": "ShoppingApp.cpp",
@@ -162,8 +155,7 @@
               "RelativeToolTip": "ShoppingApp.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-05-14T16:34:46.178Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-14T16:34:46.178Z"
             }
           ]
         },
