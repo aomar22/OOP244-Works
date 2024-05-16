@@ -6,7 +6,6 @@ my professor provided to complete my workshops and assignments.*/
 #include "File.h"
 #include "ShoppingRec.h"
 #include "Utils.h"
-using namespace std;
 using namespace seneca;
 
 const int MAX_NO_OF_RECS = 15;
