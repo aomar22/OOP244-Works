@@ -1,13 +1,12 @@
 Amany Omar, aomar22@myseneca.ca, 126 127 166, Completed on May 14th.
 I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.
 
-- Working with modules was kind of straight forward. However, the only challenge in this workshop was my confusion about where should I use namespace seneca in the code. Since there are multiple files, it was challenging to figure out which code and which file to use namespace seneca.
 -I tried avoiding including header file in another header file, but the program didn't work until I included ShoppingRec.h header file in File.h header file, because it was needed.
 
 What I learned:
-- using namespaces and that they can  be stated in header files or in source code file according to its use.
+- using namespaces and that they can  be stated in header files or in source code file according to its use. e.g. I used namespace Seneca in both File.cpp and File.h
 - namespace can group variables and functions in the source file and group the prototypes in the header file.
-- Organizing modules and grouping each group of functions that is related to a specific task.
-- separately compiling each module.
+- Organizing modules and grouping each group of functions that is related to a specific task, e.g. implementations goes into the source code files, structure declaration, constant variables according to where they are needed..
+- separately compiling each module, e.g. File.cpp and File.h by using right click on the source code file and select compile.
 - Should not include a header file in another header file Unless it is necessary.
  
