@@ -6,7 +6,6 @@ my professor provided to complete my workshops and assignments.*/
 #include <cstdio>
 #include <cstdlib>
 #include "File.h"
-
 namespace seneca {
     FILE* sfptr = nullptr;
     const char* const SHOPPING_DATA_FILE = "shoppinglist.csv";
