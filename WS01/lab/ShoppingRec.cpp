@@ -1,5 +1,6 @@
-/*A module to hold the shopping record - related functions,
- variables, constants and the ShoppingRec structure.*/
+/*Amany Omar, aomar22@myseneca.ca, 126 127 166, completed on May 14th.
+I have done all the coding by myself and only copied the code that
+my professor provided to complete my workshops and assignments.*/
 #include <iostream>
 #include "ShoppingRec.h"
 #include "ShoppingList.h"

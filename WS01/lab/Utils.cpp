@@ -1,5 +1,6 @@
-//A module to hold the general utility functions for the applications. 
-// This file may be moved to other workshops and assignments if needed.
+/*Amany Omar, aomar22@myseneca.ca, 126 127 166, completed on May 14th.
+I have done all the coding by myself and only copied the code that
+my professor provided to complete my workshops and assignments.*/
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <cstdio>
