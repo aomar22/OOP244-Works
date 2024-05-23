@@ -147,6 +147,7 @@
     <ClInclude Include="Employee.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="employees.csv" />
     <None Include="movies.dat" />
   </ItemGroup>
   <ItemGroup>

@@ -37,6 +37,9 @@
     <None Include="movies.dat">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="employees.csv">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="correct_output.txt">
