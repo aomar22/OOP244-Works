@@ -8,7 +8,5 @@ namespace seneca {
    bool read(char* empName);
    bool read(int& empNum);
    bool read(double& empSalary);
- 
-
 }
 #endif // !SENECA_FILE_H_

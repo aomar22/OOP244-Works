@@ -8,7 +8,7 @@ namespace seneca {
    std::FILE* fptr = nullptr;
     bool openFile(const char filename[]) {
         fptr = std::fopen(filename, "r");
-        return fptr != NULL;
+        return fptr != nullptr;
     }
     int noOfRecords() {
         //use this function in the Employee module to determine the size of the dynamic array of employees.
