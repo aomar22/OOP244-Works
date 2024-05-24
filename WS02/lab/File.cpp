@@ -3,7 +3,7 @@
 #include "File.h"
 #include "Employee.h"
 
-
+using namespace std;
 namespace seneca {
     FILE* fptr;
     bool openFile(const char filename[]) {
@@ -26,7 +26,7 @@ namespace seneca {
 
     bool read(char* empName) {
         bool result = true;
-        if (openFile("employees.csv") && fscanf(fptr, "%[^\n]\n", empName) == 1) {
+        if (fscanf(fptr, "%[^\n]\n", empName) == 1) {
             result = true;
         }
         else {
@@ -36,7 +36,7 @@ namespace seneca {
     }
     bool read(int& empNum) {
         bool result = true;
-        if (openFile("employees.csv") && fscanf(fptr, "%d", empNum) == 1) {
+        if (fscanf(fptr, "%d", empNum) == 1) {
             result = true;
         }
         else {
@@ -46,7 +46,7 @@ namespace seneca {
     }
     bool read(double& empSalary) {
         bool result = true;
-        if (openFile("employees.csv") && fscanf(fptr, "%lf,", empSalary) == 1) {
+        if (fscanf(fptr, "%lf,", empSalary) == 1) {
             result = true;
         }
         else {

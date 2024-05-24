@@ -15,7 +15,7 @@ using namespace std;
 namespace seneca {
 
    int noOfEmployees;
-   Employee* employees;
+   Employee* employees = nullptr;
 
 
    void sort() {                                                            //sort an array of Employee objects
@@ -37,15 +37,16 @@ namespace seneca {
    // argument
    bool load(Employee& employees) {
       bool ok = false;
-      char name[128];
+      char name[128] = "Abraham";
       employees.m_empNo = read(employees.m_empNo);
       employees.m_salary = read(employees.m_salary);
       if (read(employees.m_empNo) && read(employees.m_salary) && read(employees.m_name)){
-          employees.m_name = new char[129];
+          
+          employees.m_name = new char[strlen(name) + 1];           //remember to deallocate
           strcpy(employees.m_name, name);
           ok = true;
       }
-      delete[] employees.m_name;
+      
       /* if reading of employee number, salay and name are successful
               allocate memory to the size of the name + 1
               and keep its address in the name of the Employee Reference
@@ -61,14 +62,15 @@ namespace seneca {
    bool load() {
       bool ok = false;
       int i = 0;
+      
       if (openFile(DATAFILE)) {
           noOfEmployees = noOfRecords();
-          Employee* employees = new Employee[noOfEmployees];   //remember to deallocate
+          Employee* ptrEmployees = new Employee[noOfEmployees];        //pointer = new type[new size]
           for (i = 0; i < noOfEmployees; i++) {
-              employees[i].m_empNo = read(employees[i].m_empNo);
-              employees[i].m_salary = read(employees[i].m_salary);
-              employees[i].m_name = new char[strlen(employees[i].m_name) + 1]; //remember to deallocate
-              strcpy(employees[i].m_name, employees[i].m_name);
+              ptrEmployees[i].m_empNo = read(ptrEmployees[i].m_empNo);
+              ptrEmployees[i].m_salary = read(ptrEmployees[i].m_salary);
+              ptrEmployees[i].m_name = new char[strlen(employees[i].m_name) + 1]; 
+              strcpy(ptrEmployees[i].m_name, employees[i].m_name);           // ( newly allocated ptrEmployees.m_name, original pointer.m_name)
 
           }
           if (!load(employees[i])) {
@@ -78,6 +80,7 @@ namespace seneca {
           else {
               ok = true;
           }
+          
           closeFile();
          /* 
           Set the noOfEmployees to the number of recoreds in the file.
@@ -100,15 +103,37 @@ namespace seneca {
       else {
          cout << "Could not open data file: " << DATAFILE<< endl;
       }
+      
+     
       return ok;
    }
 
    // TODO: Implementation for the display functions go here
+   void display(const Employee& employees) {
+      cout << employees.m_empNo << ":" << employees.m_name << "," << employees.m_salary << endl;
+      
+   }
+   void display() {
+       cout << "Employee Salary report, sorted by employee number" << endl;
+       cout << "no - Empno, Name, Salary" << endl;
+       cout << "------------------------------------------------" << endl;
+       sort();
+       for (int i = 0; i < noOfEmployees; i++) {
+               cout << i + 1 << "- ";
+               display(employees[i]);
+       }
 
+   }
 
    // TODO: Implementation for the deallocateMemory function goes here
-   void deallocate(Employee& employees) {
-
+   void deallocateMemory() {
+       delete[] employees;
+       
+       for (int i = 0; i < noOfEmployees; i++) {
+           delete[] employees[i].m_name;
+          
+       }
+       employees = nullptr;
    }
 
 
