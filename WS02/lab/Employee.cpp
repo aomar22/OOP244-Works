@@ -38,11 +38,12 @@ namespace seneca {
    bool load(Employee& employees) {
       bool ok = false;
       char name[128] = "Abraham";
-      employees.m_empNo = read(employees.m_empNo);
-      employees.m_salary = read(employees.m_salary);
-      if (read(employees.m_empNo) && read(employees.m_salary) && read(employees.m_name)){
+      int nameSize = 0;
+       employees.m_empNo = read(employees.m_empNo);
+       employees.m_salary = read(employees.m_salary);
+      if (read(employees.m_empNo) && read(employees.m_salary) && read(name)){
           
-          employees.m_name = new char[strlen(name) + 1];           //remember to deallocate
+          nameSize = new int[strlen(name) + 1];           //remember to deallocate
           strcpy(employees.m_name, name);
           ok = true;
       }
@@ -65,12 +66,14 @@ namespace seneca {
       
       if (openFile(DATAFILE)) {
           noOfEmployees = noOfRecords();
-          Employee* ptrEmployees = new Employee[noOfEmployees];        //pointer = new type[new size]
+         Employee* employees = new Employee[noOfEmployees];        //pointer = new type[new size]
+         
           for (i = 0; i < noOfEmployees; i++) {
-              ptrEmployees[i].m_empNo = read(ptrEmployees[i].m_empNo);
-              ptrEmployees[i].m_salary = read(ptrEmployees[i].m_salary);
-              ptrEmployees[i].m_name = new char[strlen(employees[i].m_name) + 1]; 
-              strcpy(ptrEmployees[i].m_name, employees[i].m_name);           // ( newly allocated ptrEmployees.m_name, original pointer.m_name)
+              load(employees[i]);
+              /*employees[i].m_empNo = read(employees[i].m_empNo);
+              employees[i].m_salary = read(employees[i].m_salary);
+              employees[i].m_name = read(employees[i].m_name); */
+             // strcpy(employees[i].m_name, employees[i].m_name);           // ( newly allocated ptrEmployees.m_name, original pointer.m_name)
 
           }
           if (!load(employees[i])) {
