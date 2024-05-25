@@ -1,3 +1,12 @@
+/*=====================================================================
+  - Name: Amany Omar
+  - Seneca Email: aomar22@myseneca.ca
+  - Std. ID: 126 127 166
+  - Date: May 25, 2024
+  =====================================================================
+  * I have done all the coding by myself and only copied the code
+  that my professor provided to complete my workshops and assignments.
+  =====================================================================*/
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <cstring>
@@ -26,7 +35,7 @@ namespace seneca {
         bool ok = false;
         char name[128];
 
-        if (read(employees.m_empNo) && read(employees.m_salary) && read(name) == 3) {
+        if (read(employees.m_empNo) == 1 && read(employees.m_salary) == 1 && read(name) == 1) {
             employees.m_name = new char[strlen(name) + 1];
             strcpy(employees.m_name, name);
             ok = true;
@@ -45,7 +54,7 @@ namespace seneca {
             for (i = 0; i < noOfEmployees; i++) {
                 load(employees[i]);
             }
-            if (i != noOfEmployees) {
+            if (noOfEmployees != i) {
                 cout << "Error: incorrect number of records read; the data is possibly corrupted" << endl;
             }
             else {
@@ -63,7 +72,7 @@ namespace seneca {
     }
     void display() {
         cout << "Employee Salary report, sorted by employee number" << endl;
-        cout << "no - Empno, Name, Salary" << endl;
+        cout << "no- Empno, Name, Salary" << endl;
         cout << "------------------------------------------------" << endl;
         sort();
         for (int i = 0; i < noOfEmployees; i++) {
