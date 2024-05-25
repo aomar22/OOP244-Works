@@ -14,7 +14,7 @@ Employee* employees;
 using namespace std;
 namespace seneca {
 
-   int noOfEmployees;
+   int noOfEmployees = 0;
    Employee* employees = nullptr;
 
 
@@ -39,51 +39,48 @@ namespace seneca {
       bool ok = false;
       char name[128] = "Abraham";
       int nameSize = 0;
-       employees.m_empNo = read(employees.m_empNo);
-       employees.m_salary = read(employees.m_salary);
-      if (read(employees.m_empNo) && read(employees.m_salary) && read(name)){
-          
-          nameSize = new int[strlen(name) + 1];           //remember to deallocate
+      if (read(employees.m_empNo) && read(employees.m_salary) && read(name)) {
+          employees.m_name = new char[strlen(name) + 1];
           strcpy(employees.m_name, name);
-          ok = true;
       }
-      
-      /* if reading of employee number, salay and name are successful
-              allocate memory to the size of the name + 1
-              and keep its address in the name of the Employee Reference
-
-              copy the name into the newly allocated memroy
-
-              make sure the "ok" flag is set to true
-         end if
-      */
+      // employees.m_empNo = read(employees.m_empNo);
+       //employees.m_salary = read(employees.m_salary);
+     // if (read(employees.m_empNo) && read(employees.m_salary) && read(name)){
+          
+                   //remember to deallocate
+          
+       ok = true;
+       delete[] employees.m_name;
       return ok;
    }
    // TODO: Finish the implementation of the 0 arg load function 
    bool load() {
       bool ok = false;
-      int i = 0;
+      int i;
       
       if (openFile(DATAFILE)) {
           noOfEmployees = noOfRecords();
-         Employee* employees = new Employee[noOfEmployees];        //pointer = new type[new size]
+          Employee* emptr = nullptr;
+          emptr = new Employee[noOfEmployees];        //pointer = new type[new size]
+         
          
           for (i = 0; i < noOfEmployees; i++) {
-              load(employees[i]);
-              /*employees[i].m_empNo = read(employees[i].m_empNo);
-              employees[i].m_salary = read(employees[i].m_salary);
-              employees[i].m_name = read(employees[i].m_name); */
-             // strcpy(employees[i].m_name, employees[i].m_name);           // ( newly allocated ptrEmployees.m_name, original pointer.m_name)
+            //  load(employees[i]);
+              emptr[i].m_empNo = employees[i].m_empNo;
+              emptr[i].m_salary = employees[i].m_salary;
+              emptr[i].m_name = new char[strlen(employees[i].m_name) + 1]; 
+              strcpy(emptr[i].m_name, employees[i].m_name);           // ( newly allocated ptrEmployees.m_name, original pointer.m_name)
 
           }
-          if (!load(employees[i])) {
+          if (load(employees[i])==0) {
               cout << "Error: inocorrect number of records read;"
                   "the data is possibly corrupted" << endl;
           }
           else {
               ok = true;
           }
-          
+          deallocateMemory();
+          emptr = nullptr;
           closeFile();
          /* 
           Set the noOfEmployees to the number of recoreds in the file.
@@ -130,13 +127,11 @@ namespace seneca {
 
    // TODO: Implementation for the deallocateMemory function goes here
    void deallocateMemory() {
-       delete[] employees;
-       
        for (int i = 0; i < noOfEmployees; i++) {
-           delete[] employees[i].m_name;
+           delete[] emptr[i].m_name;
           
        }
-       employees = nullptr;
+       emptr = nullptr;
    }
 
 
