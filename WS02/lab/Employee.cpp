@@ -38,7 +38,7 @@ namespace seneca {
    bool load(Employee& employees) {
       bool ok = false;
       char name[128] = "Abraham";
-      int nameSize = 0;
+     
       if (read(employees.m_empNo) && read(employees.m_salary) && read(name)) {
           employees.m_name = new char[strlen(name) + 1];
           strcpy(employees.m_name, name);
@@ -60,16 +60,17 @@ namespace seneca {
       
       if (openFile(DATAFILE)) {
           noOfEmployees = noOfRecords();
-          Employee* emptr = nullptr;
-          emptr = new Employee[noOfEmployees];        //pointer = new type[new size]
+          Employee* employee = nullptr;
+          employee = new Employee[noOfEmployees];        //pointer = new type[new size]
          
          
           for (i = 0; i < noOfEmployees; i++) {
             //  load(employees[i]);
-              emptr[i].m_empNo = employees[i].m_empNo;
-              emptr[i].m_salary = employees[i].m_salary;
-              emptr[i].m_name = new char[strlen(employees[i].m_name) + 1]; 
-              strcpy(emptr[i].m_name, employees[i].m_name);           // ( newly allocated ptrEmployees.m_name, original pointer.m_name)
+              employee[i].m_empNo = employees[i].m_empNo;
+              employee[i].m_salary = employees[i].m_salary;
+              //Employee* employee.m_name = nullptr;
+              employee[i].m_name = new char[strlen(employees[i].m_name) + 1];
+              strcpy(employee[i].m_name, employees[i].m_name);           // ( newly allocated ptrEmployees.m_name, original pointer.m_name)
 
           }
           if (load(employees[i])==0) {
@@ -79,8 +80,7 @@ namespace seneca {
           else {
               ok = true;
           }
-          deallocateMemory();
-          emptr = nullptr;
+         
           closeFile();
          /* 
           Set the noOfEmployees to the number of recoreds in the file.
@@ -126,13 +126,14 @@ namespace seneca {
    }
 
    // TODO: Implementation for the deallocateMemory function goes here
-   void deallocateMemory() {
-       for (int i = 0; i < noOfEmployees; i++) {
-           delete[] emptr[i].m_name;
-          
-       }
-       emptr = nullptr;
-   }
+  void deallocateMemory() {
+      delete employees;
+      for (int i = 0; i < noOfEmployees; i++) {
+          delete employees[i].m_name;
+
+      }
+      employees = nullptr;
+  }
 
 
 }
