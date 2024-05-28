@@ -2,8 +2,49 @@
 I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.*/
 
 Learning Progress:
+   - allocate and deallocate dynamic memory for an array;
+   - overload functions;
+   - create and use references;
 
+Allocate and deallocate dynamic memory for an array:
 
-    allocate and deallocate dynamic memory for an array;
-    overload functions;
-    create and use references;
+There are two types of memory, dynamic memory and static memory. The static memory is the memory that is assigned during the loading of the program, while the dynamic memory is the one that the programmer allocate during compiling the program. The difference between both is also that the static memory is automatically resolved after the variable goes out of the scope. The dynamic memory is like a memory that is borrowed during the running of the program and we have to deallocate after its mission is done.
+The dynamic memory is useful in allocating the needed size of memory to an array. For example, allocating a memory of size of strlen(nameVariable) to copy it to a member name of a structure. 
+Before allocating the memory, it is a good habit to do two things:
+1- if the memory was allocated in a loop, it must be deallocated in a loop as well.Otherwise it may cause memory leak and sigmentation error.
+2- if a pointer was allocated a memory, we should ensure that we initialized the pointer to 'nullptr' when declaring the pointer and after deallocating the memory for pointer.
+
+Allocation memory takes the form: pointer = new type[size]
+e.g. from the workshop2: employees.m_name = new char[strlen(name) + 1]; //this allocates memory to a pointer to structure member "m_name" with a type of character and the size is the length determined through the function strlen(name) + 1 for the null character.
+e.g. employees = new Employee[noOFEmployees]; // allocating memory for the pointer(employees) to a structure(Employee) of type (Employee) that has a size of noOfEmployees determined from the noOfRecords() function. 
+Deallocating the memory takes the form: delete[] pointer  / delete [] employees[i].m_name. 
+
+* Deallocating the memory at the end of using it (if we deleted it while it is still in the scope, it will affect the execution of the program.
+___________________________________________________________________________
+
+Overload functions: are functions that have the same identifier but different in the parameters received and the function that they do. For example read function:
+we used three functions that have the same type (bool) and same identifier (read) but different arguments types or function signitures (char*), (double&), and (int&). each function has aspecific purpose of producing the needed data, for example; one for checking reading the employee name, the second for checking reading the employee number, and the third for reading the salary. Another example from the workshop is the display()function that was declared twice one with receiving an argument and the other does not receive any argument.
+_________________________________________________________________________
+
+Create and use references:
+Honestly, references are a bit confusing for me. I understand that it refers to the original variable and it is used as an alternative to pass the variables to a function by address (using pointers), but I don't get when should I use reference and when to use pointers in passing the variable and why.
+
+The pointers point to the variable or structure, can change it, it occupies only 4 bytes which saves memory regardless what it points to, and it can be null (pointing to nothing). while references refer to the original variable, cannot be null, and must be initialized and when inialized it cannot be changed.
+
+An example of using reference in ws2: we used the read function that receives a reference to the employee number. when reading the name through a function receives variable passed by pointer, it makes it more flexible when it comes to changing the length of the name, copy it, modify the length as needed. while the employee number and salary, we need them persistent as they are without change and here it comes the use for the reference.
+
+I got confused how to refer to the reference in scanf statement: I read that it does not need '&' but the code didn't work properly untill I used &m_salary for example.
+bool read(double& m_salary) {  //& here is how we declear a reference
+    if (fscanf(fptr, "%lf, ", &m_salary) == 1) {  //why we need & here if in another example: we used the referenced variables without &//void swap ( int &a, int &b )        return true;
+    }
+    else {
+        return false;
+    }
+}															 int c;
+																c = a; // Note the differences here
+																a = b;
+																b = c;
+																}]
+     
+
+In summary, it was avery good learning opportunity to practice using these new concepts in programming during ws2. 
