@@ -1,10 +1,13 @@
 #ifndef SENECA_ITEM_H_
 #define SENECA_ITEM_H_
+
 namespace seneca {
    class Item {
-      char m_itemName[21];
-      double m_price;
-      bool m_taxed;
+       //(attributes)
+      char m_itemName[21];  
+      double m_price;       
+      bool m_taxed;       
+      //(Methods)
       void setName(const char* name);
       /*sets the itemName member Cstring variable 
       to a the Cstring in the name argument up to 20 characters.*/

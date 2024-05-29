@@ -23,9 +23,16 @@ namespace seneca {
     void setEmpty() {
 
     }
+    /*isValid: Returns true if m_title is not empty
+      and m_items is not null and all the Items in the m_items array are valid.
 
-    bool isValid()const {
-
+    hint: First check and make sure m_title and m_items are valid.
+    Then loop through all the Items in the m_items array and make sure they are all valid.
+*/
+    bool Bill::isValid()const {
+        bool ok = true;
+        if (m_title[0] != '\0' && m_items != nullptr)
+        return ok;
     }
 
     // public member functions
