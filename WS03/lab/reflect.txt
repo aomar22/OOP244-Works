@@ -1,0 +1,14 @@
+/*Amany Omar
+  aomar22@myseneca.ca
+  Student ID: 126 127 166
+  Date completed: May 30, 2024
+  I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.*/
+
+Learning Outcomes:
+
+    to define a class type
+    to privatize data within the class type
+    to instantiate an object of class type
+    to access data within an object of class type through public member functions
+    to use standard library facilities to format data inserted into the output stream
+    to describe to your instructor what you have learned in completing this workshop
