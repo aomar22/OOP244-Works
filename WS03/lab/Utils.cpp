@@ -1,4 +1,5 @@
 
+#include <iostream>
 #include "Utils.h"
 
 namespace sdds {
@@ -11,7 +12,7 @@ namespace sdds {
         return len;
     }
 
-    char* strcpy(char* des, const char* src) {
+    char* strcpy(char* des, const char* src) { //(m_itemName, name
         int i;
         for (i = 0; src[i]; i++) {
             des[i] = src[i];
@@ -20,13 +21,15 @@ namespace sdds {
         return des;
     }
 
-    char* strcpy(char* des, const char* src, int len) {
+    char* strncpy(char* des, const char* src, int len) {
         int i;
-        for (i = 0; src[i] && i < len; i++) {
+        for (i = 0; i < len; i++) {
             des[i] = src[i];
         }
-        des[i] = 0;
-        return des;
+        if (strlen(src) == len) {
+            des[i] = '\0';
+        }
+       return des;
     }
 
 }

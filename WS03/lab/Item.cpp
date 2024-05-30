@@ -1,20 +1,16 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-#include <cstring>
+//#include <cstring>
 #include "Item.h"
+#include "Utils.h"
 using namespace std;
 namespace seneca {
 	const double TAX = 0.13;
 	//private member functions (Methods)
-	void Item::setName(const char* name) {
-		char* ptr_itemName = nullptr;
-		ptr_itemName = new char[strlen(name) + 1];
-		if (ptr_itemName) {
-			strcpy(ptr_itemName, name);
-		}
-		else {
-			delete[] ptr_itemName;
-			ptr_itemName = nullptr;
-		}
+	void Item::setName(const char* name) { 
+		strncpy(m_itemName, name, 21);
+		
+		
 	}
 
 	//public member functions (Methods)
@@ -24,18 +20,16 @@ namespace seneca {
 	}
 
 	void Item::set(const char* name, double price, bool taxed) {
-		
+		setName(name);
+		m_price = price;
+		m_taxed = taxed;
 		if (price < 0.0 || name == nullptr) {
 			setEmpty();
-		}
-		else {
-			setName(m_itemName);
-			price = m_price;
-			taxed = m_taxed;
 		}
 	}
 
 	void Item::display()const {
+		
 		if (isValid()) {
 			cout << "| ";
 			cout << left;
@@ -44,7 +38,7 @@ namespace seneca {
 			cout << m_itemName;
 			cout << " | ";
 			cout << right;
-			cout.width(7.2);
+			cout.width(7);
 			cout.fill(' ');
 			cout << m_price;
 			cout << " | ";
@@ -56,21 +50,21 @@ namespace seneca {
 		}
 	}
 	bool Item::isValid()const {
-		  bool ok = true;
-		  if (!setEmpty) {
-			  ok = false;
-		  }
-		  else {
-			  ok = true;
-		  }
-		  return ok;
+		if (m_itemName[0] != '\0' || m_price != 0.0) {
+
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	double Item::price()const {
+
 		return m_price;
 	}
 	double Item::tax()const {
-		const double tax = 0.13;
-		return m_taxed ? m_price * TAX : 0.0;
+		
+	    return m_taxed ? m_price * TAX : 0.0;
 	}
 	
 

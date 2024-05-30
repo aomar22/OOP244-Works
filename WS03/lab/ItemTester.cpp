@@ -1,7 +1,7 @@
 #include "Item.h"
 using namespace seneca;
 int main() {
-   Item A;
+	Item A;
    A.setEmpty();
    A.display();
    A.set("Hot dog buns", 4.99, false);
