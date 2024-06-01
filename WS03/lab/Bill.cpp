@@ -11,7 +11,7 @@ using namespace std;
 namespace seneca {
 	// private member functions 
     void Bill::init(const char* title, int noOfItems) {
-        
+      
         if (title == nullptr || noOfItems <= 0) {
             m_title[0] = '\0';
             noOfItems = 0;
