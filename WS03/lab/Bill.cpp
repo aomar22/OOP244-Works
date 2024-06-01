@@ -12,7 +12,7 @@ namespace seneca {
         int i;
         for (i = 0; i < m_noOfItems; i++) {
 
-            totalTax += m_items->tax();
+            totalTax += m_items[i].Item::tax();
         }
         
         return totalTax;
@@ -23,7 +23,7 @@ namespace seneca {
         int i;
         for (i = 0; i < m_noOfItems; i++) {
             //totalPrice = m_items[i].price() + m_items[i].tax();
-            totalPrice += m_items->price();
+            totalPrice += m_items[i].Item::price();
         }
         return totalPrice;
     }
