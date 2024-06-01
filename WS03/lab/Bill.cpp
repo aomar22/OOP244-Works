@@ -13,7 +13,7 @@ namespace seneca {
     void Bill::init(const char* title, int noOfItems) {
         
         if (title == nullptr || noOfItems <= 0) {
-            m_title[0];
+            m_title[0] = '\0';
             noOfItems = 0;
         }
         else {
