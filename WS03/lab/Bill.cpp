@@ -83,12 +83,18 @@ namespace seneca {
             cout.precision(2);
             cout << totalTax();
             cout << " |" << endl;
+            cout << "|              Total Price: ";
+            cout << right;
+            cout.width(10);
+            cout.setf(ios::fixed);
+            cout.precision(2);
+            cout << totalPrice() <<  " |" << endl;
             cout << "|          Total After Tax: ";
             cout << right;
             cout.setf(ios::fixed);
             cout.width(10);
             cout.precision(2);
-            cout << totalTax() + totalPrice();
+            cout << (totalTax() + totalPrice());
             cout << " |" << endl;
         }
         else {

@@ -1,4 +1,8 @@
 #ifndef SENECA_BILL_H
+/*Amany Omar, aomar22@myseneca.ca, ID# 126127166, Completed on June 1st, 2024.
+I have done all the coding by myself and only copied the code that my professor
+provided to complete my project milestones.*/
+
 #define SENECA_BILL_H
 #include "Item.h"
 namespace seneca {
