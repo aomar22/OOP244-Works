@@ -19,7 +19,7 @@ namespace seneca {
 	//public member functions (Methods)
 	void Item::setEmpty() {
 		m_price = 0.0;
-		m_itemName[0] = '\0';
+		strncpy(m_itemName, " ", 1);
 	}
 
 	void Item::set(const char* name, double price, bool taxed) {
