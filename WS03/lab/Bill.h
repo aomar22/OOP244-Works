@@ -1,5 +1,5 @@
-#ifndef SENECA_BILL_H_
-#define SENECA_BILL_H_
+#ifndef SENECA_BILL_H
+#define SENECA_BILL_H
 #include "Item.h"
 namespace seneca {
    class Bill {

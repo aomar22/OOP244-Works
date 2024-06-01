@@ -1,5 +1,5 @@
-#ifndef SENECA_ITEM_H_
-#define SENECA_ITEM_H_
+#ifndef SENECA_ITEM_H
+#define SENECA_ITEM_H
 
 namespace seneca {
    class Item {

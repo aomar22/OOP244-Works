@@ -18,6 +18,7 @@ namespace seneca {
     double Bill::totalPrice()const {
         double totalPrice = 0.0;
         for (int i = 0; i < m_noOfItems; i++) {
+            totalPrice = m_items[i].price() + m_items[i].tax();
             totalPrice += totalPrice;
         }
         return totalPrice;
@@ -25,7 +26,7 @@ namespace seneca {
 
     void Bill::Title()const {
         cout << "+--------------------------------------+" << endl;
-        if (isValid()) {
+        if (m_title[0] != '\0' && m_items != nullptr) {
             cout << "| ";
             cout << left;
             cout.width(36);
@@ -43,7 +44,7 @@ namespace seneca {
 
     void Bill::footer()const {
         cout << "+----------------------+---------+-----+" << endl;
-        if (isValid) {
+        if (isValid()) {
             cout << "|                Total Tax: ";
             cout << right;
             cout.setf(ios::fixed);
@@ -69,13 +70,7 @@ namespace seneca {
         m_title[0] = '\0';
         m_items = nullptr;
     }
-    /*isValid: Returns true if m_title is not empty
-      and m_items is not null and all the Items in the m_items array are valid.
 
-    hint: First check and make sure m_title and m_items are valid.
-    Then loop through all the Items in the m_items array and make sure they are all valid.
-*/
-    //while running the program try useing {} //nullptr or 0 if error
     bool Bill::isValid()const {
         bool ok = true;
 
@@ -92,20 +87,6 @@ namespace seneca {
         }
         return ok;
     }
-
-    // public member functions
-     /*init: If any of the arguments are invalid, it will set the Bill
-       to an empty state (ie. title is null or noOfItems is zero or less)
-
-        Otherwise, if the incoming arguments are valid:
-
-       init() function will first set the m_noOfItems member variable to the incoming
-       corresponding argument and sets m_itemsAdded to zero.
-       Next, it will copy the Cstring pointed by the title argument into m_title attribute up to 36 characters
-       Then it will dynamically allocate an array of Items pointed by m_items member variable.
-       The length of this array will be m_noOfItems.
-
-       Make sure all the dynamically allocated Items are set to empty*/
 
     void Bill::init(const char* title, int noOfItems) {
       
@@ -131,14 +112,14 @@ namespace seneca {
     Otherwise, this function will do nothing, returning false;*/
     bool Bill::add(const char* item_name, double price, bool taxed) {  
         
-            if (m_itemsAdded < m_noOfItems) {
-                m_items[m_itemsAdded].set(item_name, price, taxed);
-                m_itemsAdded += 1;
-               return true;
-            }
-            else {
-                return false;
-            } 
+         if (m_itemsAdded < m_noOfItems) {
+             m_items[m_itemsAdded].set(item_name, price, taxed);
+             m_itemsAdded ++;
+             return true;
+         }
+          else {
+             return false;
+          } 
         
     }
     /*display: This function will first print the title(), then it will loop
@@ -147,17 +128,16 @@ namespace seneca {
     void Bill::display()const {
         
         Title();
-        std::init(m_title, m_noOfItems);
-        footer();
-        
+        for (int i = 0; i < m_noOfItems; i++) {
+            m_items[i].display();
         }
-
+        footer();    
+        
     }
-
-void deallocate() {
-    for (int i = 0; i < m_noOfItems; i++) {
+    void seneca::Bill::deallocate() {
         delete[] m_items;
         m_items = nullptr;
     }
 }
-}
+
+   
