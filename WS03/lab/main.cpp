@@ -9,7 +9,7 @@
 #include "Item.h"
 using namespace seneca;
 int main() {
-   Bill B;
+	Bill B = {};
    B.init("Quick Shopping", 5);
    B.add("Milk 2%", 4.99, false);
    B.display();

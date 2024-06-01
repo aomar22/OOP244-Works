@@ -1,8 +1,8 @@
 
 #include <iostream>
 #include "Utils.h"
-
-namespace sdds {
+using namespace std;
+namespace Seneca{
 
     int strlen(const char* str) {
         int len{};
