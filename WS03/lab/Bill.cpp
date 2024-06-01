@@ -108,18 +108,15 @@ namespace seneca {
     }
 
     bool Bill::isValid()const {
-
         if (m_title[0] != '\0' && m_items != nullptr) {
-
-             for (int i = 0; i < m_noOfItems; i++) {
-                   if (!m_items[i].isValid()) {
-                       return false;
-                   }else {
-                       return true;
-                   }
-             } 
+            for (int i = 0; i < m_noOfItems; i++) {
+                if (!m_items[i].isValid()) {
+                    return false;   //false if statement of if is wrong
+                }
+            }
+            return true;  //true if statement of the 1st if is true
         }
-        return true;
+        return false;  //false otherwise
     }
 
     void Bill::display()const {

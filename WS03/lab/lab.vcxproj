@@ -21,7 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Bill.cpp" />
     <ClCompile Include="Item.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="main_prof.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bill.h" />
