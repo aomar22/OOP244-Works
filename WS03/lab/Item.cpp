@@ -1,3 +1,7 @@
+/*Amany Omar, aomar22@myseneca.ca, ID# 126127166, Completed on June 1st, 2024.
+I have done all the coding by myself and only copied the code that my professor
+provided to complete my project milestones.*/
+
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <cstring>
@@ -65,5 +69,4 @@ namespace seneca {
 		const double TAX = 0.13;
 		return m_taxed ? m_price * TAX : 0.0;
 	}
-
 }

@@ -1,3 +1,7 @@
+/*Amany Omar, aomar22@myseneca.ca, ID# 126127166, Completed on June 1st, 2024.
+I have done all the coding by myself and only copied the code that my professor
+provided to complete my project milestones.*/
+
 #define _CRT_SECURE_NO_WARNINGS 
 #include <iostream>
 #include <cstring>
@@ -106,17 +110,16 @@ namespace seneca {
     bool Bill::isValid()const {
 
         if (m_title[0] != '\0' && m_items != nullptr) {
-        for (int i = 0; i < m_noOfItems; i++) {
-            if (!m_items[i].isValid()) {
-                return false;
-            }
-            else {
-                return true;
-            }
+
+             for (int i = 0; i < m_noOfItems; i++) {
+                   if (!m_items[i].isValid()) {
+                       return false;
+                   }else {
+                       return true;
+                   }
+             } 
         }
-           return true;
-        }
-     
+        return true;
     }
 
     void Bill::display()const {

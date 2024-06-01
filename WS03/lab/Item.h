@@ -1,3 +1,7 @@
+/*Amany Omar, aomar22@myseneca.ca, ID# 126127166, Completed on June 1st, 2024.
+I have done all the coding by myself and only copied the code that my professor
+provided to complete my project milestones.*/
+
 #ifndef SENECA_ITEM_H
 #define SENECA_ITEM_H
 
@@ -19,7 +23,6 @@ namespace seneca {
       bool isValid()const;
       double price()const;
       double tax()const;
-     // void strncopy(char des[], const char src[], int len);
    };
 }
 
