@@ -39,7 +39,7 @@ namespace seneca {
     }
     void Bill::setEmpty() {
         m_title[0] = {};
-        m_items[0] = {};
+        m_items = {};
     }
     double Bill::totalTax()const {
         double totalTax = 0.0;
