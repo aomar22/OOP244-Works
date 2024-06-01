@@ -13,7 +13,7 @@ namespace seneca {
     void Bill::init(const char* title, int noOfItems) {
         
         if (title == nullptr || noOfItems <= 0) {
-            m_title[0] = {};
+            m_title[0];
             noOfItems = 0;
         }
         else {
@@ -39,7 +39,7 @@ namespace seneca {
     }
     void Bill::setEmpty() {
         m_title[0] = {};
-        m_items = nullptr;
+        m_items[0] = {};
     }
     double Bill::totalTax()const {
         double totalTax = 0.0;
