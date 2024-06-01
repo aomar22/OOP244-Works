@@ -13,7 +13,7 @@ namespace seneca {
 	//private member functions (Methods) 
 	void Item::setName(const char* name) { 
 		
-		strncpy(m_itemName, name, 21);
+		strncpy(m_itemName, name, 20);
 	}
 
 	//public member functions (Methods)
