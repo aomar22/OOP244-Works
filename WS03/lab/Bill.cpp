@@ -6,27 +6,29 @@
 using namespace std;
 namespace seneca {
 	// private member functions 
+    
     double Bill::totalTax()const {
         double totalTax = 0.0;
         for (int i = 0; i < m_noOfItems; i++) {
-
-            totalTax += totalTax;
+           totalTax += m_items[i].tax();
+            
         }
         return totalTax;
     }
 
     double Bill::totalPrice()const {
         double totalPrice = 0.0;
-        for (int i = 0; i < m_noOfItems; i++) {
-            totalPrice = m_items[i].price() + m_items[i].tax();
-            totalPrice += totalPrice;
+        int i;
+        for (i = 0; i < m_noOfItems; i++) {
+            //totalPrice = m_items[i].price() + m_items[i].tax();
+            totalPrice += m_items[i].price();
         }
         return totalPrice;
     }
 
     void Bill::Title()const {
         cout << "+--------------------------------------+" << endl;
-        if (m_title[0] != '\0' && m_items != nullptr) {
+        if (isValid()) {
             cout << "| ";
             cout << left;
             cout.width(36);
@@ -75,9 +77,9 @@ namespace seneca {
         bool ok = true;
 
         if (m_title[0] != '\0' && m_items != nullptr) {
-           
-            for (int i = 0; i < m_noOfItems; i++) {
-                if (m_items[i].isValid()) {
+            int i;
+            for (i = 0; i < m_noOfItems; i++) {
+                if (m_items[i].Item::isValid()) {
                     ok = true;
                 }
                 else {
@@ -90,31 +92,24 @@ namespace seneca {
 
     void Bill::init(const char* title, int noOfItems) {
       
-        if (m_title[0] == '\0' && noOfItems <= 0) {
-            setEmpty();   
+        if (m_title == nullptr || noOfItems <= 0) {
+            m_title[0] = '\0';
+            noOfItems = 0;
         }
         else {
             m_noOfItems = noOfItems;
             m_itemsAdded = 0;
             strncpy(m_title, title, 36);
-            m_items = nullptr;
-            m_items = new Item[m_noOfItems];
-            for (int i = 0; i < m_noOfItems; i++) {
-                m_items[i] = {};
-            }
+            m_items = nullptr;   
+            m_items = new Item[m_noOfItems];  
         }
 
     }
-    /*add: If the number of added Items (m_itemsAdded) is less than
-    the length of the m_items array, this function will set the next available subject
-    to the incoming argument values. Then it will add one to the m_itemsAdded and return true;
-
-    Otherwise, this function will do nothing, returning false;*/
     bool Bill::add(const char* item_name, double price, bool taxed) {  
         
          if (m_itemsAdded < m_noOfItems) {
-             m_items[m_itemsAdded].set(item_name, price, taxed);
-             m_itemsAdded ++;
+             m_items[m_itemsAdded].Item::set(item_name, price, taxed);
+             m_itemsAdded +=1 ;
              return true;
          }
           else {
@@ -122,21 +117,23 @@ namespace seneca {
           } 
         
     }
-    /*display: This function will first print the title(), then it will loop
-      through the m_items elements, printing every one of them, and finally prints the footer().
-      This function can not modify the Bill.*/
     void Bill::display()const {
         
         Title();
-        for (int i = 0; i < m_noOfItems; i++) {
+        int i;
+        for (i = 0; i < m_noOfItems; i++) {
             m_items[i].display();
         }
         footer();    
         
     }
     void seneca::Bill::deallocate() {
-        delete[] m_items;
-        m_items = nullptr;
+        int i;
+        for (i = 0; i < m_noOfItems; i++) {
+            delete[] m_items;
+            m_items = nullptr;
+        }
+
     }
 }
 

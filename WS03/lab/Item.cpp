@@ -8,7 +8,7 @@ namespace seneca {
 	const double TAX = 0.13;
 	//private member functions (Methods)
 	void Item::setName(const char* name) { 
-		strncpy(m_itemName, name, 21);	
+		strncpy(m_itemName, name, 20);	
 	}
 
 	//public member functions (Methods)
@@ -51,7 +51,6 @@ namespace seneca {
 	}
 	bool Item::isValid()const {
 		if (m_itemName[0] != '\0' || m_price != 0.0) {
-
 			return true;
 		}
 		else {
