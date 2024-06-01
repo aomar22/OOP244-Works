@@ -79,7 +79,7 @@ namespace seneca {
         if (m_title[0] != '\0' && m_items != nullptr) {
             int i;
             for (i = 0; i < m_noOfItems; i++) {
-                if (m_items[i].Item::isValid()) {
+                if (m_items[i].isValid()) {
                     ok = true;
                 }
                 else {
@@ -102,6 +102,7 @@ namespace seneca {
             strncpy(m_title, title, 36);
             m_items = nullptr;   
             m_items = new Item[m_noOfItems];  
+            
         }
 
     }
@@ -129,10 +130,10 @@ namespace seneca {
     }
     void seneca::Bill::deallocate() {
         int i;
-        for (i = 0; i < m_noOfItems; i++) {
+        //for (i = 0; i < m_noOfItems; i++) {
             delete[] m_items;
             m_items = nullptr;
-        }
+       // }
 
     }
 }

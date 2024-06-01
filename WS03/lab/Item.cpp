@@ -21,7 +21,7 @@ namespace seneca {
 		setName(name);
 		m_price = price;
 		m_taxed = taxed;
-		if (price < 0.0 || name == nullptr) {
+		if (price <= 0.0 || name == nullptr) {
 			setEmpty();
 		}
 	}
