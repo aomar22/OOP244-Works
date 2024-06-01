@@ -6,14 +6,11 @@
 using namespace std;
 namespace seneca {
 	
-	//private member functions (Methods)
+	//private member functions (Methods) 
 	void Item::setName(const char* name) { 
-	
-		//strncpy(m_itemName, name, 20);
 		int i;
-		for (i = 0; i < 20; i++) {
-			m_itemName[i] = name[i];
-		}
+		name = " ";
+		strcpy(m_itemName, name);
 	}
 
 	//public member functions (Methods)
@@ -55,12 +52,8 @@ namespace seneca {
 		}
 	}
 	bool Item::isValid()const {
-		if (m_itemName[0] != '\0' || m_price != 0.0) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		/*return m_itemName[0] != NULL || m_price != 0.0;*/
+		return m_itemName[0];
 	}
 	double Item::price()const {
 
