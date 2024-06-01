@@ -59,8 +59,8 @@ namespace seneca {
 		}
 	}
 	bool Item::isValid()const {
-		/*return m_itemName[0] != NULL || m_price != 0.0;*/
-		return m_itemName[0];
+		return m_itemName[0] != NULL || m_price != 0.0;
+		//return m_itemName[0];
 	}
 	double Item::price()const {
 

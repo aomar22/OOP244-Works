@@ -122,8 +122,7 @@ namespace seneca {
     void Bill::display()const {
         
         Title();
-        int i;
-        for (i = 0; i < m_noOfItems; i++) {
+        for (int i = 0; i < m_noOfItems; i++) {
             m_items[i].display();
         }
         footer();    
