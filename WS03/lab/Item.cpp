@@ -38,7 +38,9 @@ namespace seneca {
 			cout << m_itemName;
 			cout << " | ";
 			cout << right;
+			cout.setf(ios::fixed);
 			cout.width(7);
+			cout.precision(2);
 			cout.fill(' ');
 			cout << m_price;
 			cout << " | ";

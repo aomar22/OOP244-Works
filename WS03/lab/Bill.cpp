@@ -16,11 +16,45 @@ namespace seneca {
     }
 
     void Bill::Title()const {
+        cout << "+--------------------------------------+" << endl;
+        if (isValid()) {
+            cout << "| ";
+            cout << left;
+            cout.width(36);
+            cout << m_title;
+            cout << " |" << endl;
+        }
+        else {
+            cout << "| Invalid Bill                         |" << endl;
+        }
+        cout << "+----------------------+---------+-----+" << endl;
+        cout << "| Item Name            | Price   + Tax |" << endl;
+        cout << "+----------------------+---------+-----+" << endl;
 
     }
 
     void Bill::footer()const {
-
+        cout << "+----------------------+---------+-----+" << endl;
+        if (isValid) {
+            cout << "|                Total Tax: ";
+            cout << right;
+            cout.setf(ios::fixed);
+            cout.width(10);
+            cout.precision(2);
+            cout << totalTax();
+            cout << " |" << endl;
+            cout << "|          Total After Tax: ";
+            cout << right;
+            cout.setf(ios::fixed);
+            cout.width(10);
+            cout.precision(2);
+            cout << totalTax() + totalPrice();
+            cout << " |" << endl;
+        }
+        else {
+            cout << "| Invalid Bill                         |" << endl;
+        }
+        cout << "+--------------------------------------+" << endl;
     }
 
     void Bill::setEmpty() {
