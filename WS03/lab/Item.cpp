@@ -5,10 +5,15 @@
 
 using namespace std;
 namespace seneca {
-	const double TAX = 0.13;
+	
 	//private member functions (Methods)
 	void Item::setName(const char* name) { 
-		strncpy(m_itemName, name, 20);	
+	
+		//strncpy(m_itemName, name, 20);
+		int i;
+		for (i = 0; i < 20; i++) {
+			m_itemName[i] = name[i];
+		}
 	}
 
 	//public member functions (Methods)
@@ -62,7 +67,7 @@ namespace seneca {
 		return m_price;
 	}
 	double Item::tax()const {
-		
+		const double TAX = 0.13;
 	    return m_taxed ? m_price * TAX : 0.0;
 	}
 	

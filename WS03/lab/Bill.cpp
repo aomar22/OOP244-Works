@@ -9,10 +9,12 @@ namespace seneca {
     
     double Bill::totalTax()const {
         double totalTax = 0.0;
-        for (int i = 0; i < m_noOfItems; i++) {
-           totalTax += m_items[i].tax();
-            
+        int i;
+        for (i = 0; i < m_noOfItems; i++) {
+
+            totalTax += m_items->tax();
         }
+        
         return totalTax;
     }
 
@@ -21,7 +23,7 @@ namespace seneca {
         int i;
         for (i = 0; i < m_noOfItems; i++) {
             //totalPrice = m_items[i].price() + m_items[i].tax();
-            totalPrice += m_items[i].price();
+            totalPrice += m_items->price();
         }
         return totalPrice;
     }
@@ -110,7 +112,7 @@ namespace seneca {
         
          if (m_itemsAdded < m_noOfItems) {
              m_items[m_itemsAdded].Item::set(item_name, price, taxed);
-             m_itemsAdded +=1 ;
+             m_itemsAdded += 1 ;
              return true;
          }
           else {
@@ -130,10 +132,10 @@ namespace seneca {
     }
     void seneca::Bill::deallocate() {
         int i;
-        //for (i = 0; i < m_noOfItems; i++) {
+        for (i = 0; i < m_noOfItems; i++) {
             delete[] m_items;
             m_items = nullptr;
-       // }
+        }
 
     }
 }
