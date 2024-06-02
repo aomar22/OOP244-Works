@@ -15,6 +15,7 @@ namespace seneca {
             m_noOfItems = noOfItems;
             m_itemsAdded = 0;
             strncpy(m_title, title, 36);
+            m_title[36] = '\0';
             m_items = new Item[m_noOfItems];
             for (int i = 0; i < m_noOfItems; i++) {
                 m_items[i].setEmpty();
