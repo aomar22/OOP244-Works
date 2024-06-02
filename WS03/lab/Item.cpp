@@ -11,10 +11,8 @@ using namespace std;
 namespace seneca {
 	
 	//private member functions (Methods) 
-	void Item::setName(const char* name) { 
-		
-	     strnCpy(m_itemName, name, 20);
-		
+	void Item::setName(const char* name) { 	
+	     strnCpy(m_itemName, name, 20); //borrowed this function from my IPC utils files
 	}
 
 	//public member functions (Methods)
@@ -71,7 +69,7 @@ namespace seneca {
 		const double TAX = 0.13;
 		return m_taxed ? m_price * TAX : 0.0;
 	}
-	void Item::strnCpy(char des[], const char src[], int len) {
+	void Item::strnCpy(char des[], const char src[], int len) {       //borrowed this function from my IPC utils files
 		int i;
 		for (i = 0; i < len && src[i]; i++) {
 			des[i] = src[i];
