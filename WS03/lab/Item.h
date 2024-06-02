@@ -23,6 +23,7 @@ namespace seneca {
       bool isValid()const;
       double price()const;
       double tax()const;
+      void strnCpy(char des[], const char src[], int len);
    };
 }
 

@@ -13,7 +13,8 @@ namespace seneca {
 	//private member functions (Methods) 
 	void Item::setName(const char* name) { 
 		
-		strncpy(m_itemName, name, 20);
+	     strnCpy(m_itemName, name, 20);
+		
 	}
 
 	//public member functions (Methods)
@@ -25,18 +26,14 @@ namespace seneca {
 
 	void Item::set(const char* name, double price, bool taxed) {
 		
-		//if (price <= 0.0 || name == nullptr) {           //if price and name are not valid, set empty
-		//	setEmpty();
-		//}
-		//else {                                        //if price and name valid, set the name, price, and taxed to corresponding values
-		//	setName(name);
-		//	m_price = price;
-		//	m_taxed = taxed;
-		//}
+		
 		if (price > 0 && name) {
 			setName(name);
 			m_price = price;
 			m_taxed = taxed;
+		}
+		else {
+			setEmpty();
 		}
 	}
 
@@ -73,5 +70,12 @@ namespace seneca {
 	double Item::tax()const {
 		const double TAX = 0.13;
 		return m_taxed ? m_price * TAX : 0.0;
+	}
+	void Item::strnCpy(char des[], const char src[], int len) {
+		int i;
+		for (i = 0; i < len && src[i]; i++) {
+			des[i] = src[i];
+		}
+		des[i] = 0;
 	}
 }
