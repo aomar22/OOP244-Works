@@ -11,22 +11,34 @@ using namespace std;
 namespace seneca {
 	// private member functions 
     void Bill::init(const char* title, int noOfItems) {
-      
-        if (title == nullptr || noOfItems <= 0) {
-            setEmpty();
-           /* m_title[0] = '\0';
-            noOfItems = 0;*/
-        }
-        else {
+        if (title && noOfItems) {
             m_noOfItems = noOfItems;
             m_itemsAdded = 0;
             strncpy(m_title, title, 36);
-            m_items = nullptr;
             m_items = new Item[m_noOfItems];
-            for (int i = 0; i < m_noOfItems; i++){
-            m_items[i].setEmpty();
+            for (int i = 0; i < m_noOfItems; i++) {
+                m_items[i].setEmpty();
             }
         }
+        else {
+            setEmpty();
+        }
+        //if (title == '\0' || noOfItems <= 0) {
+        //    setEmpty();
+        //   /* m_title[0] = '\0';
+        //    noOfItems = 0;*/
+        //}
+        //else if(title != '\0') {
+        //    m_noOfItems = noOfItems;
+        //    m_itemsAdded = 0;
+
+        //    strncpy(m_title, title, 36);
+        //    m_items = nullptr;
+        //    m_items = new Item[m_noOfItems];
+        //    for (int i = 0; i < m_noOfItems; i++){
+        //    m_items[i].setEmpty();
+        //    }
+        //}
 
     }
     bool Bill::add(const char* item_name, double price, bool taxed) {
