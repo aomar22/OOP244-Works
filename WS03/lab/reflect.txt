@@ -12,3 +12,28 @@ Learning Outcomes:
     to access data within an object of class type through public member functions
     to use standard library facilities to format data inserted into the output stream
     to describe to your instructor what you have learned in completing this workshop
+_____________________________________________
+A class type is similar to struct type that hold group of variables and functions that can be used along the program by other users. When we want to access the member functions of a class, we use scope resolution double colon (::) to show membership of variables and functions belong to that class.
+e.g. in the Item module, I used 'Item::'preceeding all the member functions;otherwise, the member functions(methods) will not be accessed as they fall inside the class scope. When using teh scope resolution sign, all the attributes(member variables) used in the methods can be accessed directly without the dot operator(.) that we used in struct type.
+
+A difference between class and struct type is that the members of struct type is public by defualt unless private keyword is used for some of the members, which means those members are not accessed by anyone and only accessed by those clients or users who are in the same scope. While in class type, the default of the members is private, unless public keyword is used. So, access level is determined by public and private labels.
+
+In this program, I needed to dynamically allocate memory for the Bill attribute variable of Item class. This is was interesting and new to me. having a pointer to Item class to manage the data needed in the Bill class was a bit confusing. However, I learned to create a new memory for m_items as follows: m_items = new Item[m_noOfITems]; I initialized the pointer to nullptr and used setEmpty function to avoid hitting the memory heap and ensure proper management to the memory and safe deallocation. I deallocated the memory using Bill::deallocate() function --> delete[] m_items;
+             m_items = nullptr;
+
+I had a challenge in bool Bill::isValid()const function in organizing the if and for statements with appropriate returns--> it gave me wrong validation but by using the debugging tool, I figured out the mistake and fixed it.
+
+I had a challenge in Item::setName(name) function that worked perfect with the tester but the output did not match the correct output when reaching longer data like very long item names. The strncpy function I used from the cstring library didn't handle copying all the names. When I used a function from my Utils last semester, it worked.
+the function is:
+	void Item::strnCpy(char des[], const char src[], int len) {    
+		int i;
+		for (i = 0; i < len && src[i]; i++) {    
+
+			des[i] = src[i];
+		}
+		des[i] = 0;
+	}
+}
+/*This loop continues to copy characters from source name to destination name as long as both conditions are correct: the number of characters of i is still less than the needed length (20) && the source name[i] != '\0', which means there are still characters to copy.*/
+// at the end of the loop it adds the null terminator to the last character of the destination name.
+
