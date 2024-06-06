@@ -122,7 +122,16 @@ Reduce the content volume of the argument by capacity() minus volume() and then 
 else pour the content volume of the argument using pour() method and set the content volume of the argument to 0.0.
 return the reference of the current object at the end.*/
     Canister& Canister::pour(Canister&) {
-
+        setContent(m_contentName);
+        if (m_contentVolume > (capacity() - volume())) {
+           m_contentVolume -= (capacity() - volume());
+           m_contentVolume = capacity();
+        }
+        else {
+            pour(m_contentVolume);
+            m_contentVolume = 0.0;
+        }
+        return *this;
     }
     //returns the content volume attribute
     double Canister::volume()const {
@@ -154,7 +163,18 @@ content name
 
 returns the cout object at the end.*/
     std::ostream& Canister::display()const {
+        cout.width(7);
+        cout.precision(1);
+        cout << capacity() << "cc (" << m_height << "x" << m_diameter << ") Canister";
+        if (m_usable) {
+            cout << " of Unusable content, discard!" << endl;
+        }
+        else {
+            cout << " of ";
+            cout.width(7)
+        }
 
+        return cout;
     }
     /*returns the capacity as stated in Calculating the capacity*/
     /*PI: 3.14159265  (a global constant double value created in Canister.cpp)
