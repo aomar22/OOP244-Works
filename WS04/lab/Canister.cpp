@@ -39,16 +39,16 @@ namespace seneca {
     from the argument C. Compare the two content names using strcmp from so that it 
     returns true if both names are not null and are identical. Otherwise, it returns false;*/
     bool Canister::hasSameContent(const Canister& C)const {
-        if (m_contentName != nullptr && C.m_contentName != '\0') {
-            if (strcmp(m_contentName, C.m_contentName) == 0);
-            
-
+        if (m_contentName != nullptr && C.m_contentName != "") {
+            if (strcmp(m_contentName, C.m_contentName) == 0) {
+                return true;
+            }
         }
         return false;
     }
     //public methods
     /*Sets the attributes to their default values*/
-    Canister::Canister() {      //constructor
+    Canister::Canister(){      //constructor
         setToDefault();
     }
     /*
@@ -69,7 +69,7 @@ If the dimensions are within acceptable values:
     it will set the content name to the corresponding argument value.
 
 If any of the dimensions have invalid values, it will set the Canister as unusable*/
-    Canister::Canister(double height, double diameter, const char* contentName = nullptr) {
+    Canister::Canister(double height, double diameter, const char* contentName) {
         setToDefault();
         if (m_usable) {
             height = m_height;
@@ -103,9 +103,9 @@ Use this rule to accomplish the above:
 If the Canister is usable and the quantity is more than zero and if the sum of the quantity and the volume()
 is less than or equal to the capacity(), add the quantity to the content volume, otherwise set usable flag attribute to false.*/
     Canister& Canister::pour(double quantity) {
-        double capacity = Canister::capacity();
+       // double capacity = Canister::capacity();
         if (m_usable && (quantity > 0)) {
-            if (quantity <= capacity && volume() <= Canister::capacity()) {
+            if (quantity <= Canister::capacity() && volume() <= Canister::capacity()) {
                 m_contentVolume += quantity;
             }
         }
@@ -123,7 +123,7 @@ else pour the content volume of the argument using pour() method and set the con
 return the reference of the current object at the end.*/
     Canister& Canister::pour(Canister&) {
         setContent(m_contentName);
-        if (m_contentVolume > (capacity() - volume())) {
+        if (volume() > (capacity() - volume())) {
            m_contentVolume -= (capacity() - volume());
            m_contentVolume = capacity();
         }
@@ -165,13 +165,14 @@ returns the cout object at the end.*/
     std::ostream& Canister::display()const {
         cout.width(7);
         cout.precision(1);
-        cout << capacity() << "cc (" << m_height << "x" << m_diameter << ") Canister";
+        cout << capacity() << "cc (" << Canister::m_height << "x" << Canister::m_diameter << ") Canister";
         if (m_usable) {
-            cout << " of Unusable content, discard!" << endl;
+            cout << " of ";
+            cout.width(7);
+            cout << volume() << "cc   " << m_contentName << endl;
         }
         else {
-            cout << " of ";
-            cout.width(7)
+            cout << " of Unusable content, discard!" << endl;
         }
 
         return cout;
