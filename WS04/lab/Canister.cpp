@@ -39,7 +39,7 @@ namespace seneca {
     from the argument C. Compare the two content names using strcmp from so that it 
     returns true if both names are not null and are identical. Otherwise, it returns false;*/
     bool Canister::hasSameContent(const Canister& C)const {
-        if (m_contentName != nullptr && C.m_contentName != "") {
+        if (m_contentName != nullptr && C.m_contentName) {
             if (strcmp(m_contentName, C.m_contentName) == 0) {
                 return true;
             }
