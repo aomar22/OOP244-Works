@@ -20,7 +20,7 @@ namespace seneca {
       Canister(const char* contentName);
       Canister(double height, double diameter,
          const char* contentName = nullptr);
-    //  ~Canister();
+      ~Canister();
       Canister& setContent(const char* contentName);
       Canister& pour(double quantity);
       Canister& pour(Canister& C);

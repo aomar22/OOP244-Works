@@ -21,11 +21,12 @@ namespace seneca {
     void Canister::setName(const char* Cstr) {
         
         if (Cstr != nullptr && m_usable) { 
-            // delete[] m_contentName;
-            Canister::~Canister();
+             delete[] m_contentName;
+            //Canister::~Canister();
             m_contentName = new char[strlen(Cstr) + 1];
             strcpy(m_contentName, Cstr);
         }
+        
     }
     /*Returns true if the content volume is less than 0.00001 CCs*/
     bool Canister::isEmpty()const {
@@ -67,7 +68,7 @@ namespace seneca {
         }
     }
     Canister::~Canister() {
-       delete[] m_contentName;
+        clear();
     }
    
     Canister& Canister::setContent(const char* contentName) {
