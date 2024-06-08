@@ -23,10 +23,10 @@ namespace seneca {
     void Canister::setName(const char* Cstr) {
         
         if (Cstr != nullptr && m_usable) { 
+            delete[] m_contentName;
             size_t strLen = strlen(Cstr);
-            clear();
             m_contentName = new char[strLen + 1];
-            strnCpy(m_contentName, Cstr, strLen);
+            strcpy(m_contentName, Cstr);
         }
     }
     /*Returns true if the content volume is less than 0.00001 CCs*/
@@ -36,20 +36,18 @@ namespace seneca {
         }
         return false;
     }
-    /*Compares the content name of this Canister with the one received 
-    from the argument C. Compare the two content names using strcmp from so that it 
-    returns true if both names are not null and are identical. Otherwise, it returns false;*/
+    
     bool Canister::hasSameContent(const Canister& C)const {
-        if (m_contentName != nullptr && C.m_contentName) {
-            if (strCmp(m_contentName, C.m_contentName) == 0) {
-                return true;
-            }
+        if (m_contentName != nullptr &&
+            C.m_contentName != 0 &&
+            (strCmp(m_contentName, C.m_contentName) == 0)) {
+            return true;
         }
         return false;
     }
     //public methods
     /*Sets the attributes to their default values*/
-    Canister::Canister(){      //constructor
+    Canister::Canister(){      //constructor default
         setToDefault();
     }
     /*
@@ -58,69 +56,67 @@ namespace seneca {
 */
     Canister::Canister(const char* contentName) {  //
         setToDefault();
-        setName(contentName); //setName
+        setName(contentName);
     }
-    /*
-    Sets the attributes to their default values.
-
-If the dimensions are within acceptable values:
-
-    it will set the m_height and m_diameter to the corresponding argument values
-    it will set the content volume to 0.
-    it will set the content name to the corresponding argument value.
-
-If any of the dimensions have invalid values, it will set the Canister as unusable*/
+    
     Canister::Canister(double height, double diameter, const char* contentName) {
         setToDefault();
         if (m_usable) {
-            m_height = height;
-            m_diameter = diameter;
-            setContent(contentName);;
+            if (height >= 10.0 && height <=40 &&
+                diameter >= 10.0 && diameter <= 30.0) {
+               this->m_height = height;
+               this->m_diameter = diameter;
+                setName(contentName);
+            }
         } 
         m_usable = false;
     }
     Canister::~Canister() {
        delete[] m_contentName;
+       m_contentName = nullptr;
     }
    
     Canister& Canister::setContent(const char* contentName) {
-        if (contentName == nullptr) {
+        if (contentName == " ") {
             
-           m_usable = false;
+           this->m_usable = false;
         }
-        else if (isEmpty()) {
-                setName(m_contentName);
+        else if (this->isEmpty()) {
+                this->setName(contentName);
+                m_usable = true;
         }
-        else if (!hasSameContent(m_contentName)){
-           m_usable = false;
+        else if (!this->hasSameContent(contentName)){
+           this->m_usable = false;
         }
         return *this;
     }
    
     Canister& Canister::pour(double quantity) {
-        
+        quantity = 0.0;
+        double sum = quantity + volume();
        // double capacity = Canister::capacity();
-        if (m_usable && (quantity > 0)) {
-            if (quantity <= capacity() && volume() <= capacity()) {
-                m_contentVolume += quantity;
+        if (this->m_usable && (quantity > 0)) {
+            if (sum <= capacity()) {
+                this->m_contentVolume = this->m_contentVolume + quantity;
             }
         }
-        
-        m_usable = false;
+        else {
+           this->m_usable = false;
+        }
         return *this;
     }
    
     Canister& Canister::pour(Canister& C) {
       //  double cVolume = C.volume();
        
-        setContent(m_contentName);
+        this->setContent(C.m_contentName);
         
-        if (C.volume() > (C.capacity() - C.volume())) {
-           C.m_contentVolume = (capacity() - volume());
-           C.m_contentVolume = C.capacity();
+        if (C.volume() > (capacity() - C.volume())) {
+           C.m_contentVolume -= (capacity() - C.volume());
+           this->m_contentVolume = capacity();
         }
         else {
-            pour(C.m_contentVolume);
+            this->pour(C.m_contentVolume);
             C.m_contentVolume = 0.0;
         }
         return *this;
@@ -133,15 +129,24 @@ If any of the dimensions have invalid values, it will set the Canister as unusab
     std::ostream& Canister::display()const {
         cout.width(7);
         cout.precision(1);
-        cout << Canister::capacity() << "cc (" << m_height << "x" << m_diameter << ") Canister";
+        cout.setf(ios::fixed);
+        cout << capacity();
+        cout << "cc (";
+        cout << m_height;
+        cout << "x";
+        cout << m_diameter;
+        cout << ") Canister";
         if (!m_usable) {
-            cout << " of Unusable content, discard!" << endl;
+            cout << " of Unusable content, discard!";
         }
-        else {
+        else if (m_contentName != nullptr) {
             cout << " of ";
             cout.width(7);
             cout.precision(1);
-            cout << Canister::volume() << "cc   " << m_contentName << endl;
+            cout.setf(ios::fixed);
+            cout << volume() << "cc   ";
+            cout << m_contentName;
+             
         }
 
         return cout;
@@ -156,14 +161,14 @@ If any of the dimensions have invalid values, it will set the Canister as unusab
     }
     
     void Canister::clear() {
-        Canister::~Canister();
-        m_contentName = nullptr;
+       Canister::~Canister();
+      //  m_contentName = nullptr;
         m_contentVolume = 0.0;
         m_usable = true;
     }
     //string handling functions
     void strnCpy(char des[], const char src[], size_t len) {
-        int i;
+        size_t i;
         for (i = 0; i < len && src[i]; i++) {
             des[i] = src[i];
         }
