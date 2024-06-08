@@ -30,7 +30,7 @@ namespace seneca {
       double capacity()const;
       void clear();
    };
-   void strnCpy(char des[], const char src[], int len);
+   void strnCpy(char des[], const char src[], size_t len);
    int strCmp(const char left[], const char right[]);
 }
 //in constructors resue settodefault 

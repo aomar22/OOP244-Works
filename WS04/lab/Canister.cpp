@@ -21,11 +21,12 @@ namespace seneca {
    it will silently do nothing.*/
         
     void Canister::setName(const char* Cstr) {
-        if (Cstr != nullptr && m_usable) {  
+        
+        if (Cstr != nullptr && m_usable) { 
+            size_t strLen = strlen(Cstr);
             clear();
-            char* str = nullptr;
-            m_contentName = new char[strlen(Cstr) + 1];
-            strnCpy(m_contentName, Cstr, strlen(Cstr) +1);
+            m_contentName = new char[strLen + 1];
+            strnCpy(m_contentName, Cstr, strLen);
         }
     }
     /*Returns true if the content volume is less than 0.00001 CCs*/
@@ -72,19 +73,16 @@ If any of the dimensions have invalid values, it will set the Canister as unusab
     Canister::Canister(double height, double diameter, const char* contentName) {
         setToDefault();
         if (m_usable) {
-             height = m_height;
-             diameter = m_diameter;
-            Canister(contentName);
-        }
+            m_height = height;
+            m_diameter = diameter;
+            setContent(contentName);;
+        } 
+        m_usable = false;
     }
     Canister::~Canister() {
-        delete[] m_contentName;
+       delete[] m_contentName;
     }
-    /*It will set the Content name of the canister using the following rule and then returns the reference of the current object (i.e. *this):
-
-If the contentName argument is null it will render the Canister unusable
-else if the Canister is empty it will set the name to the value pointed by the argument
-else if the name of the Canister is not the same as the contentName argument it will render the Canister unusable.*/
+   
     Canister& Canister::setContent(const char* contentName) {
         if (contentName == nullptr) {
             
@@ -98,12 +96,7 @@ else if the name of the Canister is not the same as the contentName argument it 
         }
         return *this;
     }
-    /*Adds the quantity argument to the content volume of the Canister if the quantity fits in the Canister.
-    Otherwise, it will render the Canister unusable and then returns the reference of the current object.
-Use this rule to accomplish the above:
-If the Canister is usable and the quantity is more than zero and if the sum of the quantity and the volume()
-is less than or equal to the capacity(), add the quantity to the content volume, 
-otherwise set usable flag attribute to false.*/
+   
     Canister& Canister::pour(double quantity) {
         
        // double capacity = Canister::capacity();
@@ -116,13 +109,7 @@ otherwise set usable flag attribute to false.*/
         m_usable = false;
         return *this;
     }
-    /*Pours the content of the Canister argument into the current Canister following the Specs stated at the top
-
-Set the content name to the Canister argument using setContent().
-if the volume() of the argument is greater than the capacity() minus the volume()
-Reduce the content volume of the argument by capacity() minus volume() and then set the content volume to capacity()
-else pour the content volume of the argument using pour() method and set the content volume of the argument to 0.0.
-return the reference of the current object at the end.*/
+   
     Canister& Canister::pour(Canister& C) {
       //  double cVolume = C.volume();
        
@@ -142,31 +129,7 @@ return the reference of the current object at the end.*/
     double Canister::volume()const {
         return m_contentVolume;
     }
-    /*
-
-    Prints all the number values with one digit after the decimal point.
-
-Prints the Canister in the following format:
-
-In 7 spaces prints the capacity
-"cc ("
-height
-"x"
-diameter
-") Canister"
-
-if unusable:
-
-" of Unusable content, discard!"
-
-otherwise, if the content name is not null
-
-" of "
-in 7 spaces prints the volume
-"cc   "
-content name
-
-returns the cout object at the end.*/
+ 
     std::ostream& Canister::display()const {
         cout.width(7);
         cout.precision(1);
@@ -183,11 +146,7 @@ returns the cout object at the end.*/
 
         return cout;
     }
-    /*returns the capacity as stated in Calculating the capacity*/
-    /*PI: 3.14159265  (a global constant double value created in Canister.cpp)
-H: Height
-D: Diameter
-Capacity = PI x (H - 0.267) x (D/2) x (D/2)*/
+    
     double Canister::capacity()const {
         double capacity = 0.0;
        
@@ -195,13 +154,7 @@ Capacity = PI x (H - 0.267) x (D/2) x (D/2)*/
         
         return capacity;
     }
-    /*Clears an unusable Canister back to an empty Canister by:
-
-    deallocating the memory pointed by the content name attribute
-    sets the content name attribute to nullptr
-    sets the content volume attribute to 0.0
-    set the usable flag attribute to true
-*/
+    
     void Canister::clear() {
         Canister::~Canister();
         m_contentName = nullptr;
@@ -209,7 +162,7 @@ Capacity = PI x (H - 0.267) x (D/2) x (D/2)*/
         m_usable = true;
     }
     //string handling functions
-    void strnCpy(char des[], const char src[], int len) {
+    void strnCpy(char des[], const char src[], size_t len) {
         int i;
         for (i = 0; i < len && src[i]; i++) {
             des[i] = src[i];
