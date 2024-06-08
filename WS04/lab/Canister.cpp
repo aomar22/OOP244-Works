@@ -1,4 +1,7 @@
- #define _CRT_SECURE_NO_WARNINGS
+/*Amany Omar, aomar22@myseneca.ca, ID# 126127166, Completed on June 8, 2024.
+I have done all the coding by myself and only copied the code that my professor
+provided to complete my project milestones.*/
+#define _CRT_SECURE_NO_WARNINGS
 #include <istream>
 #include <iomanip>
 #include <cstring>
@@ -7,8 +10,6 @@ using namespace std;
 namespace seneca {
          double const PI = 3.14159265;  //global value
 	//private methods
-     /*This function sets the attributes to their default values. It sets the content name pointer to null, height to 13.0,
-      diameter to 10.0, content volume to 0.0 and usable flag to true.*/
     void Canister::setToDefault() {
         m_contentName = nullptr;
         m_height = 13.0;
@@ -16,16 +17,12 @@ namespace seneca {
         m_contentVolume = 0.0;
         m_usable = true;
     }
-   /* If the incoming Cstr is not null and the Canister is usable, it will delete the current content name, 
-   allocate memory to the length of Cstr(+1 for null) and copies the Cstr into the newly allocated memory.Otherwise,
-   it will silently do nothing.*/
         
     void Canister::setName(const char* Cstr) {
         
         if (Cstr != nullptr && m_usable) { 
             delete[] m_contentName;
-            size_t strLen = strlen(Cstr);
-            m_contentName = new char[strLen + 1];
+            m_contentName = new char[strlen(Cstr) + 1];
             strcpy(m_contentName, Cstr);
         }
     }
@@ -39,84 +36,71 @@ namespace seneca {
     
     bool Canister::hasSameContent(const Canister& C)const {
         if (m_contentName != nullptr &&
-            C.m_contentName != 0 &&
-            (strCmp(m_contentName, C.m_contentName) == 0)) {
+            C.m_contentName != nullptr &&
+            strcmp(m_contentName, C.m_contentName) == 0) {
             return true;
         }
         return false;
     }
     //public methods
-    /*Sets the attributes to their default values*/
     Canister::Canister(){      //constructor default
         setToDefault();
     }
-    /*
-    Sets the attributes to their default values (note: reuse code)
-    Sets the name to the incoming contentName argument.
-*/
-    Canister::Canister(const char* contentName) {  //
+   
+    Canister::Canister(const char* contentName) {  
         setToDefault();
         setName(contentName);
     }
     
     Canister::Canister(double height, double diameter, const char* contentName) {
         setToDefault();
-        if (m_usable) {
-            if (height >= 10.0 && height <=40 &&
-                diameter >= 10.0 && diameter <= 30.0) {
-               this->m_height = height;
-               this->m_diameter = diameter;
-                setName(contentName);
-            }
-        } 
-        m_usable = false;
+        
+        if (height >= 10.0 && height <=40 &&
+            diameter >= 10.0 && diameter <= 30.0) {
+            m_height = height;
+            m_diameter = diameter;
+            m_contentVolume = 0.0;   
+            setName(contentName);
+        } else {
+             m_usable = false;
+        }
     }
     Canister::~Canister() {
        delete[] m_contentName;
-       m_contentName = nullptr;
     }
    
     Canister& Canister::setContent(const char* contentName) {
-        if (contentName == " ") {
-            
-           this->m_usable = false;
+        if (contentName == nullptr) {       
+           m_usable = false;
         }
-        else if (this->isEmpty()) {
-                this->setName(contentName);
-                m_usable = true;
+        else if (isEmpty()) {
+           setName(contentName);
         }
-        else if (!this->hasSameContent(contentName)){
-           this->m_usable = false;
+        else if (!hasSameContent(contentName)){
+           m_usable = false;
         }
         return *this;
     }
    
     Canister& Canister::pour(double quantity) {
-        quantity = 0.0;
         double sum = quantity + volume();
-       // double capacity = Canister::capacity();
-        if (this->m_usable && (quantity > 0)) {
-            if (sum <= capacity()) {
-                this->m_contentVolume = this->m_contentVolume + quantity;
-            }
-        }
-        else {
-           this->m_usable = false;
+        if (m_usable && (quantity > 0) &&
+            sum <= capacity()) {
+              m_contentVolume += quantity;
+        } else {
+            m_usable = false;
         }
         return *this;
     }
    
-    Canister& Canister::pour(Canister& C) {
-      //  double cVolume = C.volume();
-       
-        this->setContent(C.m_contentName);
-        
-        if (C.volume() > (capacity() - C.volume())) {
-           C.m_contentVolume -= (capacity() - C.volume());
-           this->m_contentVolume = capacity();
+    Canister& Canister::pour(Canister& C) {  
+        setContent(C.m_contentName);
+        if (C.volume() > (capacity() - volume())) {
+           C.m_contentVolume -= (capacity() - volume());
+           m_contentVolume = capacity();
         }
         else {
-            this->pour(C.m_contentVolume);
+            pour(C.m_contentVolume);
             C.m_contentVolume = 0.0;
         }
         return *this;
@@ -136,19 +120,17 @@ namespace seneca {
         cout << "x";
         cout << m_diameter;
         cout << ") Canister";
-        if (!m_usable) {
+        if (m_usable == false) {
             cout << " of Unusable content, discard!";
         }
-        else if (m_contentName != nullptr) {
+        else if (m_usable ==true && m_contentName != nullptr) {
             cout << " of ";
             cout.width(7);
             cout.precision(1);
-            cout.setf(ios::fixed);
+            cout.setf(ios::fixed);            //to display readable numbers
             cout << volume() << "cc   ";
-            cout << m_contentName;
-             
+            cout << m_contentName;    
         }
-
         return cout;
     }
     
@@ -161,13 +143,14 @@ namespace seneca {
     }
     
     void Canister::clear() {
-       Canister::~Canister();
-      //  m_contentName = nullptr;
+        Canister::~Canister();
+        //delete[] m_contentName;
+       // m_contentName = nullptr;
         m_contentVolume = 0.0;
         m_usable = true;
     }
     //string handling functions
-    void strnCpy(char des[], const char src[], size_t len) {
+   /* void strnCpy(char des[], const char src[], size_t len) {
         size_t i;
         for (i = 0; i < len && src[i]; i++) {
             des[i] = src[i];
@@ -178,7 +161,7 @@ namespace seneca {
         int i;
         for (i = 0; left[i] && right[i]; i++);
         return left[i] - right[i];
-    }
+    }*/
    
 }
 
