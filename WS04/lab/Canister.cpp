@@ -21,11 +21,11 @@ namespace seneca {
    it will silently do nothing.*/
         
     void Canister::setName(const char* Cstr) {
-        if (Cstr != nullptr && m_usable) {
-            delete[] m_contentName;
-            //char* str = nullptr;
+        if (Cstr != nullptr && m_usable) {  
+            clear();
+            char* str = nullptr;
             m_contentName = new char[strlen(Cstr) + 1];
-            strcpy(m_contentName, Cstr);
+            strnCpy(m_contentName, Cstr, strlen(Cstr) +1);
         }
     }
     /*Returns true if the content volume is less than 0.00001 CCs*/
@@ -40,7 +40,7 @@ namespace seneca {
     returns true if both names are not null and are identical. Otherwise, it returns false;*/
     bool Canister::hasSameContent(const Canister& C)const {
         if (m_contentName != nullptr && C.m_contentName) {
-            if (strcmp(m_contentName, C.m_contentName) == 0) {
+            if (strCmp(m_contentName, C.m_contentName) == 0) {
                 return true;
             }
         }
@@ -72,8 +72,8 @@ If any of the dimensions have invalid values, it will set the Canister as unusab
     Canister::Canister(double height, double diameter, const char* contentName) {
         setToDefault();
         if (m_usable) {
-            height = m_height;
-            diameter = m_diameter;
+             height = m_height;
+             diameter = m_diameter;
             Canister(contentName);
         }
     }
@@ -87,13 +87,14 @@ else if the Canister is empty it will set the name to the value pointed by the a
 else if the name of the Canister is not the same as the contentName argument it will render the Canister unusable.*/
     Canister& Canister::setContent(const char* contentName) {
         if (contentName == nullptr) {
-            m_usable = false;
+            
+           m_usable = false;
         }
         else if (isEmpty()) {
                 setName(m_contentName);
         }
         else if (!hasSameContent(m_contentName)){
-            m_usable = false;
+           m_usable = false;
         }
         return *this;
     }
@@ -101,17 +102,18 @@ else if the name of the Canister is not the same as the contentName argument it 
     Otherwise, it will render the Canister unusable and then returns the reference of the current object.
 Use this rule to accomplish the above:
 If the Canister is usable and the quantity is more than zero and if the sum of the quantity and the volume()
-is less than or equal to the capacity(), add the quantity to the content volume, otherwise set usable flag attribute to false.*/
+is less than or equal to the capacity(), add the quantity to the content volume, 
+otherwise set usable flag attribute to false.*/
     Canister& Canister::pour(double quantity) {
+        
        // double capacity = Canister::capacity();
         if (m_usable && (quantity > 0)) {
-            if (quantity <= Canister::capacity() && volume() <= Canister::capacity()) {
+            if (quantity <= capacity() && volume() <= capacity()) {
                 m_contentVolume += quantity;
             }
         }
-        else {
-            m_usable = false;
-        }
+        
+        m_usable = false;
         return *this;
     }
     /*Pours the content of the Canister argument into the current Canister following the Specs stated at the top
@@ -121,15 +123,18 @@ if the volume() of the argument is greater than the capacity() minus the volume(
 Reduce the content volume of the argument by capacity() minus volume() and then set the content volume to capacity()
 else pour the content volume of the argument using pour() method and set the content volume of the argument to 0.0.
 return the reference of the current object at the end.*/
-    Canister& Canister::pour(Canister&) {
+    Canister& Canister::pour(Canister& C) {
+      //  double cVolume = C.volume();
+       
         setContent(m_contentName);
-        if (volume() > (capacity() - volume())) {
-           m_contentVolume -= (capacity() - volume());
-           m_contentVolume = capacity();
+        
+        if (C.volume() > (C.capacity() - C.volume())) {
+           C.m_contentVolume = (capacity() - volume());
+           C.m_contentVolume = C.capacity();
         }
         else {
-            pour(m_contentVolume);
-            m_contentVolume = 0.0;
+            pour(C.m_contentVolume);
+            C.m_contentVolume = 0.0;
         }
         return *this;
     }
@@ -165,14 +170,15 @@ returns the cout object at the end.*/
     std::ostream& Canister::display()const {
         cout.width(7);
         cout.precision(1);
-        cout << capacity() << "cc (" << Canister::m_height << "x" << Canister::m_diameter << ") Canister";
-        if (m_usable) {
-            cout << " of ";
-            cout.width(7);
-            cout << volume() << "cc   " << m_contentName << endl;
+        cout << Canister::capacity() << "cc (" << m_height << "x" << m_diameter << ") Canister";
+        if (!m_usable) {
+            cout << " of Unusable content, discard!" << endl;
         }
         else {
-            cout << " of Unusable content, discard!" << endl;
+            cout << " of ";
+            cout.width(7);
+            cout.precision(1);
+            cout << Canister::volume() << "cc   " << m_contentName << endl;
         }
 
         return cout;
@@ -202,5 +208,19 @@ Capacity = PI x (H - 0.267) x (D/2) x (D/2)*/
         m_contentVolume = 0.0;
         m_usable = true;
     }
+    //string handling functions
+    void strnCpy(char des[], const char src[], int len) {
+        int i;
+        for (i = 0; i < len && src[i]; i++) {
+            des[i] = src[i];
+        }
+        des[i] = 0;
+    }
+    int strCmp(const char left[], const char right[]) {
+        int i;
+        for (i = 0; left[i] && right[i]; i++);
+        return left[i] - right[i];
+    }
    
 }
+

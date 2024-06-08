@@ -24,12 +24,14 @@ namespace seneca {
       ~Canister();
       Canister& setContent(const char* contentName);
       Canister& pour(double quantity);
-      Canister& pour(Canister&);
+      Canister& pour(Canister& C);
       double volume()const;
       std::ostream& display()const;
       double capacity()const;
       void clear();
    };
+   void strnCpy(char des[], const char src[], int len);
+   int strCmp(const char left[], const char right[]);
 }
 //in constructors resue settodefault 
 //destructor:
