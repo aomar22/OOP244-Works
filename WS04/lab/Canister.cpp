@@ -21,8 +21,8 @@ namespace seneca {
     void Canister::setName(const char* Cstr) {
         
         if (Cstr != nullptr && m_usable) { 
-             delete[] m_contentName;
-            //Canister::~Canister();
+            // delete[] m_contentName;
+            Canister::~Canister();
             m_contentName = new char[strlen(Cstr) + 1];
             strcpy(m_contentName, Cstr);
         }
@@ -151,19 +151,6 @@ namespace seneca {
         m_contentVolume = 0.0;
         m_usable = true;
     }
-    //string handling functions
-   /* void strnCpy(char des[], const char src[], size_t len) {
-        size_t i;
-        for (i = 0; i < len && src[i]; i++) {
-            des[i] = src[i];
-        }
-        des[i] = 0;
-    }
-    int strCmp(const char left[], const char right[]) {
-        int i;
-        for (i = 0; left[i] && right[i]; i++);
-        return left[i] - right[i];
-    }*/
    
 }
 
