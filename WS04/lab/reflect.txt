@@ -2,3 +2,38 @@
 I have done all the coding by myself and only copied the code that my professor
 provided to complete my project milestones.*/
 
+
+    define a default constructor
+    define custom constructors with different number of arguments
+    define a Destructor to prevent memory leaks.
+    Use the reference of the current object
+    describe to your instructor what you have learned in completing this workshop
+_____________________________________________________________________________________________
+From what I learned in this workshop:
+- the constructor is a special method (special member function) that allows setting an object at creation time. we use the default constructor to set object to an empty state or to execute any preliminary logic. It takes the form:
+Type();  //as Type is the name of the class and it does not include a return type.
+e.g. line 48 in Canister.cpp we used Canister(); to set the class members to default. It can be overloaded for example using the same name of the constructor function with using different argument (function signatures). 
+E.g. line 52 and line 57 in Canister.cpp where we used Canister(const char* contentName)   & Canister(double height, double diameter, const char* contentName). So, we used 3 customized constructors with different arguments (one with no arguments to set the member variables to default, 2nd one with one argument to set the contentName, and the 3rd one with 3 arguments to set the the member variables to their corresponding values if their height and diameter are within the valid limits)
+
+-The constructor is the first funciton to be called during compilation since it starts execution at instantiation and this advantage solve the problem of calling functions before setting our data to its default values or data that are not yet defined. for example, we sat the Canister to its empty state or default state before calling pour functions in this workshop. During execution, the Canister constructor is called first and then other member functions.
+
+-To avoid memory leak, we need to use the Destructor after using the constructor. The destructor take the form:
+~Type();  //Type is the name of the class
+e.g. we used ~Canister() destructor in this workshop to include the memory delallocation and to avoid the memory leak.
+
+The Class destructor is called at the end of the object's lifetime or before an object goes out of its scope. 
+The features of destructor is that:
+- it is called automatically by the compiler. 
+- We do not call it explicitly
+- If we did not create the destructor, the compiler will create an empty one by default. in this workshop, we had to create the destructor because we allocated a memory and must deallocate it. e.g. deallocating the memory inside the clear function and call it inside the destructor special function.
+- A destructor cannot be overloaded.
+- Has no return type
+-Never has any arguments or parameters.
+
+- We can refer to the current object using a key word (this) and dereferencing using (*this) it refers to the memory that a current object is stored when using a member function.(points to the address of the object).
+E.g. we could refer to member fuctions this->m_height 
+we can return the current object: e.g. line 84 in Canister.cpp  ->  Canister& setContent(const char* contentName) function we used return *this; which means return the current object. 
+
+Challenges:
+- The calculation part was challenging and the mechanism of pouring to the canister and checking if it is empty. A lot of details that I see is challenging to implement in the code without the help of the written psuedocode.
+
