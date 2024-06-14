@@ -86,15 +86,15 @@ A = 55555;  // the account number of A will be set to 55555
 B = 555; // the account B will be set to invalid state
 B = 66666; // no action will be taken since the B is in not new
 A = 66666; // no action will be taken since the A is in not new*/
-   Account& Account::operator=(const Account&) {
-       if (operator~()) {
-           if (operator bool()) {
-               m_number = operator int();
+   Account& Account::operator=(int num) {
+       
+           if (num >=10000 && num <= 99999) {
+               m_number = num;
            }
-           else if (!operator bool()) {
+           else {
                setEmpty();
            }
-       }
+       
        return *this;
    }
    /*
@@ -113,13 +113,14 @@ B = Bad; // Nothing will happen since Bad is not new
 Bad = B; // Nothing will happen since Bad is invalid
 */
    Account& Account::operator=(Account& src) {     //must be modifiable, not constant
-       if (m_number == 0 && m_balance == 0.0) {
+       if (src.operator bool()) {
 
            m_number = src.m_number;
            m_balance = src.m_balance;
            src.m_number = 0;
            src.m_balance = 0.0;
        }
+       
        return *this;
    }
    /*
@@ -133,10 +134,9 @@ Account A(55555, 400.0), Bad(555, -10);
    Bad += 300.0; // Nothing will happen since Bad is invalid
    A += -20.0; // Nothing will happen since double value is negative
 */
-   Account& Account::operator+=(Account&) {
-       if (m_number >= 10000 && m_number <= 99999
-           && m_balance > 0){
-           m_balance += m_balance;
+   Account& Account::operator+=(double value) {     //receives double deposit value
+       if (operator bool() && value > 0){
+           m_balance += value;
        }
        return *this;
    }
@@ -152,10 +152,12 @@ Account A(55555, 400.0), Bad(555, -10);
    A -= -20.0; // Nothing will happen since double value is negative
    Bad -= 20.0 // Nothing will happen since Bad is invalid
 */
-   Account& Account::operator-=(Account&) {
-       if (m_number >= 10000 && m_number <= 99999
-           && m_balance > 0) {
+   Account& Account::operator-=(double value) {  //receives double value
+       if (Account() && value > 0) {
            m_balance -= m_balance;
+       }
+       else {
+           Account();
        }
        return *this;
    }
@@ -212,11 +214,10 @@ If any of the two accounts is invalid, then zero is returned.
    sum = A + Bad; // sum should be 0 since Bad is invalid
    sum = Bad + B; // sum should be 0 since Bad is invalid
 */
-   double& operator+(const Account&, const Account& src){
-       
-       if (bool()) {
-     
-       
+   double operator+(const Account& a, const Account& src){
+      // double sum;
+       if (a.operator bool() && src.operator bool()) {
+           return double(a.m_balance) + double(src.m_balance);
        }
        else {
            return 0.0;
@@ -233,7 +234,7 @@ Then the value of the double reference is returned.
 */
    double& operator+=(double& sum, Account& src) {
       
-       if (bool()) {
+       if (src.operator bool()) {
            sum += src.m_balance;
        }
       return sum;
