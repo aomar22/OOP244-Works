@@ -15,7 +15,7 @@ namespace seneca {
       operator int()const;
       operator double()const;
       bool operator~()const;
-      bool valid()const;
+      //bool valid()const;
       Account& operator=(int value);
       Account& operator=(Account& acc);
       Account& operator+=(double value);
