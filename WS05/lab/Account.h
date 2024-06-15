@@ -15,14 +15,15 @@ namespace seneca {
       operator int()const;
       operator double()const;
       bool operator~()const;
+      bool valid()const;
       Account& operator=(int num);
       Account& operator=(Account& src);
       Account& operator+=(double value);
       Account& operator-=(double value);
-      Account& operator<<(Account& src);
-      Account& operator>>(Account& src);
-      friend double& operator+=(double& sum, Account& src);
-      friend double operator+(const Account& a, const Account& src);
+      Account& operator<<(Account& acc);
+      Account& operator>>(Account& acc);
+      friend double operator+=(double& sum, const Account& acc);
+      friend double operator+(const Account& a, const Account& b);
       
    };
    
