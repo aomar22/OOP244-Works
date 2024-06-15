@@ -65,15 +65,10 @@ This operator returns true if the account is new or
 not set (i.e. if the account number is zero), otherwise it will return false.
 This operator can not modify the account object.*/
    bool Account::operator~() const {
-       if (m_number == 0) {                     //if new account
-           return true;
-       }
-       else {
-           return false;
-       }
+       return m_number == 0;
    }
    //Binary Members Operators
-   //Assingment operators
+   //Assignment operators
    /*overload the assignment operator so a NEW account can be set to an integer.
    Doing so should set the account number of the account to the integer value.
 If the integer value is an invalid account number, the object should be set
@@ -86,14 +81,13 @@ A = 55555;  // the account number of A will be set to 55555
 B = 555; // the account B will be set to invalid state
 B = 66666; // no action will be taken since the B is in not new
 A = 66666; // no action will be taken since the A is in not new*/
-   Account& Account::operator=(int num) {
-       if (Account() && num >= 100000 && num <= 99999) {    //
-           num = m_number;
+   Account& Account::operator=(int value) {
+       if (~*this && value >= 10000 && value <= 99999) {    //
+           m_number = value;
        }
        else {
-           setEmpty();
+           Account();
        }
-       
       return *this;
    }
    /*
@@ -112,17 +106,15 @@ B = Bad; // Nothing will happen since Bad is not new
 Bad = B; // Nothing will happen since Bad is invalid
 */
    Account& Account::operator=(Account& acc) {     //must be modifiable, not constant
-       if (*this && acc.operator bool()) {
-
-           
-           acc.m_balance = m_balance;
-           acc.m_balance = 0.0;
-           acc.m_number = m_number;
+       if (~*this && Account()) {
+           m_balance = acc.m_balance;
+           m_number = acc.m_number;
+   //set the balance and number of right account to zero
            acc.m_number = 0;
-           
-       }
-       
-       return *this;
+           acc.m_balance = 0.0;
+                   
+       }     
+      return *this;
    }
    /*
     overload the += operator to add a double value to an account. This should act like depositing money into an account.
