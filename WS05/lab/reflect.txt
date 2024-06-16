@@ -1,0 +1,35 @@
+CITATION:
+/*Amany Omar, aomar22@myseneca.ca, ID# 126127166, Completed on June 16, 2024.
+I have done all the coding by myself and only copied the code that my professor
+provided to complete my project milestones.*/
+
+Learning Outcomes:
+
+    define and create binary member operator
+    define and create a type conversion operator
+    define and create unary member operator
+    define and create helper binary operator between classes
+    define and create a helper operator between a primitive type and a class.
+___________________________________________________________________________
+
+- Binary member operator is a binary operation function that is declared inside a class and consists of one operator and two operands, the left operand is the current object. It takes the form: returnType Operator[operation symbol][parameters]. For example, Account& Account::operator=(int value);
+this is the declaration of the function and the left operand a reference to Account and the right operand is an integer value(the parameter) that should be set to one of the class attributes (account number "m_number"). The function has the type of class Account and it returns the current object (Account)
+
+- A type conversion operator is a special methods that is defined in a class and it defines how an object or a value can be converted into another type automatically by the compiler. In this example,  Account::operator bool()const; the conversion operator converts the object Account into a bool that can be used during the program to ensure the condition of valid account.
+It takes the form: operator targetType() const; 
+const as it does not affect the object.
+
+- The unary member operator:
+It is one of the special methods that is defined inside a class and consists of one operator and one operand and takes the form : returnType operator symbol(). An example from the workshop:    bool Account::operator~() const;
+It can have pre-fix increment/decrement operator or post-fix increment/decrement
+
+- Helper binary operator: is an operator function that is defined or declared outside the class. It has two operands (right and left) which are the function arguments. It also has no direct access to the class members unless it receives the class object in its parameter or it is coupled with friend keyword which provide its access to the class members. As an example, 
+  double operator+(const Account& a, const Account& b);
+ 
+In these functions: are helper functions that has access through receiving the class objects in their parameters. (although the workshop I submitted, I added the friend keyword, but I realized now that it can work without friendship since the function receives the object in its parameter which allow coupling to the Account members). the program compiled and worked without the friend keyword.
+they are also considered global functions. If the class object is not passing through the parameter, they will need to be coupled by using the friend keyword. I am not sure,  but I believe if the operands are not suppose to be changed, it is better to not use the friendship, as it will be preferred to keep the loose coupling; however, if we need read and write access to the private class members. Friendship provides stronger access.
+
+-Helper operator between a primitive type and a class: The same as the previous helper function except that the parameters are one primitive value (double sum) and the other is the Account object(Account& acc). It is also declared and defined outside the class entity, but it has loose coupling by passing the class reference to the function parameters.
+ double operator+=(double& sum, const Account& acc);
+
+- 

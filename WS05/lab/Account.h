@@ -20,13 +20,9 @@ namespace seneca {
       Account& operator+=(double value);
       Account& operator-=(double value);
       Account& operator<<(Account& acc);
-      Account& operator>>(Account& acc);
-      friend double operator+=(double& sum, const Account& acc);
-      friend double operator+(const Account& a, const Account& b);
-      
+      Account& operator>>(Account& acc);  
    };
-   
-   
-   
+   double operator+=(double& sum, const Account& acc);
+   double operator+(const Account& a, const Account& b); 
 }
 #endif // SENECA_ACCOUNT_H_
