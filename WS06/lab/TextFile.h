@@ -1,12 +1,19 @@
+/*Name: Amany Omar
+  Email: aomar22@myseneca.ca
+  ID# 126127166
+  Completed on July 1st, 2024.
+  Citation: I have done all the coding by myself and only copied the code that my professor
+provided to complete my project milestones.*/
 #ifndef SENECA_TEXTFILE_H__
 #define SENECA_TEXTFILE_H__
 #include <iostream>
 namespace seneca {
+    class TextFile; //forward declaration
    class Line {
-      char* m_value{ nullptr };
+      char* m_value{ nullptr }; //holds the address of the dynamically allocated Cstring (to hold a line of the text file)
       operator const char* ()const;
-      Line() {}
-      Line& operator=(const char*);
+      Line();// {}
+      Line& operator=(const char* lineValue);
       ~Line();
       friend class TextFile;
       // copy and copy assignment prevention goes here
