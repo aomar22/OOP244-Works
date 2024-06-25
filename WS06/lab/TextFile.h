@@ -21,9 +21,20 @@ namespace seneca {
    };
 
    class TextFile {
-      Line* m_textLines;
+       //A pointer to hold the dynamic array of Lines. 
+       // This attribute should be initialized to nullptr
+      Line* m_textLines; 
+
+      //A pointer to hold the dynamic Cstring holding the name of
+        //  the file.This attribute should be initialized to nullptr
       char* m_filename;
+
+      //An unsigned integer to be set to 
+         //the number of lines in the file.
       unsigned m_noOfLines;
+
+      //The page size is the number of lines that should be displayed 
+      // on the screen before the display is paused. After these lines are displayed, the user must hit enter for the next page to appear.
       unsigned m_pageSize;
       void setFilename(const char* fname, bool isCopy = false);
       void setNoOfLines();
