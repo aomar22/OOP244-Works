@@ -11,9 +11,9 @@ namespace seneca {
     class TextFile; //forward declaration
    class Line {
       char* m_value{ nullptr }; //holds the address of the dynamically allocated Cstring (to hold a line of the text file)
-      operator const char* ()const;
+      operator const char* ()const = delete;
       Line();// {}
-      Line& operator=(const char* lineValue);
+      Line& operator=(const char* lineValue) = delete;
       ~Line();
       friend class TextFile;
       // copy and copy assignment prevention goes here
