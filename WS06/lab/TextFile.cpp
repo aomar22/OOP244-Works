@@ -165,10 +165,21 @@ namespace seneca {
     TextFile::TextFile(unsigned pageSize = 15) {
         //Creates an empty TextFile and initializes the m_pageSize
         // attribute using the pageSize argument.
-
+        setEmpty();
+        m_pageSize = pageSize;
     }
 
     TextFile::TextFile(const char* filename, unsigned pageSize = 15) {
+        m_pageSize = pageSize;
+        setEmpty();
+        if (filename != nullptr && filename[0] != '\0') {
+            filename = new char[strlen(filename) + 1];
+            strcpy(m_filename, filename);
+            m_filename[strlen(filename) + 1] = '\0';
+            setNoOfLines();
+            loadText();
+
+        }
         /*Initializes the m_pageSize attribute using the pageSize argument
         and all the other attributes to nullptr and zero. Then if the filename
         is not null, it will set the filename, set the number of
@@ -178,7 +189,8 @@ namespace seneca {
         //Implement The Copy Constructor, Copy assignment and destructor.
     //Copy Constructor:
     /*Initializes the m_pageSize attribute using the m_pageSize of
-    the incoming TextFile object and all the other attributes to nullptr and zero. If the incoming Text object is in a valid State, performs the following tasks to copy the textfile and the content safely:
+    the incoming TextFile object and all the other attributes to nullptr and zero. If the incoming Text object is in a valid State,
+    performs the following tasks to copy the textfile and the content safely:
 
         Sets the file-name to the name of the incoming TextFile
         object (isCopy set to true) See setFilename()
@@ -188,21 +200,36 @@ namespace seneca {
         loads the Text
     */
     //1
-    TextFile::TextFile(const TextFile&) { //copy constructor
-
+    TextFile::TextFile(const TextFile& file) { //copy constructor
+        this->m_pageSize = file.m_pageSize;
+        setEmpty();
+        if (file.m_filename[0] != 0 && file.m_noOfLines != 0) {
+            setFilename(file.m_filename, true);
+            saveAs(m_filename);
+            setNoOfLines();
+            loadText();
+        }
     }
 
     /*Copy Assignment
 
-    If the current and the incoming TextFiles are valid it will first delete the current text and then overwrites the current file and data by the content of the incoming TextFile.
+    If the current and the incoming TextFiles are valid it will first delete the current text 
+    and then overwrites the current file and data by the content of the incoming TextFile.
 
     deallocate the dynamic array of Text and sets the pointer to null
     Saves the content of the incoming TextFile under the current filename
     Sets the number of lines
     loads the Text*/
     //2
-    TextFile& TextFile::operator=(const TextFile&) {
-
+    TextFile& TextFile::operator=(const TextFile& file) {
+        if (this->m_noOfLines > 0 && file.m_noOfLines > 0) {
+            delete[] m_textLines;
+            m_textLines = nullptr;
+            saveAs(m_filename);
+            setNoOfLines();
+            loadText();
+        }
+        return *this;
     }
     /*destructor
 
@@ -210,7 +237,14 @@ namespace seneca {
     */
     //3
     TextFile::~TextFile() {
-        
+        if (m_textLines != nullptr) {
+            delete[] m_textLines;
+            m_textLines = nullptr;
+        }
+        if (m_filename != nullptr) {
+            delete[] m_filename;
+            m_filename = nullptr;
+        }
     }
 
     //Public Methods:
