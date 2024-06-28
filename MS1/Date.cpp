@@ -12,8 +12,10 @@
 #include <iomanip>
 #include <iostream>
 #include <ctime>
+
 using namespace std;
 #include "Date.h"
+#include "Utils.h"
 namespace seneca {
    bool Date::validate() {
       errCode(NO_ERROR);
@@ -71,6 +73,44 @@ namespace seneca {
    int Date::currentYear()const {
       return m_CUR_YEAR;
    }
+
+   /*
+- Reads the year, the month and the day member variables using istream and ignores a single character
+after the year and the month values to bypass the Slashes.
+> Note that the separators do not have to be Slash characters **“/”** but any separator that is not an integer number.
+- Checks if istream has failed. If it did fail, it will set the error code to CIN_FAILED and clears the istream. If not, it will validate the values entered.
+- Flushes the keyboard
+- Returns the istream object*/
+   std::istream& Date::read(std::istream& is)
+   {
+       int integerVariable = 0; //to check if the input not a number
+       errCode(NO_ERROR);  //Clears the error code by setting it NO_ERROR
+       is >> m_year;
+       is >> m_mon;
+       is >> m_day;
+       if (!std::cin >> integerVariable) {
+           is.ignore(1);
+       }
+       if (bad()) {
+           errCode(CIN_FAILED);
+       }
+       else {
+           validate();
+       }
+       flushKey();
+
+      return is;
+   }
+
+   std::ostream& Date::write(std::ostream& os) const
+   {
+
+       return os;
+   }
+      
+
+      
+   
    void Date::errCode(int readErrorCode) {
       m_ErrorCode = readErrorCode;
    }
