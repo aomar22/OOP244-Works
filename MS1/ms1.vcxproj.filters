@@ -21,10 +21,7 @@
     <ClCompile Include="Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ms1_tester.cpp">
+    <ClCompile Include="dateTester.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,8 +32,13 @@
     <ClInclude Include="Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Menu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ms1_tester_output.md">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

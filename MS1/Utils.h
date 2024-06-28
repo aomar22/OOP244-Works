@@ -16,6 +16,6 @@
 #define SENECA_UTILS_H__
 
 namespace seneca {
-
+	void flushKey(void);
 }
 #endif // SENECA_UTILS_H__

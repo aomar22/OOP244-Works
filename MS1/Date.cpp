@@ -147,6 +147,20 @@ Otherwise, the function should write the date in the following format using the 
    bool Date::operator>(const Date& RO)const {
        return this->daysSince0001_1_1() > RO.daysSince0001_1_1();
    }
+
+   int Date::operator-(const Date& RO)const {
+
+       return this->m_day - RO.m_day;
+   }
+
+   Date::operator bool() {
+       //It will return true if the date is valid and false if it is not.
+       if (validate()) {
+           return true;
+       }
+       return false;
+   }
+
    
    void Date::errCode(int readErrorCode) {
       m_ErrorCode = readErrorCode;

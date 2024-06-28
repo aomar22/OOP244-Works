@@ -14,7 +14,13 @@
 ***********************************************************************/
 
 #include "Utils.h"
+#include <iostream>
 namespace seneca {
-
+	void flushKey(void) {
+		char ch = 'x';
+		while (ch != '\n') {
+			std::cin.get();
+		}
+	}
 
 }
