@@ -11,9 +11,9 @@ namespace seneca {
     class TextFile; //forward declaration
    class Line {
       char* m_value{ nullptr }; //holds the address of the dynamically allocated Cstring (to hold a line of the text file)
-      operator const char* ()const = delete;
+      operator const char* ()const;
       Line();// {}
-      Line& operator=(const char* lineValue) = delete;
+      Line& operator=(const char* lineValue);
       ~Line();
       friend class TextFile;
       // copy and copy assignment prevention goes here
@@ -44,8 +44,8 @@ namespace seneca {
    public:
       TextFile(unsigned pageSize = 15);
       TextFile(const char* filename, unsigned pageSize = 15);
-      TextFile(const TextFile&);
-      TextFile& operator=(const TextFile&);
+      TextFile(const TextFile& file);
+      TextFile& operator=(const TextFile& file);
       ~TextFile();
       std::ostream& view(std::ostream& ostr)const;
       std::istream& getFile(std::istream& istr);
