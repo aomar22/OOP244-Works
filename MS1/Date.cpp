@@ -102,14 +102,51 @@ after the year and the month values to bypass the Slashes.
       return is;
    }
 
+   /*If the Date object is in a “bad” state (it is invalid) print the “dateStatus()”.
+Otherwise, the function should write the date in the following format using the ostream object:
+- Prints the year
+- Prints a Slash “/”
+- Prints the month in two spaces, padding the left digit with zero if the month is a single-digit number
+- Prints a Slash “/”
+- Prints the day in two spaces, padding the left digit with zero if the day is a single-digit number
+- Makes sure the padding is set back to spaces from zero
+- Returns the ostream object.*/
+
    std::ostream& Date::write(std::ostream& os) const
    {
-
+       if (bad()) {
+           cout << dateStatus();
+       }
+       else {
+           os << m_year << "/";
+           os.width(2);  
+           os.fill('0');         //padding the left digit with zero if the day is a single - digit number
+           os << m_mon << "/";
+           os.width(2);
+           os.fill('0');   
+           os << m_day;
+           os.fill(' ');     //setting back to space
+       }
        return os;
+   }   
+   bool Date::operator==(const Date& RO)const {
+       return this->daysSince0001_1_1() == RO.daysSince0001_1_1();
    }
-      
-
-      
+   bool Date::operator!=(const Date& RO)const {
+       return this->daysSince0001_1_1() != RO.daysSince0001_1_1();
+   }
+   bool Date::operator>=(const Date& RO)const {
+       return this->daysSince0001_1_1() >= RO.daysSince0001_1_1();
+   }
+   bool Date::operator<=(const Date& RO)const {
+       return this->daysSince0001_1_1() <= RO.daysSince0001_1_1();
+   }
+   bool Date::operator<(const Date& RO)const {
+       return this->daysSince0001_1_1() < RO.daysSince0001_1_1();
+   }
+   bool Date::operator>(const Date& RO)const {
+       return this->daysSince0001_1_1() > RO.daysSince0001_1_1();
+   }
    
    void Date::errCode(int readErrorCode) {
       m_ErrorCode = readErrorCode;
@@ -128,5 +165,5 @@ after the year and the month values to bypass the Slashes.
       return RO.read(is);
    }
 
-
+   //return 365 * ty + ty / 4 - ty / 100 + ty / 400 + (153 * tm - 457) / 5 + m_day - 306;
 }
