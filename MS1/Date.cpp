@@ -28,6 +28,7 @@ namespace seneca {
       else if (m_day < 1 || m_day > mdays()) {
          errCode(DAY_ERROR);
       }
+      
       return !bad();
    }
    int Date::mdays()const {
@@ -78,32 +79,40 @@ namespace seneca {
 - Reads the year, the month and the day member variables using istream and ignores a single character
 after the year and the month values to bypass the Slashes.
 > Note that the separators do not have to be Slash characters **“/”** but any separator that is not an integer number.
-- Checks if istream has failed. If it did fail, it will set the error code to CIN_FAILED and clears the istream. If not, it will validate the values entered.
+- Checks if istream has failed. If it did fail, it will set the error code to CIN_FAILED and 
+clears the istream. If not, it will validate the values entered.
 - Flushes the keyboard
 - Returns the istream object*/
-   std::istream& Date::read(std::istream& is)
-   {
-       int integerVariable = 0; //to check if the input not a number
+   istream& Date::read(std::istream& is){
+   
+       /*int year;
+       int month;
+       int day;*/
+     
        errCode(NO_ERROR);  //Clears the error code by setting it NO_ERROR
        is >> m_year;
+       is.ignore(1);
        is >> m_mon;
+       is.ignore(1);
        is >> m_day;
-       if (!cin >> integerVariable) {
-           is.ignore(1);
-           
-       }
-       if (is.bad()) {
-           errCode(CIN_FAILED);
+       cout << '\n';
+
+       if (is.fail()) {
+          errCode(CIN_FAILED);
            is.clear();
-          
+         
+           return is;
        }
        else {
-           // dateStatus();
+          /* m_year = year;
+           m_mon = month;
+           m_day = day;*/
            validate();
+           is.clear();
+           cout << '\n';
+           return is;
        }
-       
-       
-       
+     
 
       return is;
    }
@@ -118,23 +127,31 @@ Otherwise, the function should write the date in the following format using the 
 - Makes sure the padding is set back to spaces from zero
 - Returns the ostream object.*/
 
-   std::ostream& Date::write(std::ostream& os) const
+   ostream& Date::write(std::ostream& os) const
    {
-       if (bad()) {
-           cout << dateStatus();
-       }
-       else {
+       if (!bad()) {
            os << m_year << "/";
-           os.width(2);  
+           os.width(2);
            os.fill('0');         //padding the left digit with zero if the day is a single - digit number
            os << m_mon << "/";
            os.width(2);
-           os.fill('0');   
+           os.fill('0');
            os << m_day;
            os.fill(' ');     //setting back to space
+           
+       }
+       else {
+           os << dateStatus();
        }
        return os;
    }   
+   /*const char DATE_ERROR[5][16] = {
+      "No Error",
+      "cin Failed",
+      "Bad Year Value",
+      "Bad Month Value",
+      "Bad Day Value"
+   };*/
    bool Date::operator==(const Date& RO)const {
        return this->daysSince0001_1_1() == RO.daysSince0001_1_1();
    }
@@ -175,9 +192,8 @@ Otherwise, the function should write the date in the following format using the 
       return m_ErrorCode;
    }
    bool Date::bad()const { //returns true if the Date is in an erroneous state.
-       if (errCode() == -1);
-           return m_ErrorCode != 0; 
-       }
+       return m_ErrorCode != 0;
+   }
       
    std::ostream& operator<<(std::ostream& os, const Date& RO)
    {

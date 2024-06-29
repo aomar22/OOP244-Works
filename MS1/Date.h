@@ -61,10 +61,9 @@ namespace seneca {
       int operator-(const Date& RO) const;
       //bool type conversion operator
       operator bool();
-      friend std::ostream& operator<<(std::ostream& os, const Date& RO);
-      friend std::istream& operator>>(std::istream& is, Date& RO);
+    
    };
- /*  friend std::ostream& operator<<(std::ostream& os, const Date& RO);
-  friend std::istream& operator>>(std::istream& is, Date& RO);*/
+   std::ostream& operator<<(std::ostream& os, const Date& RO);
+   std::istream& operator>>(std::istream& is, Date& RO);
 }
 #endif
