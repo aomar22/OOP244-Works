@@ -88,16 +88,22 @@ after the year and the month values to bypass the Slashes.
        is >> m_year;
        is >> m_mon;
        is >> m_day;
-       if (!std::cin >> integerVariable) {
+       if (!cin >> integerVariable) {
            is.ignore(1);
+           
        }
-       if (bad()) {
+       if (is.bad()) {
            errCode(CIN_FAILED);
+           is.clear();
+          
        }
        else {
+           // dateStatus();
            validate();
        }
-       flushKey();
+       
+       
+       
 
       return is;
    }
@@ -168,16 +174,30 @@ Otherwise, the function should write the date in the following format using the 
    int Date::errCode()const {
       return m_ErrorCode;
    }
-   bool Date::bad()const {
-      return m_ErrorCode != 0;
-   }
-  
-   ostream& operator<<(ostream& os, const Date& RO) {
-      return RO.write(os);
-   }
-   istream& operator>>(istream& is, Date& RO) {
-      return RO.read(is);
+   bool Date::bad()const { //returns true if the Date is in an erroneous state.
+       if (errCode() == -1);
+           return m_ErrorCode != 0; 
+       }
+      
+   std::ostream& operator<<(std::ostream& os, const Date& RO)
+   {
+       return RO.write(os);
    }
 
-   //return 365 * ty + ty / 4 - ty / 100 + ty / 400 + (153 * tm - 457) / 5 + m_day - 306;
+   std::istream& operator>>(std::istream& is, Date& RO)
+   {
+       return RO.read(is);
+   }
+
 }
+
+  
+   /*ostream& operator<<(ostream& os, const Date& RO) {
+      
+   }*/
+   /*istream& operator>>(istream& is, Date& RO) {
+      return RO.read(is);
+   }*/
+
+   //return 365 * ty + ty / 4 - ty / 100 + ty / 400 + (153 * tm - 457) / 5 + m_day - 306;
+
