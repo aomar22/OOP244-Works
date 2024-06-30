@@ -16,6 +16,6 @@
 #define SENECA_UTILS_H__
 
 namespace seneca {
-	void flushKey(void);
+	int getIntMM(int min, int max, int value);
 }
 #endif // SENECA_UTILS_H__

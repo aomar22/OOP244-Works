@@ -89,7 +89,7 @@ clears the istream. If not, it will validate the values entered.
        int month;
        int day;*/
      
-       errCode(NO_ERROR);  //Clears the error code by setting it NO_ERROR
+       errCode(0);  //Clears the error code by setting it NO_ERROR
        is >> m_year;
        is.ignore(1);
        is >> m_mon;
@@ -97,8 +97,8 @@ clears the istream. If not, it will validate the values entered.
        is >> m_day;
        cout << '\n';
 
-       if (is.fail()) {
-          errCode(CIN_FAILED);
+       if (!is) {
+          errCode(1);
            is.clear();
          
            return is;
