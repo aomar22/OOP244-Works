@@ -57,7 +57,7 @@ Initialize this array of pointers to nullptrs.*/
 		int m_noOfItems; //track of how many MenuItem pointers are pointing to dynamic MenuItem objects.
 		//the value of this variable is always between 0 and MAX_MENU_ITEMS.
 		std::ostream& displayTitle(std::ostream& ti) const;  //display the title
-		std::ostream& displayMenu(std::ostream& mn); //display the full menu
+		std::ostream& displayMenu(std::ostream& mn, Menu& m); //display the full menu
 	public:
 		void setEmpty();
 		//Rule of Three

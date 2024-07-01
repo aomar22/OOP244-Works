@@ -66,19 +66,19 @@ namespace seneca {
 		//return ti;
 	}
 
-	std::ostream& Menu::displayMenu(std::ostream& mn)
+	std::ostream& Menu::displayMenu(std::ostream& mn, Menu& m)
 	{
 		
-			displayTitle(mn);
+			m.displayTitle(mn);
 			mn << ":" << endl;
 			//int rowNum = 1;
-			for (auto i = 0; i < m_noOfItems; i++) {
+			for (auto i = 0; i < m.m_noOfItems; i++) {
 				mn.width(2);
 				mn.setf(ios::right);
 				mn << (i + 1);
 				mn.fill('-');
 				mn << ' ';
-				mn << m_items[i] << endl;
+				mn << m.m_items[i] << endl;
 				i--;
 			}
 		
@@ -92,7 +92,7 @@ namespace seneca {
 		Menu m;
 		unsigned int num;
 	    ostream& mn2 = std::cout;
-		m.displayMenu(mn2); //displaying menu
+		m.displayMenu(mn2, m); //displaying menu
 		num = ut.getInt(0, MAX_MENU_ITEMS); //foolproof function for user's Selection
 		return num;
 	}
@@ -148,7 +148,7 @@ namespace seneca {
 	const char* Menu::operator[](int index) const
 	{
 		for (index = 0; index < m_noOfItems; index++) {
-			cout << m_items[index] << endl;
+			std::cout << m_items[index] << std::endl;
 			if (index == m_noOfItems) {
 				std::cout << m_items[index % m_noOfItems];
 			}
