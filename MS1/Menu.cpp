@@ -27,13 +27,14 @@ namespace seneca {
 	Menu::Menu()
 	{
 		m_title = nullptr;
-		m_items[0] = { 0 };
+		m_items[0] = nullptr;
 		m_noOfItems = 0;
 		
 	}
 	void Menu::setEmpty() {
 		m_title = nullptr;
 		m_noOfItems = 0;
+		m_items[0] = nullptr;
 		for (int i = 0; i < MAX_MENU_ITEMS; i++) {
 			m_items[i] = nullptr;
 		}
@@ -53,23 +54,24 @@ namespace seneca {
 	{
 		/*Looping through the MenuItems array of pointers,
 		it deletes each pointer up to the number of menu items in the menu.*/
-		delete[] m_title;
+		//delete[] m_title;
 		for (auto i = 0; i < MAX_MENU_ITEMS; i++) {
 			delete[] m_items[i];
 		}
 	}
-	ostream& Menu::displayTitle(std::ostream& ti) const
+	std::ostream& Menu::displayTitle(std::ostream& ti)
 	{
-		if (m_title[0]!= '\0') {
-			ti << m_title;
-		}
-		return ti;
+		//if (t.m_title[0]!= '\0') {
+			return ti << m_title;
+		//}
+		//return ti;
 	}
-	
-	ostream& Menu::displayMenu(std::ostream& mn) const
-	{   
+
+	std::ostream& Menu::displayMenu(std::ostream& mn)
+	{
+		
 			displayTitle(mn);
-			mn << ":" << std::endl;
+			mn << ":" << endl;
 			//int rowNum = 1;
 			for (auto i = 0; i < MAX_MENU_ITEMS; i++) {
 				mn.width(2);
@@ -77,7 +79,7 @@ namespace seneca {
 				mn << (i + 1);
 				mn.fill('-');
 				mn << ' ';
-				mn << m_items[i] << std::endl;
+				mn << m_items[i] << endl;
 				i--;
 			}
 		
@@ -87,8 +89,10 @@ namespace seneca {
 	
 	unsigned int Menu::run() const
 	{
-		Utils ut;
-		ostream& mn = displayMenu(mn); //displaying menu
+		Utils ut{};
+		Menu m;
+		ostream& mn2 = std::cout;
+	    m.displayMenu(mn2); //displaying menu
 		unsigned int userSelection;
 		userSelection = ut.getInt(0, MAX_MENU_ITEMS); //foolproof function for user's Selection
 		return userSelection;
@@ -97,16 +101,23 @@ namespace seneca {
 	Menu& Menu::operator~()
 	{
 		Utils ut{};
-		ostream& mn = displayMenu(mn);
+	
+		ostream& mn2 = std::cout;
+		displayMenu(mn2);
 		unsigned int userSelection;
 		userSelection = ut.getInt(0, MAX_MENU_ITEMS);
 		return *this;
 	}
 
 	Menu& Menu::operator<<(const char* menuItemContent)
-	{   	
-			if (m_noOfItems < MAX_MENU_ITEMS) {
+	{   	//check if the next spot for a MenuItem is available in the array of MenuItem pointers.
+			if (m_noOfItems < MAX_MENU_ITEMS && menuItemContent[0] != '\0') {
+				//If it is, dynamically create a MenuItem out of the content received through the operator argument 
 				m_items[m_noOfItems] = new MenuItem(menuItemContent);
+				// store the address in the available spot 
+
+				//increase the number of allocated MenuItem pointers by one
+				m_items[m_noOfItems]++;
 			}
 		return *this;
 	}
@@ -128,14 +139,14 @@ namespace seneca {
 	
 	Menu& Menu::operator<<(Menu& M) 
 	{
-		if (M.m_title != nullptr) {
-			cout << "The " << M.m_title << " is not empty and has " << unsigned int() << " menu items." << endl;
+		if (M && M.m_title[0] != '\0') {
+			cout << M.m_title;
 		}
 		
 		return M;
 	}
 	
-	const char* Menu::operator[](int index) 
+	const char* Menu::operator[](int index) const
 	{
 		for (index = 0; index < m_noOfItems; index++) {
 			cout << m_items[index] << endl;
@@ -196,6 +207,7 @@ namespace seneca {
 		}
 		return Item;
 	}
+	
 }
 /*Create a method to display the content of the MenuItem on ostream. (No newline is printed after)
 Nothing is printed if MenuItem is empty.

@@ -20,6 +20,7 @@ namespace seneca {
     Utils ut;
         unsigned int Utils::getInt(size_t min, size_t max) {
             unsigned int val = 0;
+            cout << "Enter your selection: '\n'> ";
             cin >> val;
             while (cin.fail() || val < min || val > max) {
                 cout << "Invalid Selection, try again: \n> ";

@@ -19,11 +19,11 @@ that my professor provided to complete my workshops and assignments.
 #ifndef MENU_H
 #define MENU_H
 #include <iostream>
-
+//using namespace std;
 namespace seneca {
 	
 	const unsigned int MAX_MENU_ITEMS = 20;
-	class Menu;
+	class Menu;      //forward declaration of Menu class
 	class MenuItem {
 	private:
 		char* m_itemsContent; //// Dynamically allocated C-style string for menu item content
@@ -56,7 +56,8 @@ namespace seneca {
 Initialize this array of pointers to nullptrs.*/
 		int m_noOfItems; //track of how many MenuItem pointers are pointing to dynamic MenuItem objects.
 		//the value of this variable is always between 0 and MAX_MENU_ITEMS.
-
+		std::ostream& displayTitle(std::ostream& ti);  //display the title
+		std::ostream& displayMenu(std::ostream& mn); //display the full menu
 	public:
 		void setEmpty();
 		//Rule of Three
@@ -71,8 +72,8 @@ Initialize this array of pointers to nullptrs.*/
 		~Menu();
 
 		//Methods:
-		std::ostream& displayTitle(std::ostream& ti)const;  //display the title
-		std::ostream& displayMenu(std::ostream& mn)const; //display the full menu
+		//friend std::ostream& displayTitle(std::ostream& ti, const Menu& t);  //display the title
+		//friend std::ostream& displayMenu(std::ostream& mn, const Menu& m); //display the full menu
 		unsigned int run()const;
 
 		//overload operators:
@@ -87,7 +88,7 @@ Initialize this array of pointers to nullptrs.*/
 		Menu& operator<<(Menu& M); //print the title of the Menu using **cout**.
 
 		//Overload the indexing operator:
-		const char* operator[](int index);
+		const char* operator[](int index)const;
 		//return the const char* cast of the corresponding MenuItem in the array
 		//of MenuItem pointers.
 		//If the index passes the number of MenuItems in the Menu, loop back to the beginning. (use modulus)
