@@ -56,7 +56,7 @@ namespace seneca {
 Initialize this array of pointers to nullptrs.*/
 		int m_noOfItems; //track of how many MenuItem pointers are pointing to dynamic MenuItem objects.
 		//the value of this variable is always between 0 and MAX_MENU_ITEMS.
-		std::ostream& displayTitle(std::ostream& ti);  //display the title
+		std::ostream& displayTitle(std::ostream& ti) const;  //display the title
 		std::ostream& displayMenu(std::ostream& mn); //display the full menu
 	public:
 		void setEmpty();
@@ -77,7 +77,7 @@ Initialize this array of pointers to nullptrs.*/
 		unsigned int run()const;
 
 		//overload operators:
-		Menu& operator~();
+		bool operator~();
 		Menu& operator<<(const char* menuItemContent);
 		//type conversion:
 		operator int();  // return the number of MenuItems on the Menu

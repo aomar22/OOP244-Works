@@ -19,10 +19,9 @@ that my professor provided to complete my workshops and assignments.
 #include <iostream>
 #include <cstring>
 #include <iomanip>
-
-using namespace std;
 #include "Menu.h"
 #include "Utils.h"
+
 namespace seneca {
 	Menu::Menu()
 	{
@@ -35,7 +34,7 @@ namespace seneca {
 		m_title = nullptr;
 		m_noOfItems = 0;
 		m_items[0] = nullptr;
-		for (int i = 0; i < MAX_MENU_ITEMS; i++) {
+		for (auto i = 0; i < m_noOfItems; i++) {
 			m_items[i] = nullptr;
 		}
 	}
@@ -54,12 +53,12 @@ namespace seneca {
 	{
 		/*Looping through the MenuItems array of pointers,
 		it deletes each pointer up to the number of menu items in the menu.*/
-		//delete[] m_title;
-		for (auto i = 0; i < MAX_MENU_ITEMS; i++) {
+		delete[] m_title;
+		for (auto i = 0; i < m_noOfItems; i++) {
 			delete[] m_items[i];
 		}
 	}
-	std::ostream& Menu::displayTitle(std::ostream& ti)
+	std::ostream& Menu::displayTitle(std::ostream& ti) const
 	{
 		//if (t.m_title[0]!= '\0') {
 			return ti << m_title;
@@ -73,7 +72,7 @@ namespace seneca {
 			displayTitle(mn);
 			mn << ":" << endl;
 			//int rowNum = 1;
-			for (auto i = 0; i < MAX_MENU_ITEMS; i++) {
+			for (auto i = 0; i < m_noOfItems; i++) {
 				mn.width(2);
 				mn.setf(ios::right);
 				mn << (i + 1);
@@ -91,33 +90,31 @@ namespace seneca {
 	{
 		Utils ut{};
 		Menu m;
-		ostream& mn2 = std::cout;
-	    m.displayMenu(mn2); //displaying menu
-		unsigned int userSelection;
-		userSelection = ut.getInt(0, MAX_MENU_ITEMS); //foolproof function for user's Selection
-		return userSelection;
+		unsigned int num;
+	    ostream& mn2 = std::cout;
+		m.displayMenu(mn2); //displaying menu
+		num = ut.getInt(0, MAX_MENU_ITEMS); //foolproof function for user's Selection
+		return num;
 	}
 
-	Menu& Menu::operator~()
-	{
+	 bool Menu::operator~()
+	 {
 		Utils ut{};
-	
-		ostream& mn2 = std::cout;
-		displayMenu(mn2);
-		unsigned int userSelection;
-		userSelection = ut.getInt(0, MAX_MENU_ITEMS);
-		return *this;
-	}
+		if (bool()){
+			run();
+		}
+		return true;
+	 }
 
-	Menu& Menu::operator<<(const char* menuItemContent)
+	 Menu& Menu::operator<<(const char* menuItemContent)
 	{   	//check if the next spot for a MenuItem is available in the array of MenuItem pointers.
-			if (m_noOfItems < MAX_MENU_ITEMS && menuItemContent[0] != '\0') {
+			if (unsigned int() < MAX_MENU_ITEMS && menuItemContent[0] != '\0') {
 				//If it is, dynamically create a MenuItem out of the content received through the operator argument 
-				m_items[m_noOfItems] = new MenuItem(menuItemContent);
+				m_items[unsigned int()] = new MenuItem(menuItemContent);
 				// store the address in the available spot 
 
 				//increase the number of allocated MenuItem pointers by one
-				m_items[m_noOfItems]++;
+				m_items[unsigned int()]++;
 			}
 		return *this;
 	}
@@ -140,10 +137,12 @@ namespace seneca {
 	Menu& Menu::operator<<(Menu& M) 
 	{
 		if (M && M.m_title[0] != '\0') {
-			cout << M.m_title;
+			m_title = M.m_title;
+				std::cout << M.m_title << std::endl;
+			
 		}
 		
-		return M;
+		return *this;
 	}
 	
 	const char* Menu::operator[](int index) const
@@ -151,7 +150,7 @@ namespace seneca {
 		for (index = 0; index < m_noOfItems; index++) {
 			cout << m_items[index] << endl;
 			if (index == m_noOfItems) {
-				cout << m_items[index % m_noOfItems];
+				std::cout << m_items[index % m_noOfItems];
 			}
 		}	
 		return m_items[index]->m_itemsContent;

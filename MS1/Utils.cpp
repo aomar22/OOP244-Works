@@ -18,7 +18,7 @@
 using namespace std;
 namespace seneca {
     Utils ut;
-        unsigned int Utils::getInt(size_t min, size_t max) {
+        unsigned int Utils::getInt(unsigned int min, unsigned int max) {
             unsigned int val = 0;
             cout << "Enter your selection: '\n'> ";
             cin >> val;
