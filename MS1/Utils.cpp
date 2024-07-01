@@ -12,40 +12,24 @@
 //
 /////////////////////////////////////////////////////////////////
 ***********************************************************************/
-
-#include "Utils.h"
 #include <iostream>
+#include "Utils.h"
+
+using namespace std;
 namespace seneca {
-    int getIntMM(int min, int max, int value) {
-        std::cout << "> ";
-        std::cin >> value;
-        while (value < min || value > max) {
+    Utils ut;
+        unsigned int Utils::getInt(size_t min, size_t max) {
+            unsigned int val = 0;
+            cin >> val;
+            while (cin.fail() || val < min || val > max) {
+                cout << "Invalid Selection, try again: \n> ";
+                cin.clear();
+                cin.ignore(10000, '\n'); //ignores the 10000 characters
+                cin >> val;
+            }
+            cin.ignore(10000, '\n'); //clear the keyboard
 
-            printf("Invalid Integer, try again: ");
+            return val;
         }
-        return value;
-    }
+    
 }
-   /* int getInt() {
-        int value;
-        int done = 0;
-        char newline = 'x';
-        while (!done) {
-            if (std::cin >> "%d%c" >> &value >> &newline)  {
-                if (newline == '\n') {
-                    done = 1;
-                }
-                else {
-                    printf("Please enter only an integer: ");
-                    flushKey();
-                }
-            }
-            else { 
-                flushKey();
-                printf("Invalid Integer, try again: ");
-            }
-        }
-        return value;
-    }
-
-*/

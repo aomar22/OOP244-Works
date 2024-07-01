@@ -15,13 +15,36 @@ Date      Reason
 I have done all the coding by myself and only copied the code
 that my professor provided to complete my workshops and assignments.
 -----------------------------------------------------------*/
+#define _CRT_SECURE_NO_WARNINGS
 #ifndef MENU_H
 #define MENU_H
 #include <iostream>
 
 namespace seneca {
-	//const int stringLength = 100;
+	
 	const unsigned int MAX_MENU_ITEMS = 20;
+	class Menu;
+	class MenuItem {
+	private:
+		char* m_itemsContent; //// Dynamically allocated C-style string for menu item content
+		friend class Menu;
+		//constructor:
+		MenuItem();
+		MenuItem(const char* str);
+		//*(Copy constructor and Copy assignment are deleted)*
+		MenuItem(const MenuItem& source) = delete;
+		MenuItem& operator=(const MenuItem& source) = delete;
+		//Destructor:
+		~MenuItem();
+
+		//### `bool` type conversion
+		operator bool()const;
+
+		//### `const char*` type conversion
+		operator const char* ();
+		// displaying the MenuItem
+		std::ostream& display(std::ostream& Item)const;
+	};
 	class Menu {
 		//Rule of Three
 		//Copy constructor and Copy assignment are deleted
@@ -31,10 +54,15 @@ namespace seneca {
 		will hold the address of a dynamically allocated MenuItem as they are added to the Menu.
 		(See insertion operator overload for Menu)
 Initialize this array of pointers to nullptrs.*/
-		int m_trackItems; //track of how many MenuItem pointers are pointing to dynamic MenuItem objects.
+		int m_noOfItems; //track of how many MenuItem pointers are pointing to dynamic MenuItem objects.
 		//the value of this variable is always between 0 and MAX_MENU_ITEMS.
 
 	public:
+		void setEmpty();
+		//Rule of Three
+		//Copy constructor and Copy assignment are deleted
+		Menu(const Menu& m) = delete;
+		Menu& operator=(const Menu& m) = delete;
 		//Constructors:
 		Menu();
 		Menu(const char* title);
@@ -45,7 +73,7 @@ Initialize this array of pointers to nullptrs.*/
 		//Methods:
 		std::ostream& displayTitle(std::ostream& ti)const;  //display the title
 		std::ostream& displayMenu(std::ostream& mn)const; //display the full menu
-		unsigned int run();
+		unsigned int run()const;
 
 		//overload operators:
 		Menu& operator~();
@@ -56,40 +84,15 @@ Initialize this array of pointers to nullptrs.*/
 		operator bool();      //return true if the Menu has one or more MenuItems otherwise, false;
 
 		//overload insertion operator:
-		Menu& operator<<(const char* title); //print the title of the Menu using **cout**.
+		Menu& operator<<(Menu& M); //print the title of the Menu using **cout**.
 
 		//Overload the indexing operator:
-		const char* operator[](unsigned int MAX_MENU_ITEMS); 
+		const char* operator[](int index);
 		//return the const char* cast of the corresponding MenuItem in the array
 		//of MenuItem pointers.
 		//If the index passes the number of MenuItems in the Menu, loop back to the beginning. (use modulus)
 		//void silentlyIgnore();
 	};
-	class MenuItem {
-	private:
-		char* m_itemsContent; //// Dynamically allocated C-style string for menu item content
-		friend class Menu;
-		//constructor:
-		MenuItem();
-		MenuItem(const char* str);
-		//*(Copy constructor and Copy assignment are deleted)*
-		//Destructor:
-		~MenuItem();
-
-		//### `bool` type conversion
-		operator bool()const;
-
-		//### `const char*` type conversion
-		operator const char*();
-		// displaying the MenuItem
-		std::ostream& display(std::ostream& Item)const;
-
-
-
-
-
-	};
-
 	
 }
 

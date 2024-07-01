@@ -17,6 +17,8 @@ that my professor provided to complete my workshops and assignments.
 -----------------------------------------------------------*/
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+#include <cstring>
+#include <iomanip>
 
 using namespace std;
 #include "Menu.h"
@@ -25,14 +27,26 @@ namespace seneca {
 	Menu::Menu()
 	{
 		m_title = nullptr;
-		m_items[MAX_MENU_ITEMS] = {nullptr};
-		m_trackItems = 0;
+		m_items[0] = { 0 };
+		m_noOfItems = 0;
+		
 	}
-
+	void Menu::setEmpty() {
+		m_title = nullptr;
+		m_noOfItems = 0;
+		for (int i = 0; i < MAX_MENU_ITEMS; i++) {
+			m_items[i] = nullptr;
+		}
+	}
 	Menu::Menu(const char* title)
-	{
-		m_title = new char[strlen(title) + 1];
-		strcpy(m_title, title);
+	{    
+		setEmpty();
+		if (title != nullptr && m_title) {
+			//delete[] m_title;
+			m_title = new char[strlen(title) + 1];
+			strcpy(m_title, title);
+			m_title[strlen(title) + 1] = '\n';
+		}
 	}
 
 	Menu::~Menu()
@@ -44,130 +58,107 @@ namespace seneca {
 			delete[] m_items[i];
 		}
 	}
-	
-	
-	std::ostream& Menu::displayTitle(std::ostream& ti) const
+	ostream& Menu::displayTitle(std::ostream& ti) const
 	{
-		if (m_title[0]!=0) {
+		if (m_title[0]!= '\0') {
 			ti << m_title;
 		}
 		return ti;
 	}
-	/*    This function first displays the title (if it is not empty)
-	followed by a ":" and a new-line, then it will display all the MenuItems one by one;
-	adding a row number in front of each. The row numbers are printed in two spaces,
-	right justified followed by a "dash" and a "space". After printing all the MenuItems it should
-	print " 0- Exit" and new-line and "> ".
-	For example, if the title is "Lunch Menu" and the menu items are "Omelet",
-	"Tuna Sandwich" and "California Rolls", the Menu object should be printed like this:
-
-Lunch Menu:
- 1- Omelet
- 2- Tuna Sandwich
- 3- California Rolls
- 0- Exit
- >
-*/
-	std::ostream& Menu::displayMenu(std::ostream& mn) const
-	{
-		displayTitle(mn);
-		mn << ":" << std::endl;
-		int rowNum = 1;
-		for (auto i = 0; i < MAX_MENU_ITEMS; i++) {
-			mn.width(2) << mn.right << rowNum << mn.fill('-') << ' ';
-			mn << m_items[i] << std::endl;
-		}
+	
+	ostream& Menu::displayMenu(std::ostream& mn) const
+	{   
+			displayTitle(mn);
+			mn << ":" << std::endl;
+			//int rowNum = 1;
+			for (auto i = 0; i < MAX_MENU_ITEMS; i++) {
+				mn.width(2);
+				mn.setf(ios::right);
+				mn << (i + 1);
+				mn.fill('-');
+				mn << ' ';
+				mn << m_items[i] << std::endl;
+				i--;
+			}
+		
 		mn << "0- Exit" << '\n' << "> ";
 		return mn;
 	}
-	/*This function displays the Menu and gets the user selection.
-(this function should be completely foolproof) The function receives nothing 
-and returns an unsigned integer (That is the user’s selection). 
-After displaying the menu, ask for an integer and make sure the value of the integer 
-is between 0 and the number of the menu items. If the user enters anything incorrect, print:
-"Invalid Selection, try again: "
-and get the integer again until a valid selection is made.
-
-    Nice to do:
-    The action of a foolproof integer entry within limits, with a prompt and an
-	error message, is a good candidate for a separate function implementation in the Utils module
-*/
-	unsigned int Menu::run() 
+	
+	unsigned int Menu::run() const
 	{
-		std::ostream& mn = displayMenu(mn);
-		
+		Utils ut;
+		ostream& mn = displayMenu(mn); //displaying menu
 		unsigned int userSelection;
-		userSelection = getIntMM(0, MAX_MENU_ITEMS, userSelection);
-
+		userSelection = ut.getInt(0, MAX_MENU_ITEMS); //foolproof function for user's Selection
 		return userSelection;
 	}
 
 	Menu& Menu::operator~()
 	{
-		std::ostream& mn = displayMenu(mn);
+		Utils ut{};
+		ostream& mn = displayMenu(mn);
 		unsigned int userSelection;
-		userSelection = getIntMM(0, MAX_MENU_ITEMS, userSelection);
+		userSelection = ut.getInt(0, MAX_MENU_ITEMS);
 		return *this;
 	}
 
 	Menu& Menu::operator<<(const char* menuItemContent)
-	{
-		while (m_trackItems < MAX_MENU_ITEMS) {
-			char* menuItem = new char[strlen(menuItemContent) + 1];
-			strcpy(menuItem, menuItemContent);
-			menuItem++;
-		} 
-	
+	{   	
+			if (m_noOfItems < MAX_MENU_ITEMS) {
+				m_items[m_noOfItems] = new MenuItem(menuItemContent);
+			}
 		return *this;
 	}
-	/*void Menu::silentlyIgnore() {
-
-	}*/
+	
 	Menu::operator int()
 	{
-		return m_trackItems;
+		return m_noOfItems;
 	}
 
 	Menu::operator unsigned int()
 	{
-		return m_trackItems;
+		return m_noOfItems;
 	}
 
 	Menu::operator bool()
 	{
-		return m_trackItems >= 1;
+		return m_noOfItems >= 1;
 	}
 	
-	Menu& Menu::operator<<(const char* title) 
+	Menu& Menu::operator<<(Menu& M) 
 	{
-		std::cout << m_title;
-		return *this;
-	}
-	/* return the const char* cast of the corresponding MenuItem in the array of
-	MenuItem pointers. If the index passes the number of MenuItems in the Menu,
-	loop back to the beginning. (use modulus)*/
-	const char* Menu::operator[](unsigned int MAX_MENU_ITEMS)
-	{
-		Menu M;
-		int index = MAX_MENU_ITEMS % m_trackItems;
-		if (index != 0) {
-			while (m_trackItems < MAX_MENU_ITEMS) {
-				cout << M[m_trackItems]<< endl;
-				m_trackItems++;
-			}
+		if (M.m_title != nullptr) {
+			cout << "The " << M.m_title << " is not empty and has " << unsigned int() << " menu items." << endl;
 		}
-
-		return 0;
+		
+		return M;
+	}
+	
+	const char* Menu::operator[](int index) 
+	{
+		for (index = 0; index < m_noOfItems; index++) {
+			cout << m_items[index] << endl;
+			if (index == m_noOfItems) {
+				cout << m_items[index % m_noOfItems];
+			}
+		}	
+		return m_items[index]->m_itemsContent;
 	}
 
-	MenuItem::MenuItem(const char* str)
+	MenuItem::MenuItem()
 	{
-		if (str[0] != '\n') {
+		m_itemsContent[0] = '\0';
+	}
+
+	MenuItem::MenuItem(const char* str) {
+		if (str[0] != '\0') {
 			m_itemsContent = new char[strlen(str) + 1]; //allocate memory
 			strcpy(m_itemsContent, str); //copy the incoming string
 			m_itemsContent[strlen(str) + 1] = '\n'; //ensure last character is '\n'
 		}
 		else {
+			
 			m_itemsContent = nullptr;
 		}
 		//Allocates and sets the content of the MenuItem to a Cstring 
@@ -175,19 +166,14 @@ and get the integer again until a valid selection is made.
 		// If no value is provided for the description at the moment of creation, 
 		// the MenuItem should be set to an empty state.
 	}
-	MenuItem::MenuItem()
-	{
-		m_itemsContent[0] = 0;
-	}
-	MenuItem::~MenuItem()
-	{
+	
+	MenuItem::~MenuItem() {
 		delete[] m_itemsContent;
 	}
 
 	MenuItem::operator bool() const //return true, if it is not empty
 	{
-
-		if (m_itemsContent[0] != '\n') {
+		if (m_itemsContent[0] != '\0') {
 			return true;
 		}
 		else {
@@ -200,11 +186,15 @@ and get the integer again until a valid selection is made.
 		return m_itemsContent; //return the address of the content Cstring to convert it to const char*
 	}
 
-	std::ostream& MenuItem::display(std::ostream& Item) const
+	ostream& MenuItem::display(std::ostream& Item) const
 	{
-		if (bool()) {
-			Item << m_itemsContent;   //display the content of the MenuItem on ostream if menuItem is Not empty
+		if (m_itemsContent[0] != '\0'){
+		   return Item << m_itemsContent;   //display the content of the MenuItem on ostream if menuItem is Not empty
 		}
+		else {
+			m_itemsContent[0] = '\0';
+		}
+		return Item;
 	}
 }
 /*Create a method to display the content of the MenuItem on ostream. (No newline is printed after)
