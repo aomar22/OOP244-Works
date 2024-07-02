@@ -17,20 +17,20 @@ namespace seneca {
       ~Line();
       friend class TextFile;
       // copy and copy assignment prevention goes here
-      Line(Line& f) = delete;
-      Line& operator=(const Line& f) = delete;
+    /*  Line(Line& f) = delete;
+      Line& operator=(const Line& f) = delete;*/
 
    };
 
    class TextFile {
        //A pointer to hold the dynamic array of Lines. 
        // This attribute should be initialized to nullptr
-       Line* m_textLines;
+       Line* m_textLines{ nullptr };
 
 
       //A pointer to hold the dynamic Cstring holding the name of
         //  the file.This attribute should be initialized to nullptr
-       char* m_filename;
+       char* m_filename{ nullptr };
 
       //An unsigned integer to be set to 
          //the number of lines in the file.
