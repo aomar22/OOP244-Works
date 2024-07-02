@@ -42,17 +42,14 @@ namespace seneca {
     void TextFile::setEmpty() {
         //deletes the m_textLines dynamic array and sets is to nullptr deletes the m_filename dynamic Cstring 
         // and sets is to nullptr sets m_noOfLines attribute to zero.
-      //  if (m_textLines != nullptr) {
+        
             delete[] m_textLines;
             m_textLines = nullptr;
-      //  }
-
-      //  if (m_filename != nullptr) {
+        
             delete[] m_filename;
             m_filename = nullptr;
-      //  }
-
-        m_noOfLines = 0;
+            
+            m_noOfLines = 0;
     }
     //If the isCopy argument is false, dynamically allocates a 
     // Cstring in m_filename and copies the content of the
@@ -96,20 +93,21 @@ namespace seneca {
     void TextFile::setNoOfLines() {
         char str = '\0';
        // m_noOfLines = 0;
-        std::ifstream localFile(m_filename);
-        if (localFile.is_open()) {
-            while (localFile) {
+        std::ifstream fin(m_filename);
+        if (fin.is_open()) {
+            while (fin) {
                 //  TextFile::lines();const;
-                localFile.get(str);
-                //  std::cout << str;
+                fin.get(str);
+                //std::cout << str;
                 if (str == '\n') {
                     m_noOfLines++;
                 }
             }
             m_noOfLines++;
-        } else {
-                delete[] m_filename;
-                m_filename = nullptr;
+        } else if(m_noOfLines = 0){
+                /*delete[] m_filename;
+                m_filename = nullptr;*/
+            setEmpty();
         }
         
     }
@@ -136,54 +134,46 @@ namespace seneca {
  the possibility of one extra empty line at the end of the file)*/
   
     void TextFile::loadText() {
-        if (m_filename[0] != '\0' && bool()) {
-     // if (m_textLines != nullptr) {
-          delete[] m_textLines;
-          m_textLines = nullptr;
-      m_textLines = new Line[m_noOfLines];
-
-      ifstream fin;
-      fin.open(m_filename);
-      unsigned countLines = 1;
-      std::string line = " ";
-      if (fin.is_open()) { //check if file is open
-         // getline(fin, line);
-
-          while (m_filename && getline(fin, line)) {
-            m_textLines[countLines].m_value = new char[line.length() + 1];
-            m_textLines[countLines] = line.c_str();       
-            countLines++;
-          }
-
-      }
-      m_noOfLines = countLines;
-      fin.close();
+        if (bool()) {
+             //make sure m_texLine is deleted before this to prevent memory leak
+                             
+              delete[] m_textLines;
+              m_textLines = nullptr;
+            // dynamically allocate an array of Lines pointed by m_textLines with the size kept in m_noOfLines.
+                
+              m_textLines = new Line[m_noOfLines];
+            
+                
+                              // Create a local instance of ifstream using the
+                              // file name m_filename to read the lines of the
+                              // text file.
+               std::ifstream fin;
+               fin.open(m_filename);
+               unsigned countLines = 0;
+               string line;
+               if (fin) { //check if file is open
+                   while (fin) {  //check if it is not the end of the file
+                       getline(fin, line); //In a loop reads each line into the string object
+                      // m_textLines[countLines].m_value = new char[strlen(line.c_str()) + 1];
+                       m_textLines[countLines].m_value = new char[line.length()+1];
+                       m_textLines[countLines] = line.c_str();
+                      // strcpy(m_textLines[countLines].m_value, line.c_str());
+                       // m_textLines[countLines].m_value = '\0';
+                       countLines++;
+                   }                
+                   
+               } 
+               
+            
+             m_noOfLines = countLines;
+             
+            
+        }
+        
     }
-        //if (m_filename) {
-        //   // if (m_textLines != nullptr) {
-        //        delete[] m_textLines;
-        //        m_textLines = nullptr;
-        //    
-        //
 
-        //    m_textLines = new Line[m_noOfLines];
-
-        //    ifstream fin;
-        //    fin.open(m_filename);
-        //    unsigned countLines = 1;
-        //    std::string line = " ";
-        //    if (fin.is_open()) { //check if file is open
-        //       // getline(fin, line);
-
-        //        while (m_filename && getline(fin, line)) {
-        //          //  m_textLines[countLines].m_value = new char[line.length() + 1];
-        //            m_textLines[countLines] = line.c_str();       
-        //          countLines++;
-        //        }
-
-        //    }
-        //    m_noOfLines = countLines;
-        //    fin.close();
+         
+    
         
         
        
@@ -201,16 +191,16 @@ namespace seneca {
     kept in the argument filename. Then loop through the elements of the m_textLines array and write
     them in the opened file adding a new line to the end of each line.*/
     void TextFile::saveAs(const char* fileName)const {
-        fileName = " ";
+        
         std::ofstream fin(fileName);
         fin.open(fileName);
-        if (fileName && fin.is_open()) {
-            unsigned int i;
+        if (fin.is_open()) {
+            unsigned i;
             for (i = 0; i < m_noOfLines; i++) {
-                fin << m_textLines[i];
-                fin << '\n';
+                fin << m_textLines[i] << '\n';
+               // fin << '\n';
             }
-        } fin.close();
+        } 
     }
 
     //Constructors:
@@ -428,11 +418,11 @@ std::ostream& operator<<(std::ostream& ostr, const TextFile& text) {
     return ostr;
 }
 //operator >>:
-std::istream& operator>>(std::istream& istr, TextFile& text) {
+  std::istream& operator>>(std::istream& istr, TextFile& text) {
     /*uses the getFile() method to get the file name from
     console and load the content from the file*/
     text.getFile(istr);
     return istr;
-}
+  }
 
 }
