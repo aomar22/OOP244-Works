@@ -31,5 +31,11 @@
     <Text Include="correct_output.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="echoesOriginal.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="seamusOriginal.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

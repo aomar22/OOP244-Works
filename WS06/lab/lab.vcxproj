@@ -27,6 +27,8 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="correct_output.txt" />
+    <Text Include="echoesOriginal.txt" />
+    <Text Include="seamusOriginal.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
