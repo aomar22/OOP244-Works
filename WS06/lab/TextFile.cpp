@@ -29,7 +29,10 @@ namespace seneca {
         //Makes sure all the allocated memory is freed.
         //Make sure Line can not be copied or assigned 
         // to another Line.
+        if(m_value != nullptr)
         delete[] m_value;
+        m_value = nullptr;
+
     }
     Line::Line() { //default constructor
         //Initializes the m_value attribute to nullptr
@@ -129,32 +132,18 @@ namespace seneca {
 
     void TextFile::loadText() {
         if (m_filename != nullptr) {
-            //make sure m_texLine is deleted before this to prevent memory leak
-            /*if (m_textLines != nullptr) {
-                delete[] m_textLines;
-                m_textLines = nullptr;
-            }*/
             delete[] m_textLines;
-            m_textLines = nullptr;
-                // dynamically allocate an array of Lines pointed by m_textLines with the size kept in m_noOfLines.
-            
-            m_textLines = new Line[m_noOfLines];
-            
-
-            // Create a local instance of ifstream using the 
-            // file name m_filename to read the lines of the 
-            // text file.
             std::ifstream readF;
             readF.open(m_filename);
-            unsigned countLines = 0;
-            string line;
-            if (readF) { //check if file is open
+            unsigned countLines = 1;
+            string line = "\0";
+           
+            if (readF && m_textLines != nullptr) { //check if file is open
 
-                while (readF) {  //check if it is not the end of the file
-                    getline(readF, line); //In a loop reads each line into the string object
+                while (readF && getline(readF, line)) {
+                    
                     m_textLines[countLines].m_value = new char[strlen(line.c_str()) + 1];
                     strcpy(m_textLines[countLines].m_value, line.c_str());
-                   // m_textLines[countLines].m_value = '\0';
                     countLines++;
                 }
                 

@@ -17,13 +17,15 @@ namespace seneca {
       ~Line();
       friend class TextFile;
       // copy and copy assignment prevention goes here
+      Line(Line&) = delete;
+      Line& operator=(const Line&) = delete;
 
    };
 
    class TextFile {
        //A pointer to hold the dynamic array of Lines. 
        // This attribute should be initialized to nullptr
-      Line* m_textLines; 
+       Line* m_textLines{ nullptr };
 
       //A pointer to hold the dynamic Cstring holding the name of
         //  the file.This attribute should be initialized to nullptr
@@ -31,11 +33,11 @@ namespace seneca {
 
       //An unsigned integer to be set to 
          //the number of lines in the file.
-      unsigned m_noOfLines;
+      unsigned m_noOfLines = 0;
 
       //The page size is the number of lines that should be displayed 
       // on the screen before the display is paused. After these lines are displayed, the user must hit enter for the next page to appear.
-      unsigned m_pageSize;
+      unsigned m_pageSize = 0;
       void setFilename(const char* fname, bool isCopy = false);
       void setNoOfLines();
       void loadText();
