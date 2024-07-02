@@ -47,24 +47,31 @@ namespace seneca {
         m_noOfLines = 0;
     }
     //If the isCopy argument is false, dynamically allocates a 
-    // Cstring in m_filename and copies the content of the fname argument into it. If the isCopy argument is true, 
-    // dynamically allocates a Cstring in m_filename and copies the content of the fname argument with a prefix of "C_" attached to it.
+    // Cstring in m_filename and copies the content of the
+    // fname argument into it. If the isCopy argument is true, 
+    // dynamically allocates a Cstring in m_filename and
+    // copies the content of the fname argument with 
+    // a prefix of "C_" attached to it.
 
  //Example:
    // setFilename("abc.txt"); // sets the m_filename to "abc.txt"
     //setFilename("abc.txt", true); // sets the m_filename to "C_abc.txt"
 
-    void TextFile::setFilename(const char* fname, bool isCopy = false) {
-        if (isCopy) {
-            fname = new char[strlen(fname) + 1];
-            strcpy(m_filename, fname);
-            m_filename[strlen(fname) + 1] = '\0';
-        }
-        else {
-            fname = new char[strlen(fname) + 1];
-                strcpy(m_filename, "C_");
-                strncpy(m_filename, fname, strlen(fname)+1);
-            
+    void TextFile::setFilename(const char* fname, bool isCopy) {
+        if (fname[0] != 0 && m_filename[0] != 0) {
+            if (isCopy) {
+
+                m_filename = new char[strlen("C-") + strlen(fname) + 1];
+                strcpy(m_filename, "C-");
+                strcat(m_filename, fname);
+
+            }
+            else {
+                m_filename = new char[strlen(fname) + 1];
+                strcpy(m_filename, fname);
+                m_filename[strlen(fname) + 1] = '\0';
+
+            }
         }
     }
     /*Counts the number of lines in the file:
@@ -84,16 +91,19 @@ namespace seneca {
         std::ifstream localFile(m_filename);
         if (localFile.is_open()) {
             while (localFile) {
-                TextFile::lines();const;
-                localFile >> str;
-                std::cout << str;
-                m_noOfLines++;
+                //  TextFile::lines();const;
+                localFile.get(str);
+                //  std::cout << str;
+                if (str == '\n') {
+                    m_noOfLines++;
+                }
             }
-            if (m_noOfLines == 0) {
+            m_noOfLines++;
+        } else if (m_noOfLines == 0) {
                 delete[] m_filename;
                 m_filename = nullptr;
-            }
         }
+        
     }
     /*Loads the text file m_filename into the dynamic array of Lines pointed by m_textLines :
  If the m_filename is null, this function does nothing.
@@ -120,29 +130,36 @@ namespace seneca {
     void TextFile::loadText() {
         if (m_filename != nullptr) {
             //make sure m_texLine is deleted before this to prevent memory leak
-            if (m_textLines != nullptr) {
+            /*if (m_textLines != nullptr) {
                 delete[] m_textLines;
                 m_textLines = nullptr;
+            }*/
+            delete[] m_textLines;
+            m_textLines = nullptr;
                 // dynamically allocate an array of Lines pointed by m_textLines with the size kept in m_noOfLines.
-                m_textLines = new Line[m_noOfLines];
-            }
+            
+            m_textLines = new Line[m_noOfLines];
+            
 
-            // Create a local instance of ifstream using the file name m_filename to read the lines of the text file.
-            std::ifstream f(m_filename);
-            f.open(m_filename);
-            int countLines = 0;
+            // Create a local instance of ifstream using the 
+            // file name m_filename to read the lines of the 
+            // text file.
+            std::ifstream readF;
+            readF.open(m_filename);
+            unsigned countLines = 0;
             string line;
-            if (f.is_open()) { //check if file is open
+            if (readF) { //check if file is open
 
-                while (f && countLines < m_noOfLines) {  //check if it is not the end of the file
-                    getline(f, line); //In a loop reads each line into the string object
-                    m_textLines[m_noOfLines] = line.c_str();
+                while (readF) {  //check if it is not the end of the file
+                    getline(readF, line); //In a loop reads each line into the string object
+                    m_textLines[countLines].m_value = new char[strlen(line.c_str()) + 1];
+                    strcpy(m_textLines[countLines].m_value, line.c_str());
+                   // m_textLines[countLines].m_value = '\0';
                     countLines++;
                 }
-
-                m_noOfLines = countLines;
-            } f.close();
-            
+                
+            } 
+            m_noOfLines = countLines;
         }
     }
 
@@ -155,23 +172,28 @@ namespace seneca {
         std::ofstream fin;
         fin.open(m_filename);
         if (fin.is_open()) {
-            for (auto i = 0; i < m_noOfLines; i++) {
+            for (unsigned i = 0; i < m_noOfLines; i++) {
                 fin << m_textLines[i] << endl;
             }
         } fin.close();
     }
 
     //Constructors:
-    TextFile::TextFile(unsigned pageSize = 15) {
+    TextFile::TextFile(unsigned pageSize) {
         //Creates an empty TextFile and initializes the m_pageSize
         // attribute using the pageSize argument.
         setEmpty();
         m_pageSize = pageSize;
     }
 
-    TextFile::TextFile(const char* filename, unsigned pageSize = 15) {
-        m_pageSize = pageSize;
+    TextFile::TextFile(const char* filename, unsigned pageSize) {
+       
         setEmpty();
+        filename = {};
+        m_filename = {};
+        if (pageSize != 0) {
+            m_pageSize = pageSize;
+        }
         if (filename != nullptr && filename[0] != '\0') {
             filename = new char[strlen(filename) + 1];
             strcpy(m_filename, filename);
@@ -253,6 +275,30 @@ unsigned TextFile::lines()const{
 }
 
 std::ostream& TextFile::view(std::ostream& ostr)const {
+    if (m_filename != nullptr && m_filename[0] != '\0') {
+        ostr << m_filename << endl;
+        ostr.fill('=');
+        ostr.width(strlen(m_filename));
+        ostr << '=' << endl;
+        unsigned i = 0;
+        while (i < m_noOfLines && i < m_pageSize) {
+            ostr << m_textLines[i] << endl;
+            i++;
+        }
+        if (i < m_noOfLines) {
+            while (i < m_noOfLines) {
+                ostr << "Hit Enter to Continue...";
+                char c;
+                cin.get(c);
+                for (unsigned j = 0; j < m_pageSize && i < m_noOfLines; j++) {
+                    ostr << m_textLines[i] << endl;
+                    i++;
+                }
+            }
+        }
+    }
+    return ostr;
+}
 /*Prints the filename and then the content of the file "m_pageSize" lines at a time.
 
     print the file name
@@ -264,26 +310,52 @@ std::ostream& TextFile::view(std::ostream& ostr)const {
 The function performs no action if the TextFile is in an empty state.
 
 This function receives and returns an instance of istream and uses the instance for printouts.*/
-}
+
 
 std::istream& TextFile::getFile(std::istream& istr) {
+    string s;
+    istr >> s;
+
+    m_filename = new char[strlen(s.c_str()) + 1];
+    strcpy(m_filename, s.c_str());
+    istr.ignore(10000, '\n');
+    setNoOfLines();
+    loadText();
+    return istr;
+}
     /*Receives a filename from istr to set the file name of the TextFile. Then sets the number of lines and loads the Text. 
     When done it will return the istr;*/
-}
+
 //index operator overload:
 const char* TextFile::operator[](unsigned index)const {
+    if (m_filename != nullptr && m_filename[0] != '\0') {
+        if (index >= m_noOfLines) {
+            index -= m_noOfLines; //loop back to the beginning e.g. index = noOfLines = 10, index = 10 - 10, index = 0 (loop back)
+        }
+        else {
+            return nullptr;
+        }
+    }
+    return m_textLines[index].m_value;
+}
     /*Returns the element in the m_textLine array corresponding to the index argument. If the TextFile is in an empty state,
     it will return null. If the index exceeds the size of the array it should loop back to the beginning.
 
 For example, if the number of lines is 10, the
 last index should be 9 and index 10 should return the first element
 and index 11 should return the second element.*/
-}
+
 //Type conversion overloads:
 //boolean cast:
 TextFile::operator bool()const {
     //Returns true if the TextFile is not in an empty state 
     // and returns false if it is.
+    if (m_textLines != nullptr) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 //constant character pointer cast:
@@ -296,11 +368,15 @@ const char* TextFile::name()const {
 std::ostream& operator<<(std::ostream& ostr, const TextFile& text) {
     //operator <<
     //uses the view() method to print the TextFile
+    text.view(ostr);
+    return ostr;
 }
 //operator >>:
 std::istream& operator>>(std::istream& istr, TextFile& text) {
     /*uses the getFile() method to get the file name from
     console and load the content from the file*/
+    text.getFile(istr);
+    return istr;
 }
 
 }

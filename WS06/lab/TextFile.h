@@ -27,7 +27,7 @@ namespace seneca {
 
       //A pointer to hold the dynamic Cstring holding the name of
         //  the file.This attribute should be initialized to nullptr
-      char* m_filename;
+      char* m_filename{ nullptr };
 
       //An unsigned integer to be set to 
          //the number of lines in the file.
