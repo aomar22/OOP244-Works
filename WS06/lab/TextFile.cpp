@@ -43,12 +43,14 @@ namespace seneca {
         //deletes the m_textLines dynamic array and sets is to nullptr deletes the m_filename dynamic Cstring 
         // and sets is to nullptr sets m_noOfLines attribute to zero.
         
-
+        if (m_textLines != nullptr) {
             delete[] m_textLines;
             m_textLines = nullptr;
-        
+        }
+        if (m_filename != nullptr) {
             delete[] m_filename;
             m_filename = nullptr;
+        }
             
             m_noOfLines = 0;
     }
@@ -83,9 +85,9 @@ namespace seneca {
    
     void TextFile::setNoOfLines() {
         char str = '\0';
-       // m_noOfLines = 0;
+        m_noOfLines = 0;
         std::ifstream fin(m_filename);
-        if (fin.is_open()) {
+        if (fin.is_open() && m_noOfLines != 0) {
             while (fin) {
                 //  TextFile::lines();const;
                 fin.get(str);
@@ -95,9 +97,9 @@ namespace seneca {
                 }
             }
             m_noOfLines++;
-        } else if(m_noOfLines = 0){
-                delete[] m_filename;
-                m_filename = nullptr;
+        } else {
+               /* delete[] m_filename;
+                m_filename = nullptr;*/
             setEmpty();
         }
         
@@ -171,7 +173,7 @@ namespace seneca {
         setEmpty();
         m_pageSize = pageSize;
         
-        if (/*filename != nullptr && filename[0] != '\0'*/bool()) {
+        if (filename != nullptr) {
             m_filename = new char[strlen(filename) + 1];
             strcpy(m_filename, filename);
            // m_filename[strlen(filename) + 1] = '\0';
@@ -211,8 +213,8 @@ namespace seneca {
 
                 saveAs(m_filename);
             }
-           // setNoOfLines();
-           // loadText();
+            setNoOfLines();
+            loadText();
         }
     }
 
@@ -234,8 +236,8 @@ namespace seneca {
                 i++;
             }
             saveAs(m_filename);
-          /*  setNoOfLines();
-            loadText();*/
+            setNoOfLines();
+            loadText();
         }
         return *this;
     }
@@ -262,7 +264,7 @@ unsigned TextFile::lines()const{
 
 std::ostream& TextFile::view(std::ostream& ostr)const {
     // if (m_filename != nullptr && m_filename[0] != '\0') {
-    if (/*m_filename != nullptr && m_filename[0] != '\0'*/bool()) {
+    if (m_filename != nullptr) {
 
         ostr << this->m_filename << endl;
         unsigned long i = 0;
@@ -361,9 +363,15 @@ and index 11 should return the second element.*/
 TextFile::operator bool()const {
     //Returns true if the TextFile is not in an empty state 
     // and returns false if it is.
-    if (m_textLines != nullptr && m_filename != nullptr) {
+    if (m_filename != nullptr && m_textLines != nullptr && m_noOfLines > 0) {
         return true;
     }
+    else {
+        return false;
+    }
+     
+  
+    
 }
 
 //constant character pointer cast:
