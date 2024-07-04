@@ -29,11 +29,11 @@ namespace seneca {
 		char* m_itemsContent; //// Dynamically allocated C-style string for menu item content
 		friend class Menu;
 		//constructor:
+		
 		MenuItem();
-		MenuItem(const char* str);
 		//*(Copy constructor and Copy assignment are deleted)*
-		MenuItem(const MenuItem& source) = delete;
-		MenuItem& operator=(const MenuItem& source) = delete;
+		MenuItem(const MenuItem&) = delete;
+		MenuItem& operator=(const MenuItem&) = delete;
 		//Destructor:
 		~MenuItem();
 
@@ -41,7 +41,7 @@ namespace seneca {
 		operator bool()const;
 
 		//### `const char*` type conversion
-		operator const char* ();
+		operator const char*();
 		// displaying the MenuItem
 		std::ostream& display(std::ostream& Item)const;
 	};
@@ -92,7 +92,7 @@ Initialize this array of pointers to nullptrs.*/
 		//return the const char* cast of the corresponding MenuItem in the array
 		//of MenuItem pointers.
 		//If the index passes the number of MenuItems in the Menu, loop back to the beginning. (use modulus)
-		//void silentlyIgnore();
+
 	};
 	
 }

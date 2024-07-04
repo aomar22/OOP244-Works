@@ -28,7 +28,7 @@ namespace seneca {
 		m_title = nullptr;
 		m_items[0] = nullptr;
 		m_noOfItems = 0;
-		
+
 	}
 	void Menu::setEmpty() {
 		m_title = nullptr;
@@ -39,7 +39,7 @@ namespace seneca {
 		}
 	}
 	Menu::Menu(const char* title)
-	{    
+	{
 		setEmpty();
 		if (title != nullptr && m_title) {
 			//delete[] m_title;
@@ -61,64 +61,83 @@ namespace seneca {
 	std::ostream& Menu::displayTitle(std::ostream& ti) const
 	{
 		//if (t.m_title[0]!= '\0') {
-			return ti << m_title;
+		return ti << m_title;
 		//}
 		//return ti;
 	}
 
 	std::ostream& Menu::displayMenu(std::ostream& mn, Menu& m)
 	{
-		
-			m.displayTitle(mn);
-			mn << ":" << endl;
-			//int rowNum = 1;
-			for (auto i = 0; i < m.m_noOfItems; i++) {
-				mn.width(2);
-				mn.setf(ios::right);
-				mn << (i + 1);
-				mn.fill('-');
-				mn << ' ';
-				mn << m.m_items[i] << endl;
-				i--;
-			}
-		
+
+		m.displayTitle(mn);
+		mn << ":" << endl;
+		//int rowNum = 1;
+		for (auto i = 0; i < m.m_noOfItems; i++) {
+			mn.width(2);
+			mn.setf(ios::right);
+			mn << (i + 1);
+			mn.fill('-');
+			mn << ' ';
+			mn << m.m_items[i] << endl;
+			i--;
+		}
+
 		mn << "0- Exit" << '\n' << "> ";
 		return mn;
 	}
-	
+
 	unsigned int Menu::run() const
 	{
 		Utils ut{};
 		Menu m;
 		unsigned int num;
-	    ostream& mn2 = std::cout;
+		ostream& mn2 = std::cout;
 		m.displayMenu(mn2, m); //displaying menu
 		num = ut.getInt(0, MAX_MENU_ITEMS); //foolproof function for user's Selection
 		return num;
 	}
 
-	 bool Menu::operator~()
-	 {
-		
-		if (bool()){
+	bool Menu::operator~()
+	{
+
+		if (bool()) {
 			run();
 		}
 		return true;
-	 }
-
-	 Menu& Menu::operator<<(const char* menuItemContent)
+	}
+	/* ```C++
+    int a;
+    Menu M;
+    M << "Omelet" << "Tuna Sandwich" << "California Rolls";
+    a = M.run()
+    cout << "Your selection " << a << endl;
+    ```
+    
+    output:
+    ```Text
+     1- Omelet
+     2- Tuna Sandwich
+     3- California Rolls
+     0- Exit*/
+	Menu& Menu::operator<<(const char* menuItemContent)
 	{   	//check if the next spot for a MenuItem is available in the array of MenuItem pointers.
-			if (unsigned int(m_noOfItems) < MAX_MENU_ITEMS && menuItemContent[0] != '\0') {
-				//If it is, dynamically create a MenuItem out of the content received through the operator argument 
-				m_items[m_noOfItems] = new MenuItem(menuItemContent);
+		if (this->m_noOfItems < MAX_MENU_ITEMS && menuItemContent[0] != '\0') {
+			//If it is, dynamically create a MenuItem out of the content received through the operator argument 
+			
+			this->m_items[m_noOfItems] = new MenuItem[MAX_MENU_ITEMS];
+			unsigned i = 0;
+			for (i = 0; i < (MAX_MENU_ITEMS - m_noOfItems); i++) {
+				m_items[i]->m_itemsContent = new char[strlen(menuItemContent) + 1];
 				// store the address in the available spot 
-
+				strcpy(m_items[i]->m_itemsContent, menuItemContent);
 				//increase the number of allocated MenuItem pointers by one
-				m_items[m_noOfItems++];
+
+				menuItemContent++;
 			}
+		}
 		return *this;
 	}
-	
+
 	Menu::operator int()
 	{
 		return m_noOfItems;
@@ -133,83 +152,80 @@ namespace seneca {
 	{
 		return m_noOfItems >= 1;
 	}
-	
-	Menu& Menu::operator<<(Menu& M) 
+
+	Menu& Menu::operator<<(Menu& M)
 	{
 		if (M && M.m_title[0] != '\0') {
 			m_title = M.m_title;
-				std::cout << M.m_title << std::endl;
-			
+			std::cout << M.m_title << std::endl;
+
 		}
-		
+
 		return *this;
 	}
-	
+
 	const char* Menu::operator[](int index) const
 	{
-		if (index >= 0 && index < m_noOfItems) {
-			std::cout << m_items[index] << std::endl;
-		}else if (index == m_noOfItems) {
-			std::cout << m_items[index % m_noOfItems];
-			//index -= m_noOfItems;
-		}
-		return m_items[index].m_itemsContent;
-	}
-
-	MenuItem::MenuItem()
-	{
-		m_itemsContent[0] = '\0';
-	}
-
-	MenuItem::MenuItem(const char* str) {
-		if (str[0] != '\0') {
-			m_itemsContent = new char[strlen(str) + 1]; //allocate memory
-			strcpy(m_itemsContent, str); //copy the incoming string
-			m_itemsContent[strlen(str) + 1] = '\n'; //ensure last character is '\n'
-		}
-		else {
+		if (bool() && m_title != nullptr) {
+			if (index >= 0 && index < m_noOfItems) {
+				index -= m_noOfItems;
+			}
+			else if (index >= m_noOfItems) {
+				index = index % m_noOfItems;
+				//index -= m_noOfItems;
+			}
 			
-			m_itemsContent = nullptr;
 		}
-		//Allocates and sets the content of the MenuItem to a Cstring 
-		// value at the moment of instantiation (or initialization)
-		// If no value is provided for the description at the moment of creation, 
-		// the MenuItem should be set to an empty state.
-	}
-	
-	MenuItem::~MenuItem() {
-		delete[] m_itemsContent;
+		return m_items[index % m_noOfItems]->m_itemsContent;
 	}
 
-	MenuItem::operator bool() const //return true, if it is not empty
-	{
-		if (m_itemsContent[0] != '\0') {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
+		MenuItem::MenuItem() {
+			char* str = nullptr;
+			if (str) {
+				m_itemsContent = new char[strlen(str) + 1]; //allocate memory
+				strcpy(m_itemsContent, str); //copy the incoming string
+				m_itemsContent[strlen(str) + 1] = '\n'; //ensure last character is '\n'
+			}
+			else {
 
-	MenuItem::operator const char*()
-	{
-		return m_itemsContent; //return the address of the content Cstring to convert it to const char*
-	}
+				m_itemsContent[0] = '\0';
+			}
+			//Allocates and sets the content of the MenuItem to a Cstring 
+			// value at the moment of instantiation (or initialization)
+			// If no value is provided for the description at the moment of creation, 
+			// the MenuItem should be set to an empty state.
+		}
 
-	ostream& MenuItem::display(std::ostream& Item) const
-	{
-		if (m_itemsContent[0] != '\0'){
-		   return Item << m_itemsContent;   //display the content of the MenuItem on ostream if menuItem is Not empty
+		
+		MenuItem::operator bool() const //return true, if it is not empty
+		{
+			if (m_itemsContent[0] != '\0') {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
-		else {
-			m_itemsContent[0] = '\0';
+
+		MenuItem::operator const char* ()
+		{
+			return m_itemsContent; //return the address of the content Cstring to convert it to const char*
 		}
-		return Item;
-	}
-	
+
+		MenuItem::~MenuItem()
+		{
+			delete[] m_itemsContent;
+		}
+
+		ostream& MenuItem::display(std::ostream & Item) const
+		{
+			if (m_itemsContent[0] != '\0') {
+				return Item << m_itemsContent;   //display the content of the MenuItem on ostream if menuItem is Not empty
+			}
+			else {
+				m_itemsContent[0] = '\0';
+			}
+			return Item;
+		}
+
 }
-/*Create a method to display the content of the MenuItem on ostream. (No newline is printed after)
-Nothing is printed if MenuItem is empty.
-
-	Remember that the MenuItem class is fully private.
-*/
