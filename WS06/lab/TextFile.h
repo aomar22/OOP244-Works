@@ -10,9 +10,9 @@ provided to complete my project milestones.*/
 namespace seneca {
     class TextFile; //forward declaration
    class Line {
-       char* m_value; //holds the address of the dynamically allocated Cstring (to hold a line of the text file)
+       char* m_value{nullptr}; //holds the address of the dynamically allocated Cstring (to hold a line of the text file)
       operator const char* ()const;
-      Line();// {}
+      Line();
       Line& operator=(const char* lineValue);
       ~Line();
       friend class TextFile;
@@ -25,12 +25,10 @@ namespace seneca {
    class TextFile {
        //A pointer to hold the dynamic array of Lines. 
        // This attribute should be initialized to nullptr
-       Line* m_textLines;
-
-
+       Line* m_textLines{ nullptr };
       //A pointer to hold the dynamic Cstring holding the name of
         //  the file.This attribute should be initialized to nullptr
-       char* m_filename;
+       char* m_filename{};
 
       //An unsigned integer to be set to 
          //the number of lines in the file.

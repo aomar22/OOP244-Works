@@ -34,7 +34,7 @@ namespace seneca {
 		m_title = nullptr;
 		m_noOfItems = 0;
 		m_items[0] = nullptr;
-		for (auto i = 0; i < m_noOfItems; i++) {
+		for (unsigned i = 0; i < m_noOfItems; i++) {
 			m_items[i] = nullptr;
 		}
 	}
@@ -54,7 +54,7 @@ namespace seneca {
 		/*Looping through the MenuItems array of pointers,
 		it deletes each pointer up to the number of menu items in the menu.*/
 		delete[] m_title;
-		for (auto i = 0; i < m_noOfItems; i++) {
+		for (unsigned i = 0; i < m_noOfItems; i++) {
 			delete[] m_items[i];
 		}
 	}
@@ -72,7 +72,7 @@ namespace seneca {
 		m.displayTitle(mn);
 		mn << ":" << endl;
 		//int rowNum = 1;
-		for (auto i = 0; i < m.m_noOfItems; i++) {
+		for (unsigned i = 0; i < m.m_noOfItems; i++) {
 			mn.width(2);
 			mn.setf(ios::right);
 			mn << (i + 1);
@@ -164,7 +164,7 @@ namespace seneca {
 		return *this;
 	}
 
-	const char* Menu::operator[](int index) const
+	const char* Menu::operator[](unsigned index) const
 	{
 		if (bool() && m_title != nullptr) {
 			if (index >= 0 && index < m_noOfItems) {

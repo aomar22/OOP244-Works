@@ -29,29 +29,24 @@ namespace seneca {
         //Makes sure all the allocated memory is freed.
         //Make sure Line can not be copied or assigned 
         // to another Line.
-        if (m_value != nullptr) {
+       if (m_value != nullptr) {
             delete[] m_value;
             m_value = nullptr;
-        }
+       }
 
     }
-    Line::Line() { //default constructor
+    Line::Line(){ //default constructor
         //Initializes the m_value attribute to nullptr
         m_value = nullptr;
     }
     void TextFile::setEmpty() {
-        //deletes the m_textLines dynamic array and sets is to nullptr deletes the m_filename dynamic Cstring 
-        // and sets is to nullptr sets m_noOfLines attribute to zero.
-        
-        if (m_textLines != nullptr) {
+       
             delete[] m_textLines;
             m_textLines = nullptr;
-        }
-        if (m_filename != nullptr) {
+      
             delete[] m_filename;
             m_filename = nullptr;
-        }
-            
+         
             m_noOfLines = 0;
     }
     //If the isCopy argument is false, dynamically allocates a 
@@ -66,9 +61,12 @@ namespace seneca {
     //setFilename("abc.txt", true); // sets the m_filename to "C_abc.txt"
 
     void TextFile::setFilename(const char* fname, bool isCopy) {
-       // if (fname[0] != 0 && m_filename[0] != 0) {
+        //if (fname[0] != 0 && m_filename[0] != 0) {
+            
             if (isCopy) {
-
+               /* fname = new char[strlen(fname) + 1];
+                strcpy(m_filename, "C_");
+                strncpy(m_filename, fname, strlen(fname) + 1);*/
                 m_filename = new char[strlen("C_") + strlen(fname) + 1];
                 strcpy(m_filename, "C_");
                 strcat(m_filename, fname);
@@ -77,17 +75,17 @@ namespace seneca {
             else {
                 m_filename = new char[strlen(fname) + 1];
                 strcpy(m_filename, fname);
-               // m_filename[strlen(fname) + 1] = '\0';
+                // m_filename[strlen(fname) + 1] = '\0';
 
             }
-     
+        //}
     }
    
     void TextFile::setNoOfLines() {
         char str = '\0';
         m_noOfLines = 0;
         std::ifstream fin(m_filename);
-        if (fin.is_open() && m_noOfLines != 0) {
+        if (fin.is_open()) {
             while (fin) {
                 //  TextFile::lines();const;
                 fin.get(str);
@@ -106,7 +104,7 @@ namespace seneca {
     }
   
     void TextFile::loadText() {
-        if (bool()) {
+        if (*this) { // bool() -> boolean = false
              //make sure m_texLine is deleted before this to prevent memory leak
                              
               delete[] m_textLines;
@@ -122,22 +120,25 @@ namespace seneca {
                std::ifstream fin;
                fin.open(m_filename);
                unsigned countLines = 0;
-               string line;
+               string line = " ";
+               
                if (fin) { //check if file is open
                    while (fin) {  //check if it is not the end of the file
-                       getline(fin, line); //In a loop reads each line into the string object
+                      getline(fin, line); //In a loop reads each line into the string object
+                       
                       // m_textLines[countLines].m_value = new char[strlen(line.c_str()) + 1];
                        m_textLines[countLines].m_value = new char[line.length()+1];
                        m_textLines[countLines] = line.c_str();
                       // strcpy(m_textLines[countLines].m_value, line.c_str());
                        // m_textLines[countLines].m_value = '\0';
                        countLines++;
+                      // delete[] m_textLines;
                    }                
                    
-               } 
+               } fin.close();
                
             
-             m_noOfLines = countLines;
+                m_noOfLines = countLines;
              
             
         }
@@ -149,15 +150,16 @@ namespace seneca {
  
     void TextFile::saveAs(const char* fileName)const {
         
-        std::ofstream fin(fileName);
-        fin.open(fileName);
-        if (fin.is_open()) {
+        std::ofstream fout(fileName);
+        //char* m_textLines = new char[strlen(fileName)+1];
+        //strcpy(m_textLines, fileName);
+        //fout.open(fileName);
+        if (fout.is_open()) {
             unsigned i;
-            for (i = 0; i < m_noOfLines; i++) {
-                fin << m_textLines[i];
-                fin << '\n';
+            for (i = 0; i < m_noOfLines - 1; i++) {
+                fout << m_textLines[i] << '\n';
             }
-        } 
+        } fout.close();
     }
 
     //Constructors:
@@ -174,10 +176,10 @@ namespace seneca {
         m_pageSize = pageSize;
         
         if (filename != nullptr) {
-            m_filename = new char[strlen(filename) + 1];
-            strcpy(m_filename, filename);
+            /*m_filename = new char[strlen(filename) + 1];
+            strcpy(m_filename, filename);*/
            // m_filename[strlen(filename) + 1] = '\0';
-            setFilename(m_filename);
+            setFilename(filename);
             setNoOfLines();
             loadText();
 
@@ -198,8 +200,8 @@ namespace seneca {
         if (this != &file) {
             if (file.m_textLines && file.m_noOfLines > 0) {
 
-                setFilename(file.m_filename, true);
-                this->m_noOfLines = file.m_noOfLines;
+                setFilename(file.m_filename, true);//Sets the file-name to the name of the incoming TextFile object
+                /*this->m_noOfLines = file.m_noOfLines;
                 delete[] m_textLines;
                 m_textLines = nullptr;
                 m_textLines = new Line[m_noOfLines];
@@ -207,14 +209,16 @@ namespace seneca {
                 while (i < m_noOfLines) {
 
                     m_textLines[i].m_value = new char[strlen(file.m_textLines[i].m_value) + 1];
-                    strcpy(m_textLines[i].m_value, file.m_textLines[i]);
+                    strcpy(m_textLines[i].m_value, file.m_textLines[i].m_value);
                     i++;
-                }
+                }*/
 
-                saveAs(m_filename);
+                file.saveAs(m_filename);
+                setNoOfLines();
+                loadText();
             }
-            setNoOfLines();
-            loadText();
+            /*setNoOfLines();
+            loadText();*/
         }
     }
 
@@ -223,19 +227,19 @@ namespace seneca {
     TextFile& TextFile::operator=(const TextFile& file) {
        // if (this->m_noOfLines > 0 && file.m_noOfLines > 0) {
         if(this != &file){
-            if (m_textLines != nullptr) {
+          //  if (m_textLines != nullptr) {
                 delete[] m_textLines;
                 m_textLines = nullptr;
-            }
-            m_textLines = new Line[m_noOfLines];
+           // }
+            /*m_textLines = new Line[m_noOfLines];
             unsigned i = 0;
             while (i < m_noOfLines) {
 
                 m_textLines[i].m_value = new char[strlen(file.m_textLines[i].m_value) + 1];
                 strcpy(m_textLines[i].m_value, file.m_textLines[i]);
                 i++;
-            }
-            saveAs(m_filename);
+            }*/
+            file.saveAs(m_filename);
             setNoOfLines();
             loadText();
         }
@@ -247,14 +251,14 @@ namespace seneca {
     */
     //3
     TextFile::~TextFile() {
-        if (m_textLines != nullptr) {
+      //  if (m_textLines != nullptr) {
             delete[] m_textLines;
             m_textLines = nullptr;
-        }
-        if (m_filename != nullptr) {
+      //  }
+      //  if (m_filename != nullptr) {
             delete[] m_filename;
             m_filename = nullptr;
-        }
+      //  }
     }
 
     //Public Methods:
@@ -341,15 +345,21 @@ std::istream& TextFile::getFile(std::istream& istr) {
 //index operator overload:
 const char* TextFile::operator[](unsigned index)const {
     if (m_filename != nullptr && m_filename[0] != '\0') {
-        if (index >= m_noOfLines) {
-            index -= m_noOfLines; //loop back to the beginning e.g. index = noOfLines = 10, index = 10 - 10, index = 0 (loop back)
-        //or index%= m_noOfLines;
-        }
-        else {
-            return nullptr;
-        }
+        //if (index >= m_noOfLines) {
+            //index -= m_noOfLines; //loop back to the beginning e.g. index = noOfLines = 10, index = 10 - 10, index = 0 (loop back)
+            //index%= m_noOfLines;
+        //}
+        
+       // Line arr[9]; // each idx is a Line obj, arr[9].m_value
+        //Line* parr[9]; // each idx is a Line ptr, parr[9]->m_value
+        unsigned temp = index % m_noOfLines;
+        return m_textLines[index % m_noOfLines].m_value;
+        
     }
-    return m_textLines[index].m_value;
+    else {
+        return nullptr;
+    }
+    
 }
     /*Returns the element in the m_textLine array corresponding to the index argument. If the TextFile is in an empty state,
     it will return null. If the index exceeds the size of the array it should loop back to the beginning.
@@ -363,7 +373,8 @@ and index 11 should return the second element.*/
 TextFile::operator bool()const {
     //Returns true if the TextFile is not in an empty state 
     // and returns false if it is.
-    if (m_filename != nullptr && m_textLines != nullptr && m_noOfLines > 0) {
+    //if (m_filename != nullptr && m_textLines != nullptr && m_noOfLines > 0) {
+    if (m_filename) {
         return true;
     }
     else {

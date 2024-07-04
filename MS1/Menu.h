@@ -88,7 +88,7 @@ Initialize this array of pointers to nullptrs.*/
 		Menu& operator<<(Menu& M); //print the title of the Menu using **cout**.
 
 		//Overload the indexing operator:
-		const char* operator[](int index)const;
+		const char* operator[](unsigned index)const;
 		//return the const char* cast of the corresponding MenuItem in the array
 		//of MenuItem pointers.
 		//If the index passes the number of MenuItems in the Menu, loop back to the beginning. (use modulus)
