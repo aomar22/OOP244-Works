@@ -26,14 +26,11 @@ namespace seneca {
 	Menu::Menu()
 	{
 		m_title = nullptr;
-		m_items[0] = nullptr;
-		m_noOfItems = 0;
 
 	}
 	void Menu::setEmpty() {
 		m_title = nullptr;
 		m_noOfItems = 0;
-		m_items[0] = nullptr;
 		for (unsigned i = 0; i < m_noOfItems; i++) {
 			m_items[i] = nullptr;
 		}
@@ -41,11 +38,10 @@ namespace seneca {
 	Menu::Menu(const char* title)
 	{
 		setEmpty();
-		if (title != nullptr && m_title) {
-			//delete[] m_title;
+		if (title) {
+			delete[] m_title;
 			m_title = new char[strlen(title) + 1];
 			strcpy(m_title, title);
-			m_title[strlen(title) + 1] = '\n';
 		}
 	}
 
@@ -58,12 +54,10 @@ namespace seneca {
 			delete[] m_items[i];
 		}
 	}
-	std::ostream& Menu::displayTitle(std::ostream& ti) const
+	std::ostream& Menu::displayTitle(std::ostream& ti, Menu& m) const
 	{
-		//if (t.m_title[0]!= '\0') {
+		if(ti) {
 		return ti << m_title;
-		//}
-		//return ti;
 	}
 
 	std::ostream& Menu::displayMenu(std::ostream& mn, Menu& m)
@@ -99,10 +93,7 @@ namespace seneca {
 
 	bool Menu::operator~()
 	{
-
-		if (bool()) {
-			run();
-		}
+			run();	
 		return true;
 	}
 	/* ```C++
@@ -153,15 +144,17 @@ namespace seneca {
 		return m_noOfItems >= 1;
 	}
 
-	Menu& Menu::operator<<(Menu& M)
+	const char* Menu::operator<<(Menu& M) 
 	{
 		if (M && M.m_title[0] != '\0') {
-			m_title = M.m_title;
-			std::cout << M.m_title << std::endl;
+
+			m_title = new char[strlen(M.m_title) + 1];
+			strcpy(m_title, M.m_title);
+			std::cout << m_title << std::endl;
 
 		}
 
-		return *this;
+		return m_title;
 	}
 
 	const char* Menu::operator[](unsigned index) const

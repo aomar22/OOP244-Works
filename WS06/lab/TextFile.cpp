@@ -1,7 +1,7 @@
 /*Name: Amany Omar
   Email: aomar22@myseneca.ca 
   ID# 126127166
-  Completed on July 4th, 2024.
+  Completed on July 5th, 2024.
   Citation: I have done all the coding by myself and only copied the code that my professor
 provided to complete my project milestones and I needed help from the professor in debugging the code.*/
 #define _CRT_SECURE_NO_WARNINGS
@@ -20,64 +20,51 @@ namespace seneca {
         delete[] m_value;       
         m_value = new char[strlen(lineValue) + 1];
         strcpy(m_value, lineValue);
-
         return *this;
     }
-    Line::~Line() {
-        
+    Line::~Line() { 
        if (m_value != nullptr) {
             delete[] m_value;
             m_value = nullptr;
        }
-
     }
     Line::Line(){ 
-       
         m_value = nullptr;
     }
     void TextFile::setEmpty() {
-        if (m_textLines != nullptr) {
+    
             delete[] m_textLines;
             m_textLines = nullptr;
-        }
-        if (m_filename != nullptr) {
+ 
             delete[] m_filename;
             m_filename = nullptr;
-        }
-         
+        
             m_noOfLines = 0;
     }
 
     void TextFile::setFilename(const char* fname, bool isCopy) {
             
-         if (isCopy) {
-               
+         if (isCopy) {   
              m_filename = new char[strlen("C_") + strlen(fname) + 1];
              strcpy(m_filename, "C_");
              strcat(m_filename, fname);
-
          }
          else {
               m_filename = new char[strlen(fname) + 1];
               strcpy(m_filename, fname);
          }
     }
-   
     void TextFile::setNoOfLines() {
         char str = '\0';
         m_noOfLines = 0;
         std::ifstream fin(m_filename);
         if (fin.is_open()) {
             while (fin.get(str)) {
-               
-                /*fin.get(str);*/
-                
                 if (str == '\n') {
                     m_noOfLines++;
                 }
             }
-            if (m_noOfLines == 0) {
-
+            if (m_noOfLines == 0){
                 setEmpty();
             }
              else {
@@ -85,13 +72,10 @@ namespace seneca {
              }
         } 
     }
-
     void TextFile::loadText() {
-        if (*this) { // bool() -> boolean = false
-          
+        if (*this) { // bool() -> boolean = false     
             delete[] m_textLines;
             m_textLines = nullptr;
-
             m_textLines = new Line[m_noOfLines];
 
             std::ifstream fin;
@@ -100,25 +84,17 @@ namespace seneca {
             string line;
 
             if (fin) { 
-              
                 while (getline(fin, line)) {  //In a loop reads each line into the string object
-
-                    m_textLines[countLines].m_value = new char[line.length() + 1];
-                    
+                    m_textLines[countLines].m_value = new char[line.length() + 1]; 
                     m_textLines[countLines] = line.c_str();  
-                    
                     countLines++;    
                 }  
-                
                  m_noOfLines = countLines;  
             } fin.close();
         }
     }
- 
-    void TextFile::saveAs(const char* fileName)const {
-        
+    void TextFile::saveAs(const char* fileName)const {   
         std::ofstream fout(fileName);
-    
         if (fout.is_open()) {
             unsigned i;
             for (i = 0; i < m_noOfLines; i++) {
@@ -126,34 +102,23 @@ namespace seneca {
             }
         } fout.close();
     }
-
-    //Constructors:
-    TextFile::TextFile(unsigned pageSize) {
-        
+    TextFile::TextFile(unsigned pageSize) { 
         setEmpty();
         m_pageSize = pageSize;
     }
-
     TextFile::TextFile(const char* filename, unsigned pageSize) {
-       
         setEmpty();
         m_pageSize = pageSize;
-        
-        if (filename != nullptr) {
-            
+        if (filename) {
             setFilename(filename);
             setNoOfLines();
             loadText();
-
-        }
+        }   
     }
-    //Rule of three implementations for classes with resource:
-
-    TextFile::TextFile(const TextFile& file) { //1 copy constructor
-        
+    TextFile::TextFile(const TextFile& file) { 
         setEmpty();
         this->m_pageSize = file.m_pageSize;
-        if (this != &file) {
+      
             if (file.m_textLines && file.m_noOfLines > 0) {
 
                 setFilename(file.m_filename, true);
@@ -161,12 +126,8 @@ namespace seneca {
                 setNoOfLines();
                 loadText();
             }
-        }
     }
-
-    //2 Copy Assignment
-    TextFile& TextFile::operator=(const TextFile& file) {
-       
+    TextFile& TextFile::operator=(const TextFile& file) {  
         if(this != &file){
            delete[] m_textLines;
            m_textLines = nullptr;
@@ -176,25 +137,21 @@ namespace seneca {
         }
         return *this;
     }
-  
-    TextFile::~TextFile() { // 3 destructor
+    TextFile::~TextFile() { 
       
          delete[] m_textLines;
          m_textLines = nullptr;
          delete[] m_filename;
          m_filename = nullptr;
     }
-
-    //Public Methods:
 unsigned TextFile::lines()const{
     return m_noOfLines;
 }
-
 std::ostream& TextFile::view(std::ostream& ostr)const {
-   
-    if (m_filename != nullptr) {
-
-        ostr << this->m_filename << endl;
+    bool valid = m_filename != nullptr && m_noOfLines > 0 && m_textLines != nullptr;
+    if (valid) {
+        
+        ostr << name() << endl;
         unsigned long i = 0;
         unsigned long j = 0;
         for (i = 0; i < strlen(m_filename); i++) {
@@ -213,20 +170,17 @@ std::ostream& TextFile::view(std::ostream& ostr)const {
     }
     return ostr;
 }
- 
 std::istream& TextFile::getFile(std::istream& istr) {
     string s;
     getline(istr, s);
-     m_filename = new char[s.length() + 1];
+    m_filename = new char[s.length() + 1];
     strcpy(m_filename, s.c_str());
     setFilename(m_filename);
     setNoOfLines();
     loadText();
+    
     return istr;
 }
-    
-
-//index operator overload:
 const char* TextFile::operator[](unsigned index)const {
     if (m_filename != nullptr && m_filename[0] != '\0') {
 
@@ -236,11 +190,7 @@ const char* TextFile::operator[](unsigned index)const {
         return nullptr;
     }
 }
-
-//Type conversion overloads:
-//boolean cast:
-TextFile::operator bool()const {
-   
+TextFile::operator bool()const { 
     if (m_filename) {
         return true;
     }
@@ -248,12 +198,11 @@ TextFile::operator bool()const {
         return false;
     } 
 }
-
 const char* TextFile::name()const {
-   
-    return m_filename;
+    if (m_filename) {
+        return m_filename;
+    }
 }
-
 std::ostream& operator<<(std::ostream& ostr, const TextFile& text) {
  
     text.view(ostr);
