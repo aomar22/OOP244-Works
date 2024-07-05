@@ -37,10 +37,10 @@
     <Text Include="seamusOriginal.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="C_seamus.txt">
+    <Text Include="seamus.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="seamus.txt">
+    <Text Include="C_seamus.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

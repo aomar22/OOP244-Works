@@ -1,9 +1,9 @@
 /*Name: Amany Omar
   Email: aomar22@myseneca.ca 
   ID# 126127166
-  Completed on July 1st, 2024.
+  Completed on July 4th, 2024.
   Citation: I have done all the coding by myself and only copied the code that my professor
-provided to complete my project milestones.*/
+provided to complete my project milestones and I needed help from the professor in debugging the code.*/
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <fstream>
@@ -16,7 +16,6 @@ namespace seneca {
     Line::operator const char* () const {
         return m_value;
     }
-    
     Line& Line::operator=(const char* lineValue) {
         delete[] m_value;       
         m_value = new char[strlen(lineValue) + 1];
@@ -49,29 +48,27 @@ namespace seneca {
 
     void TextFile::setFilename(const char* fname, bool isCopy) {
             
-            if (isCopy) {
+         if (isCopy) {
                
-                m_filename = new char[strlen("C_") + strlen(fname) + 1];
-                strcpy(m_filename, "C_");
-                strcat(m_filename, fname);
+             m_filename = new char[strlen("C_") + strlen(fname) + 1];
+             strcpy(m_filename, "C_");
+             strcat(m_filename, fname);
 
-            }
-            else {
-                m_filename = new char[strlen(fname) + 1];
-                strcpy(m_filename, fname);
-            }
+         }
+         else {
+              m_filename = new char[strlen(fname) + 1];
+              strcpy(m_filename, fname);
+         }
     }
-   /*after the while (fin) loop we have m_noOf
-   Lines == 0 then we can just set the obj to empty 
-   state otherwise else we increment m_noOflines++ as before.*/
+   
     void TextFile::setNoOfLines() {
         char str = '\0';
         m_noOfLines = 0;
         std::ifstream fin(m_filename);
         if (fin.is_open()) {
-            while (fin) {
+            while (fin.get(str)) {
                
-                fin.get(str);
+                /*fin.get(str);*/
                 
                 if (str == '\n') {
                     m_noOfLines++;
@@ -85,29 +82,7 @@ namespace seneca {
                   m_noOfLines++;
              }
         } 
-       
-        
     }
-  /*Loads the text file m_filename into the dynamic array of Lines pointed by m_textLines :
-If the m_filename is null, this function does nothing.
-
-If the m_filename is not null (TextFile is not in a safe empty state ),
-loadText() will dynamically allocate an array of Lines pointed by m_textLines with the size kept in m_noOfLines.
-
-    Make sure m_textLine is deleted before this to prevent memory leak.
-
-Create a local instance of ifstream using the file name m_filename to read the lines of the text file.
-
-Since the length of each line is unknown, read the line using a local C++ string 
-object and the getline helper function. (note: this is the HELPER getline function 
-and not a method of istream).
-
-In a loop reads each line into the string object and then sets the m_textLines
-array elements to the values returned by the c_str() method of the string object 
-until the reading fails (end of file reached).
-
-After all the lines are read, make sure to update the value of m_noOfline to the
-actual number of lines read (This covers the possibility of one extra empty line at the end of the file)*/
 
     void TextFile::loadText() {
         if (*this) { // bool() -> boolean = false
@@ -127,19 +102,14 @@ actual number of lines read (This covers the possibility of one extra empty line
                 while (getline(fin, line)) {  //In a loop reads each line into the string object
 
                     m_textLines[countLines].m_value = new char[line.length() + 1];
+                    
                     m_textLines[countLines] = line.c_str();  
                     
-                    countLines++;  
-                   
+                    countLines++;    
                 }  
-                if (m_textLines[5] != "But my old hound just sat right down and cried") {
-                    cout << "<<<Something wrong here>>>" << endl;
-                }
-                 m_noOfLines = countLines;    
-
+                
+                 m_noOfLines = countLines;  
             } fin.close();
-
-            /*m_noOfLines = countLines;*/
         }
     }
  
@@ -149,7 +119,7 @@ actual number of lines read (This covers the possibility of one extra empty line
     
         if (fout.is_open()) {
             unsigned i;
-            for (i = 0; i < m_noOfLines - 1; i++) {
+            for (i = 0; i < m_noOfLines; i++) {
                 fout << m_textLines[i] << '\n';
             }
         } fout.close();
@@ -193,7 +163,6 @@ actual number of lines read (This covers the possibility of one extra empty line
     }
 
     //2 Copy Assignment
-
     TextFile& TextFile::operator=(const TextFile& file) {
        
         if(this != &file){
@@ -291,7 +260,6 @@ std::ostream& operator<<(std::ostream& ostr, const TextFile& text) {
     text.view(ostr);
     return ostr;
 }
-//operator >>:
   std::istream& operator>>(std::istream& istr, TextFile& text) {
     
     text.getFile(istr);
