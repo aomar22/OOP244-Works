@@ -36,12 +36,14 @@ namespace seneca {
         m_value = nullptr;
     }
     void TextFile::setEmpty() {
-       
+        if (m_textLines != nullptr) {
             delete[] m_textLines;
             m_textLines = nullptr;
-      
+        }
+        if (m_filename != nullptr) {
             delete[] m_filename;
             m_filename = nullptr;
+        }
          
             m_noOfLines = 0;
     }
@@ -215,10 +217,9 @@ std::ostream& TextFile::view(std::ostream& ostr)const {
 std::istream& TextFile::getFile(std::istream& istr) {
     string s;
     getline(istr, s);
-    m_filename = new char[s.length() + 1];
+     m_filename = new char[s.length() + 1];
     strcpy(m_filename, s.c_str());
     setFilename(m_filename);
-    istr.ignore(10000, '\n');
     setNoOfLines();
     loadText();
     return istr;
@@ -234,7 +235,6 @@ const char* TextFile::operator[](unsigned index)const {
     else {
         return nullptr;
     }
-    
 }
 
 //Type conversion overloads:
