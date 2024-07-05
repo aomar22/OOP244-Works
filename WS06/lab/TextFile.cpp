@@ -202,7 +202,6 @@ const char* TextFile::name()const {
         return m_filename;
 }
 std::ostream& operator<<(std::ostream& ostr, const TextFile& text) {
- 
     text.view(ostr);
     return ostr;
 }
