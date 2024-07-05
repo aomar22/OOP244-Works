@@ -175,7 +175,7 @@ std::istream& TextFile::getFile(std::istream& istr) {
     getline(istr, s);
     m_filename = new char[s.length() + 1];
     strcpy(m_filename, s.c_str());
-    setFilename(m_filename);
+  //  setFilename(m_filename);
     setNoOfLines();
     loadText();
     

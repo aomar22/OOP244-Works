@@ -1,7 +1,7 @@
 /*Name: Amany Omar
   Email: aomar22@myseneca.ca
   ID# 126127166
-  Completed on July 4th, 2024.
+  Completed on July 5th, 2024.
   Citation: I have done all the coding by myself and only copied the code that my professor
 provided to complete my project milestones.*/
 #ifndef SENECA_TEXTFILE_H__
