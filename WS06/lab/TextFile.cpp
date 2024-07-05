@@ -199,9 +199,7 @@ TextFile::operator bool()const {
     } 
 }
 const char* TextFile::name()const {
-    if (m_filename) {
         return m_filename;
-    }
 }
 std::ostream& operator<<(std::ostream& ostr, const TextFile& text) {
  
