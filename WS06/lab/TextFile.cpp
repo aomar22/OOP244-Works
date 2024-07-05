@@ -229,7 +229,6 @@ std::istream& TextFile::getFile(std::istream& istr) {
 const char* TextFile::operator[](unsigned index)const {
     if (m_filename != nullptr && m_filename[0] != '\0') {
 
-        unsigned temp = index % m_noOfLines;
         return m_textLines[index % m_noOfLines].m_value;  
     }
     else {
