@@ -1,0 +1,37 @@
+/*Name: Amany Omar
+  Email: aomar22@myseneca.ca 
+  ID# 126127166
+  Completed on July 5th, 2024.
+  Citation: I have done all the coding by myself and only copied the code that my professor
+provided to complete my project milestones and I needed help from the professor in debugging the code.*/
+
+Learning Objectives:
+
+    define and create copy constructors
+    define and create copy assignment
+    Prevent copying and assignment in a class
+    Overload insertion operator so the class can be printed using ostream
+    Overload extraction operator so the class can be read using istream
+    Do simple file IO using ifstream and ofstream
+    use the C++ string class to extract an unknown number of characters from the input.
+____________________________________________________________________________________________
+Workshop 6 was rich of new concepts for me. As we used to use fundamental attributes, which have known memory size according to their type, this time we are using an attribute that is a pointer that hold the address of dynamic array of Line class. For example, Line* m_textLines; is called a dynamic resource that points to array of lines allocated dynamically.
+
+To safely manage allocating and deallocating dynamic memories and apply deep copying safely, we follow the rules of three as follows:
+
+1- Create a copy constructor: e.g. TextFile(const TextFile& file);
+Copy constructor is a special function that does the following:
+	a- shallow copy non dynamic resources. e.g. this->m_pageSize = file.m_pageSize; shallow copying to m_pageSize attribute
+
+	b- Allocate memory for each new resource. e.g. setFilename(file.m_filename, true); "This function contains of allocating memory for m_filename to deep copy the filename. && the same with loadText() function which allocates memory for m_textLines.
+
+	c- Copy data from the source resource to the newly allocated source. e.g. strcpy(m_filename, filename) && m_textLines[countLines] = line.c_str().
+
+the declaration of the copy constructor takes the form: Type(const Type&);  e.g. TextFile(const TextFile& file);
+
+2- Copy assignment:
+The second of the rule of 3 is copy assignement which its declaration takes the form: Type& operator=(const Type&);
+e.g. TextFile& operator=(const TextFile& file);
+This special function copies an existing object to another existing object throught the following steps:
+ 	a- check for self assignment: e.g.   if(this != &file)
+	b- deallocates previously allocated memory for resources associated with the current object: e.g. delete[] m_textLines;

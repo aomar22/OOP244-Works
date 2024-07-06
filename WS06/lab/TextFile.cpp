@@ -128,14 +128,14 @@ namespace seneca {
             }
     }
     TextFile& TextFile::operator=(const TextFile& file) {  
-        if(this != &file){
-           delete[] m_textLines;
-           m_textLines = nullptr;
-           file.saveAs(m_filename);
+        if(this != &file){     //check that it is not copying to itself
+           delete[] m_textLines;           //deallocate previously allocated memory
+           m_textLines = nullptr;          //set to nullptr
+           file.saveAs(m_filename);         //saves content of incoming textfile to the current text file
            setNoOfLines();
-           loadText();
+           loadText();                   //allocates memory + deep copy
         }
-        return *this;
+        return *this;                   //returns the current object
     }
     TextFile::~TextFile() { 
       
