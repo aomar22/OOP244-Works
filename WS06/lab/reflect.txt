@@ -35,3 +35,5 @@ e.g. TextFile& operator=(const TextFile& file);
 This special function copies an existing object to another existing object throught the following steps:
  	a- check for self assignment: e.g.   if(this != &file)
 	b- deallocates previously allocated memory for resources associated with the current object: e.g. delete[] m_textLines;
+
+//##didn't get a chance to complete it.

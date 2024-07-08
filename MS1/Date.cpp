@@ -75,14 +75,7 @@ namespace seneca {
       return m_CUR_YEAR;
    }
 
-   /*
-- Reads the year, the month and the day member variables using istream and ignores a single character
-after the year and the month values to bypass the Slashes.
-> Note that the separators do not have to be Slash characters **“/”** but any separator that is not an integer number.
-- Checks if istream has failed. If it did fail, it will set the error code to CIN_FAILED and 
-clears the istream. If not, it will validate the values entered.
-- Flushes the keyboard
-- Returns the istream object*/
+ 
    istream& Date::read(std::istream& is){
    
        /*int year;
@@ -117,15 +110,7 @@ clears the istream. If not, it will validate the values entered.
       return is;
    }
 
-   /*If the Date object is in a “bad” state (it is invalid) print the “dateStatus()”.
-Otherwise, the function should write the date in the following format using the ostream object:
-- Prints the year
-- Prints a Slash “/”
-- Prints the month in two spaces, padding the left digit with zero if the month is a single-digit number
-- Prints a Slash “/”
-- Prints the day in two spaces, padding the left digit with zero if the day is a single-digit number
-- Makes sure the padding is set back to spaces from zero
-- Returns the ostream object.*/
+
 
    ostream& Date::write(std::ostream& os) const
    {

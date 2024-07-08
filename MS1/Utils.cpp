@@ -18,8 +18,8 @@
 using namespace std;
 namespace seneca {
     Utils ut;
-    unsigned int Utils::getInt(unsigned int min, unsigned int max) {
-        unsigned int val = 0;
+   /* unsigned*/ int Utils::getInt(/*unsigned*/ int min, /*unsigned*/ int max) {
+       /* unsigned */int val = 0;
         cout << ">>>>>Enter";;
         cin >> val;
         while (cin.fail() || val < min || val > max) {

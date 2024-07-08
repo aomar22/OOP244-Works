@@ -4,11 +4,13 @@ namespace seneca {
 	const unsigned MAX_MENU_ITEMS = 20;
 	class Menu;
 	class MenuItem {
+	private:
+
 		char* m_itemContent{ nullptr };
 		friend class Menu;
 		MenuItem();
 		MenuItem(const char* itemContent);
-		//void setEmpty();
+		void setEmpty();
 		//rule of 3:
 		//copy constructor and copy assignment are deleted
 		MenuItem(MenuItem& item) = delete;
@@ -16,10 +18,11 @@ namespace seneca {
 		//destructor
 		~MenuItem();
 		//bool type converstion
-		operator bool();
+		operator bool()const;
 		//const char* type conversion
-		operator const char* ();
+		operator const char* ()const;
 		//displaying the MenuItem
+		bool isMenuItemValid()const;
 		std::ostream& displayMenuItem(std::ostream& ostr)const;
 	};
 	class Menu {
@@ -27,32 +30,41 @@ namespace seneca {
 				//copy constructor and copy assignment are deleted
 		Menu(Menu& m) = delete;
 		Menu& operator=(Menu& m) = delete;
-		char* m_title{};
+		/*MenuItem m_title{};*/
 		MenuItem* m_menuItems[MAX_MENU_ITEMS]{ nullptr };
-		unsigned m_noOfItems;
+		unsigned int m_noOfItems;
 		void setEmpty();
+		bool isValid();
+		//std::ostream& view(std::ostream& os = std::cout) const;
 	public:
+		MenuItem m_title{};
 		Menu();
 		Menu(const char* menuTitle);
-
+		Menu(const Menu& m) = delete;
+		Menu& operator=(const Menu& m) = delete;
 		~Menu();
 		//methods
-		unsigned int run();
-		bool operator~();
 		Menu& operator<<(const char* menuItemContent);
+		
+		unsigned int run();
+		unsigned int operator~()const;
+		
 		//Overload two type conversions for int and unsigned int to return the number of MenuItems on the Menu.
-		operator int();
-		operator unsigned int();
+		operator int()const;
+		operator unsigned int()const;
 		// return true if the Menu has one or more MenuItems otherwise, false;
-		operator bool();
+		operator bool()const;
 
 		//Overload the insertion operator to print the title of the Menu using cout.
+	
+		std::ostream& operator<<(std::ostream& os);
 
 		//Menu& operator<<(Menu& m); // Account& operator<<(Account& acc);
 		const char* operator[](unsigned index)const;
 		//std::ostream& operator<<(std::ostream& om) const;
-		std::ostream& displayTitle(std::ostream& om, Menu& m)const;
-		std::ostream& displayAllMenu(std::ostream& om, Menu& m)const;
+
+		std::ostream& displayTitle(std::ostream& om) const;
+		std::ostream& displayAllMenu(std::ostream& om)const;
 	};
 }
 
