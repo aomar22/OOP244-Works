@@ -19,7 +19,7 @@ using namespace std;
 namespace seneca {
 	class Utils {
 	public:
-		/*unsigned*/ int getInt(/*unsigned*/ int min, /*unsigned*/ int max);
+		unsigned int getInt(unsigned int min, unsigned int max);
 	};
 	extern Utils ut;
 }

@@ -40,44 +40,56 @@ namespace seneca {
 	MenuItem::MenuItem(const char* itemContent) {
 
 		if (itemContent) {
-			//delete[] m_itemContent;
+			
 			m_itemContent = new char[strlen(itemContent) + 1];
 			strcpy(m_itemContent, itemContent);
 
 		}
 		else {
-			m_itemContent = nullptr;
+			//m_itemContent = nullptr;
+			setEmpty();
 		}
 	}
 	MenuItem::operator bool()const
 	{
+		if (m_itemContent) {
+			return true;
+		}
+		else {
+			return false;
+		}
 		
-		//When a MenuItem is casted to “bool” it should return true, if it is not empty and it should return false if it is empty.
-		return (m_itemContent != nullptr);
+		//When a MenuItem is casted to “bool” it should return true,
+		// if it is not empty and it should return false if it is empty.
+		
 	}
 	MenuItem::operator const char* ()const
 	{
-		//When a MenuItem is casted to “const char*” it should return the address of the content Cstring.
-		return m_itemContent;
-	}
-	bool MenuItem::isMenuItemValid() const
-	{
-		Menu m;
-		//MenuItem* title;
 		
-		if (m_itemContent) {
-			return (m_title.m_itemContent != nullptr);
-		}
+			//When a MenuItem is casted to “const char*” it should return the address of the content Cstring.
+			return m_itemContent;
 		
 	}
-	std::ostream& MenuItem::displayMenuItem(std::ostream& ostr) const
-	{
+	//bool MenuItem::isMenuItemValid() const
+	//{
+	//	Menu m;
+	//	//MenuItem* title;
+	//	
+	//	if (m_itemContent) {
+	//		return (m_title.m_itemContent != nullptr);
+	//	}
+	//	
+	//}
+	
+	std::ostream& MenuItem::displayMenuItem(std::ostream& os) const
+	{//    bool valid = m_filename != nullptr && m_noOfLines > 0 && m_textLines != nullptr;
 
-		if (m_itemContent != nullptr) {
-			ostr << m_itemContent;
+	
+		if (*this && m_itemContent) {
+			os << m_itemContent;
 		}
 
-		return ostr;
+		return os;
 	}
 	void Menu::setEmpty()
 	{
@@ -92,10 +104,11 @@ namespace seneca {
 	Menu::Menu(const char* menuTitle)
 	{
 		setEmpty();
+
 		if (menuTitle) {
-			m_title.m_itemContent = new char[strlen(menuTitle) + 1];
+		m_title.m_itemContent = new char[strlen(menuTitle)+1];
 			strcpy(m_title.m_itemContent, menuTitle);
-			//m_noOfItems = 0;
+			m_noOfItems = 0;
 		}
 	}
 
@@ -107,10 +120,11 @@ namespace seneca {
 		}
 	}
 
-	unsigned int Menu::run()
+	unsigned int Menu::run() const
 	{
+		
 		Utils ut;
-	    int userSelection;
+	   unsigned int userSelection;
 		//Menu m;
 		ostream& mn2 = std::cout;
 		displayAllMenu(mn2);
@@ -130,11 +144,7 @@ namespace seneca {
 		}
 
 	}
-	ostream& Menu::operator<<(ostream& os)
-	{		
-		return displayTitle(os);
-		
-	}
+	
 	const char* Menu::operator[](unsigned index)const
 	{
 		if (index <= m_noOfItems) {
@@ -149,21 +159,21 @@ namespace seneca {
 
 	unsigned int Menu::operator~() const{
 		/*Menu m;
-		(unsigned int)(m);*/
-		Utils ut;
-	    unsigned int selection = ut.getInt(0, m_noOfItems);
-		return selection;
+		/*(unsigned int)(m);*/
+		/*Utils ut;
+	    unsigned int selection = ut.getInt(0, m_noOfItems);*/
+		return run();
 	}
 
 	Menu& Menu::operator<<(const char* menuItemContent)
 	{
 		//MenuItem m;
-		//string menuItem;
+		////string menuItem;
 		//unsigned count = 0;
 		if (m_noOfItems < MAX_MENU_ITEMS) {
-			m_menuItems[m_noOfItems] = new MenuItem[MAX_MENU_ITEMS];
+			m_menuItems[m_noOfItems] = new MenuItem(menuItemContent);
 
-		/*	if (menuItemContent) {
+			/*if (menuItemContent) {
 				m.m_itemContent = new char[strlen(menuItemContent) + 1];
 				strcpy(m.m_itemContent, menuItemContent);
 				m_menuItems[count]++;
@@ -172,6 +182,8 @@ namespace seneca {
 		}
 		return *this;
 	}
+
+	
 
 	Menu::operator int() const
 	{
@@ -185,12 +197,13 @@ namespace seneca {
 
 	Menu::operator bool()const
 	{
-		if (m_noOfItems >= 1) {
+		return m_noOfItems >= 1;
+		/*if (m_noOfItems >= 1) {
 			return true;
 		}
 		else {
 			return false;
-		}
+		}*/
 	}
 
 	ostream& Menu::displayTitle(std::ostream& om) const
@@ -202,20 +215,27 @@ namespace seneca {
 	}
 	ostream& Menu::displayAllMenu(std::ostream& om) const
 	{
-		if (m_title.m_itemContent != nullptr) {
+		bool valid = m_title.m_itemContent != nullptr && m_menuItems != nullptr && m_noOfItems >= 1;
+		if (valid) {
 			displayTitle(om);
 			om << ":" << endl;
-			for (unsigned i = 0; i < MAX_MENU_ITEMS; i++) {
+			for (unsigned i = 0; i < m_noOfItems; i++) {
 				om.width(2);
 				om.setf(ios::right);
 				om << (i + 1);
 				om.fill('-');
 				om << ' ';
-				om << m_menuItems[i] << endl;
+				om << m_menuItems[i]->m_itemContent << endl;
 				i--;
 			}
 			om << "0- Exit" << '\n' << "> ";
 		}
+		return om;
+	}
+	std::ostream& operator<<(std::ostream& om, const Menu& m)
+	{
+		m.displayTitle(om);
+
 		return om;
 	}
 }

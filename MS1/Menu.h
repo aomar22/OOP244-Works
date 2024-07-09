@@ -22,8 +22,8 @@ namespace seneca {
 		//const char* type conversion
 		operator const char* ()const;
 		//displaying the MenuItem
-		bool isMenuItemValid()const;
-		std::ostream& displayMenuItem(std::ostream& ostr)const;
+		//bool isMenuItemValid()const;
+		std::ostream& displayMenuItem(std::ostream& os)const;
 	};
 	class Menu {
 		//rule of 3:
@@ -44,9 +44,9 @@ namespace seneca {
 		Menu& operator=(const Menu& m) = delete;
 		~Menu();
 		//methods
-		Menu& operator<<(const char* menuItemContent);
+		Menu& operator<<(const char* menuItemContent); //simple
 		
-		unsigned int run();
+		unsigned int run() const;
 		unsigned int operator~()const;
 		
 		//Overload two type conversions for int and unsigned int to return the number of MenuItems on the Menu.
@@ -57,7 +57,7 @@ namespace seneca {
 
 		//Overload the insertion operator to print the title of the Menu using cout.
 	
-		std::ostream& operator<<(std::ostream& os);
+		/*std::ostream& operator<<(std::ostream& os);*/
 
 		//Menu& operator<<(Menu& m); // Account& operator<<(Account& acc);
 		const char* operator[](unsigned index)const;
@@ -65,7 +65,10 @@ namespace seneca {
 
 		std::ostream& displayTitle(std::ostream& om) const;
 		std::ostream& displayAllMenu(std::ostream& om)const;
+		/*std::ostream& operator<<(std::ostream& ostr, const TextFile& text);
+   std::istream& operator>>(std::istream& istr, TextFile& text);*/
 	};
+	std::ostream& operator<<(std::ostream& om, const Menu& m);
 }
 
 

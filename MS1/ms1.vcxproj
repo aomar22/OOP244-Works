@@ -139,7 +139,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Date.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="menuTester.cpp" />
     <ClCompile Include="Utils.cpp" />
