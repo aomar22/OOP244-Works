@@ -36,4 +36,50 @@ This special function copies an existing object to another existing object throu
  	a- check for self assignment: e.g.   if(this != &file)
 	b- deallocates previously allocated memory for resources associated with the current object: e.g. delete[] m_textLines;
 
-//##didn't get a chance to complete it.
+3- Destructor: to deallocate dynamically created memory
+_____________________________________
+To prevent copying and assignment in the class, we declare the functions in the class and use delete keywords. E.g. TextFile(const TextFile&)=delete;
+TextFile& operator=(const TextFile& file) = delete;
+* we don't implement the function or write any definition.
+----------------------------------------------
+Overload insertion operator so the class can be printed using ostream
+    Overload extraction operator so the class can be read using istream
+by changing the operator function signature to overload it using ostream, the class can be printed or read.
+E.g. of overload insertion operator: 
+ std::ostream& operator<<(std::ostream& ostr, const TextFile& text);
+when printing, text.view(ostr)
+
+e.g. of overload extractio operator
+std::istream& operator>>(std::istream& istr, TextFile& text)
+to read the file  text.getFile(istr);
+----------------------------------------------------------------
+
+ Do simple file IO using ifstream and ofstream
+example: std::ostream& view(std::ostream& ostr)const;
+ostr << name() << endl;  like when we use cout
+std::istream& getFile(std::istream& istr);
+can be used as getline(istr, s);
+-----------------------------
+
+    use the C++ string class to extract an unknown number of characters from the input.
+
+example in the loadText function:
+ string line;
+
+ if (fin) { 
+     while (getline(fin, line)) {  //In a loop reads each line into the string object
+         m_textLines[countLines].m_value = new char[line.length() + 1]; 
+         m_textLines[countLines] = line.c_str(); 
+
+and the getFile function:
+std::istream& TextFile::getFile(std::istream& istr) {
+    string s;
+    getline(istr, s);
+    m_filename = new char[s.length() + 1];
+    strcpy(m_filename, s.c_str());
+  //  setFilename(m_filename);
+    setNoOfLines();
+    loadText();
+    
+    return istr;
+}
