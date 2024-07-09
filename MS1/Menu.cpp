@@ -81,7 +81,7 @@ namespace seneca {
 	//	
 	//}
 	
-	std::ostream& MenuItem::displayMenuItem(std::ostream& os) const
+	ostream& MenuItem::displayMenuItem(ostream& os) const
 	{//    bool valid = m_filename != nullptr && m_noOfLines > 0 && m_textLines != nullptr;
 
 	
@@ -126,7 +126,7 @@ namespace seneca {
 		Utils ut;
 	   unsigned int userSelection;
 		//Menu m;
-		ostream& mn2 = std::cout;
+		ostream& mn2 = cout;
 		displayAllMenu(mn2);
 		userSelection = ut.getInt(0, MAX_MENU_ITEMS);
 		/*while (userSelection < 0 || userSelection > MAX_MENU_ITEMS ) {
@@ -158,10 +158,7 @@ namespace seneca {
 	}
 
 	unsigned int Menu::operator~() const{
-		/*Menu m;
-		/*(unsigned int)(m);*/
-		/*Utils ut;
-	    unsigned int selection = ut.getInt(0, m_noOfItems);*/
+		
 		return run();
 	}
 
@@ -206,14 +203,14 @@ namespace seneca {
 		}*/
 	}
 
-	ostream& Menu::displayTitle(std::ostream& om) const
+	ostream& Menu::displayTitle(ostream& om) const
 	{
 		if (m_title.m_itemContent != nullptr) {
 			om << m_title.m_itemContent << endl;
 		}
 		return om;
 	}
-	ostream& Menu::displayAllMenu(std::ostream& om) const
+	ostream& Menu::displayAllMenu(ostream& om) const
 	{
 		bool valid = m_title.m_itemContent != nullptr && m_menuItems != nullptr && m_noOfItems >= 1;
 		if (valid) {
@@ -232,7 +229,7 @@ namespace seneca {
 		}
 		return om;
 	}
-	std::ostream& operator<<(std::ostream& om, const Menu& m)
+	ostream& operator<<(ostream& om, const Menu& m)
 	{
 		m.displayTitle(om);
 
