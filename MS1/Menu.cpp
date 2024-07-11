@@ -195,7 +195,7 @@ namespace seneca {
 	}
 	std::ostream& operator<<(std::ostream& om, const Menu& m)
 	{
-		 om << m.getMenuTitle();
-		 return om;
+		m.displayTitle();
+		return om;
 	}	
 }
