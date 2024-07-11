@@ -20,7 +20,7 @@ that my professor provided to complete my workshops and assignments.
 #include <cstring>
 #include <iomanip>
 #include "Menu.h"
-//#include "Utils.h"
+
 
 using namespace std;
 namespace seneca {
@@ -39,17 +39,10 @@ namespace seneca {
 		m_itemContent = nullptr;
 	}
 	MenuItem::MenuItem(const char* itemContent) {
-
 		if (itemContent) {
-
 			m_itemContent = new char[strlen(itemContent) + 1];
 			strcpy(m_itemContent, itemContent);
-
 		}
-		//else {
-		//	//m_itemContent = nullptr;
-		//	setEmpty();
-		//}
 	}
 	MenuItem::operator bool()const
 	{
@@ -59,37 +52,16 @@ namespace seneca {
 		else {
 			return false;
 		}
-
-		//When a MenuItem is casted to “bool” it should return true,
-		// if it is not empty and it should return false if it is empty.
-
 	}
 	MenuItem::operator const char* ()const
 	{
-
-		//When a MenuItem is casted to “const char*” it should return the address of the content Cstring.
 		return m_itemContent;
-
 	}
-	//bool MenuItem::isMenuItemValid() const
-	//{
-	//	Menu m;
-	//	//MenuItem* title;
-	//	
-	//	if (m_itemContent) {
-	//		return (m_title.m_itemContent != nullptr);
-	//	}
-	//	
-	//}
-
 	ostream& MenuItem::displayMenuItem(ostream& os) const
-	{//    bool valid = m_filename != nullptr && m_noOfLines > 0 && m_textLines != nullptr;
-
-
+	{
 		if (*this && m_itemContent) {
 			os << m_itemContent;
 		}
-
 		return os;
 	}
 	void Menu::setEmpty()
@@ -98,12 +70,8 @@ namespace seneca {
 		m_menuItems[0] = { nullptr };
 		m_noOfItems = 0;
 	}
-	/*Menu::operator const char* () const {
-		return m_title;
-	}*/
 	Menu::Menu()
 	{
-
 		m_title.m_itemContent = nullptr;
 		m_noOfItems = 0;
 		m_menuItems[0] = { nullptr };
@@ -112,10 +80,8 @@ namespace seneca {
 	Menu::Menu(const char* menuTitle)
 	{
 		setEmpty();
-		/*delete[] m_title;
-		m_title = new MenuItem(menuTitle);*/
+		
 		if (menuTitle != nullptr) {
-			//	setEmpty();
 			m_title.m_itemContent = new char[strlen(menuTitle) + 1];
 			strcpy(m_title.m_itemContent, menuTitle);
 			m_noOfItems = 0;
@@ -123,17 +89,13 @@ namespace seneca {
 		else {
 			setEmpty();
 		}
-
 	}
-
-
 	Menu::~Menu()
 	{
 		for (unsigned i = 0; i < MAX_MENU_ITEMS; i++) {
 			delete m_menuItems[i];
 		}
 	}
-
 	unsigned int Menu::run() const
 	{
 		int selection = -1;
@@ -145,7 +107,7 @@ namespace seneca {
 			if (cin.fail() || selection < 0 || (unsigned int)(selection) > m_noOfItems) {
 				cout << "Invalid Selection, try again: ";
 				cin.clear();
-				cin.ignore(10000, '\n'); //ignores the 10000 characters
+				cin.ignore(10000, '\n'); 
 						cin >> selection;
 			}
 			else {
@@ -200,7 +162,7 @@ namespace seneca {
 	const char* Menu::getMenuTitle() const {
 		return m_title.m_itemContent ? m_title.m_itemContent : "";
 	}
-	ostream& Menu::displayTitle() const
+	std::ostream& Menu::displayTitle() const
 	{
 		const char* title = getMenuTitle();
 		if (title) {
@@ -231,7 +193,7 @@ namespace seneca {
 	    
 		return cout;
 	}
-	ostream& operator<<(ostream& om, const Menu& m)
+	std::ostream& operator<<(std::ostream& om, const Menu& m)
 	{
 		 om << m.getMenuTitle();
 		 return om;
