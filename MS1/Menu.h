@@ -40,8 +40,10 @@ namespace seneca {
 		std::ostream& displayTitle() const;
 		std::ostream& displayAllMenu()const;
 		const char* getMenuTitle() const;
+		friend 	std::ostream& operator<<(std::ostream& om, const Menu& m);
+
 	};
-	std::ostream& operator<<(std::ostream& om, const Menu& m);
+	//std::ostream& operator<<(std::ostream& om, const Menu& m);
 }
 
 
