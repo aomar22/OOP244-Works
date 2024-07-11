@@ -39,16 +39,14 @@ namespace seneca {
       int systemYear()const;       // returns the current system year
       bool bad()const;             // return true if
       int mdays()const;            // returns the number of days in current month
-      void setToToday();           // sets the date to the current date (system date)
+      void setToToday();           
       
    public:
-      Date();                      // creates a date with current date
-      Date(int year, int mon, int day); /* create a date with assigned values
-                                         then validates the date and sets the 
-                                         error code accordingly */
-      int errCode()const;         // returns the error code or zero if date is valid
-      const char* dateStatus()const;  // returns a string corresponding the current status of the date
-      int currentYear()const;         // returns the m_CUR_YEAR value;
+      Date();                      
+      Date(int year, int mon, int day); 
+      int errCode()const;         
+      const char* dateStatus()const;  
+      int currentYear()const;         
       std::istream& read(std::istream& is = std::cin);
       std::ostream& write(std::ostream& os = std::cout)const;
       //### Comparison operator overload methods
@@ -59,9 +57,7 @@ namespace seneca {
       bool operator<(const Date& RO)const;
       bool operator>(const Date& RO)const;
       int operator-(const Date& RO) const;
-      //bool type conversion operator
       operator bool();
-    
    };
    std::ostream& operator<<(std::ostream& os, const Date& RO);
    std::istream& operator>>(std::istream& is, Date& RO);

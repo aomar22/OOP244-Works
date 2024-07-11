@@ -20,8 +20,6 @@ that my professor provided to complete my workshops and assignments.
 #include <cstring>
 #include <iomanip>
 #include "Menu.h"
-
-
 using namespace std;
 namespace seneca {
 	void MenuItem::setEmpty() {
@@ -98,12 +96,12 @@ namespace seneca {
 	}
 	unsigned int Menu::run() const
 	{
-		int selection = -1;
+		int selection = 0;
 
 		displayAllMenu();
 		cin >> selection;
 		
-		while (selection < 0 || (unsigned int)(selection) > m_noOfItems) {
+		while (cin.fail() /*|| selection < 0 || (unsigned int)(selection) > m_noOfItems*/) {
 			if (cin.fail() || selection < 0 || (unsigned int)(selection) > m_noOfItems) {
 				cout << "Invalid Selection, try again: ";
 				cin.clear();
