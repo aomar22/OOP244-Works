@@ -101,7 +101,7 @@ namespace seneca {
 		displayAllMenu();
 		cin >> selection;
 		
-		while (cin.fail() /*|| selection < 0 || (unsigned int)(selection) > m_noOfItems*/) {
+		while (cin.fail() || selection < 0 || (unsigned int)(selection) > m_noOfItems) {
 			if (cin.fail() || selection < 0 || (unsigned int)(selection) > m_noOfItems) {
 				cout << "Invalid Selection, try again: ";
 				cin.clear();
