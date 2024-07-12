@@ -90,7 +90,7 @@ namespace seneca {
 
     istream& Date::read(std::istream& is) {
         errCode(NO_ERROR);  
-        bool fail;
+      //  bool fail;
         is >> m_year;
         is.ignore();
        // fail = is.fail();
