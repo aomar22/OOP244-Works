@@ -32,13 +32,12 @@ namespace seneca {
       int m_day;
       int m_ErrorCode;
       int m_CUR_YEAR;
-      int daysSince0001_1_1()const; // returns number of days passed since the date 0001/1/1
-      bool validate();             /* validates the date setting the error code and then returning the result 
-                                    true, if valid, and false if invalid.*/
-      void errCode(int);           // sets the error code
-      int systemYear()const;       // returns the current system year
-      bool bad()const;             // return true if
-      int mdays()const;            // returns the number of days in current month
+      int daysSince0001_1_1()const; 
+      bool validate();             
+      void errCode(int);           
+      int systemYear()const;       
+      bool bad()const;             
+      int mdays()const;            
       void setToToday();           
       
    public:
@@ -49,7 +48,6 @@ namespace seneca {
       int currentYear()const;         
       std::istream& read(std::istream& is = std::cin);
       std::ostream& write(std::ostream& os = std::cout)const;
-      //### Comparison operator overload methods
       bool operator==(const Date& RO)const;
       bool operator!=(const Date& RO)const;
       bool operator>=(const Date& RO)const;

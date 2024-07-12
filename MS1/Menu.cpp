@@ -111,7 +111,6 @@ namespace seneca {
 			else {
 				cin.clear();
 				cin.ignore(10000, '\n');
-				//return selection;
 			}
 			cin.ignore(10000, '\n');
 		}

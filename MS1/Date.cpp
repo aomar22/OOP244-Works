@@ -86,14 +86,10 @@ namespace seneca {
     int Date::currentYear()const {
         return m_CUR_YEAR;
     }
-
-
     istream& Date::read(std::istream& is) {
         errCode(NO_ERROR);  
-      //  bool fail;
         is >> m_year;
         is.ignore();
-       // fail = is.fail();
         if (is.fail()) {
             errCode(CIN_FAILED);
             is.clear();
@@ -110,15 +106,27 @@ namespace seneca {
         return is;
     }
    ostream& Date::write(std::ostream& os) const
-   { 
+   { /* Prints the year
+- Prints a Slash “/”
+- Prints the month in two spaces, padding the left digit with zero if the month is a single-digit number
+- Prints a Slash “/”
+- Prints the day in two spaces, padding the left digit with zero if the day is a single-digit number 
+- Makes sure the padding is set back to spaces from zero 
+- Returns the ostream object.*/
        if (!bad()) {
            os << m_year << "/";
            if (m_mon >= 0 && m_mon <= 9) {
                os.width(2);
                os.fill('0');        
                os << m_mon << "/";
+               os.width(2);
+               os.fill('0');
+               os.fill(' ');
+               os << m_day;
+               
+               
            }
-           else {
+         /*  else {
                os.width(2);
                os.fill('0');
                os << m_day << "/";
@@ -128,7 +136,7 @@ namespace seneca {
                os.width(2);
                os.fill('0');
                os << m_day;
-           }
+           }*/
        }
        else {
            os << dateStatus();
@@ -156,25 +164,21 @@ namespace seneca {
    }
 
    int Date::operator-(const Date& RO)const {
-
-     /*  return this->m_day - RO.m_day;*/
      return  daysSince0001_1_1() - RO.daysSince0001_1_1();
    }
 
    Date::operator bool() {
        //It will return true if the date is valid and false if it is not.
-      /* if (validate()) {
-           return true;
-       }
-       return false;*/
-       bool valid = false;
+       /*bool valid = false;
        if (!bad()) {
            valid = true;
        }
-       return valid;
+       return valid;*/
+        if (validate()) {
+           return true;
+       }
+       return false;
    }
-
-   
    void Date::errCode(int readErrorCode) {
       m_ErrorCode = readErrorCode;
    }
@@ -183,13 +187,11 @@ namespace seneca {
    }
    bool Date::bad()const { 
        return m_ErrorCode != 0;
-   }
-      
+   }   
    std::ostream& operator<<(std::ostream& os, const Date& RO)
    {
        return RO.write(os);
    }
-
    std::istream& operator>>(std::istream& is, Date& RO)
    {
        return RO.read(is);
