@@ -16,7 +16,7 @@ Email : aomar22@myseneca.ca
 ID : 126 127 166
 
 ---------------------------------------------------------- -
-I have done all the coding by myself and only copied the code
+I have completed the coding by myself and only copied the code
 that my professor provided to complete my workshops and assignments.
 ---------------------------------------------------------- - */
 /////////////////////////////////////////////////////////////////
@@ -62,7 +62,7 @@ namespace seneca {
         m_year = lt.tm_year + 1900;
         errCode(NO_ERROR);
     }
-    int Date::daysSince0001_1_1()const { // Rata Die day since 0001/01/01 
+    int Date::daysSince0001_1_1()const { 
         int ty = m_year;
         int tm = m_mon;
         if (tm < 3) {
@@ -106,13 +106,7 @@ namespace seneca {
         return is;
     }
    ostream& Date::write(std::ostream& os) const
-   { /* Prints the year
-- Prints a Slash “/”
-- Prints the month in two spaces, padding the left digit with zero if the month is a single-digit number
-- Prints a Slash “/”
-- Prints the day in two spaces, padding the left digit with zero if the day is a single-digit number 
-- Makes sure the padding is set back to spaces from zero 
-- Returns the ostream object.*/
+   { 
        if (!bad()) {
            os << m_year << "/";
            if (m_mon >= 0 && m_mon <= 9) {
@@ -122,21 +116,8 @@ namespace seneca {
                os.width(2);
                os.fill('0');
                os.fill(' ');
-               os << m_day;
-               
-               
+               os << m_day;     
            }
-         /*  else {
-               os.width(2);
-               os.fill('0');
-               os << m_day << "/";
-               os.fill(' ');     
-           }
-           if (m_day > 0 && m_day <= 9) {
-               os.width(2);
-               os.fill('0');
-               os << m_day;
-           }*/
        }
        else {
            os << dateStatus();
@@ -168,15 +149,9 @@ namespace seneca {
    }
 
    Date::operator bool() {
-       //It will return true if the date is valid and false if it is not.
-       /*bool valid = false;
-       if (!bad()) {
-           valid = true;
-       }
-       return valid;*/
         if (validate()) {
            return true;
-       }
+        }
        return false;
    }
    void Date::errCode(int readErrorCode) {
