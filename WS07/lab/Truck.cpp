@@ -53,9 +53,9 @@ namespace seneca {
 	std::istream& Truck::read(std::istream& is)
 	{
 		MotorVehicle::read(is);
-		cout << "Capacity : ";
+		cout << "Capacity: ";
 		is >> m_capacity;
-		cout << "Cargo : ";
+		cout << "Cargo: ";
 		is >> m_currentCargoLoad;
 		return is;
 	}
