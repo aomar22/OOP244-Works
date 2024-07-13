@@ -30,7 +30,7 @@ namespace seneca {
 		/*|[LICENSE_PLATE]| |[CURRENT_ADDRESS] ---> [NEW_ADDRESS]|<ENDL*/
 		if (strcmp(m_location, address) != 0) {
 			strcpy(m_location, address);
-			cout << "| ";
+			cout << "|";
 			cout.width(8);
 			cout.setf(ios::right);
 			cout << m_plateNum;
@@ -39,10 +39,11 @@ namespace seneca {
 			cout.setf(ios::right);
 			cout << currentAddress << " ---> ";
 			cout.width(20);
+			cout.unsetf(ios::right);
 			cout.setf(ios::left);
 			cout << m_location;
 			cout.fill(' ');
-			cout << "| " << endl;
+			cout << "|" << endl;
 		}
 	}
 	ostream& MotorVehicle::write(ostream& os) const
