@@ -23,12 +23,16 @@ namespace seneca {
 	}
 	bool Truck::addCargo(double cargo) 
 	{
-		double newCargo = m_currentCargoLoad + cargo;
-		if (newCargo <= m_capacity) {
-			m_currentCargoLoad = newCargo;
-			return true;
+		if (m_currentCargoLoad != m_capacity) {
+			
+			if (m_currentCargoLoad < m_capacity) {
+				m_currentCargoLoad += cargo;
+				return true;
+			}
+			else if(m_currentCargoLoad > m_capacity){
+				return false;
+			}
 		}
-		return false;
 	}
 	bool Truck::unloadCargo()
 	{
