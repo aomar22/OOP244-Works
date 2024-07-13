@@ -5,14 +5,21 @@ using namespace std;
 namespace seneca {
 	Truck::Truck()
 	{
-		m_capacity = 0;
-        m_currentCargoLoad = 0;
+		setEmpty();
 	}
-	Truck::Truck(const char plateNum,const int year, const double capacity, const char location) : MotorVehicle(plateNum, year)
-	{
-		m_capacity = capacity;
-		m_currenctCargoLoad = 0;
-		moveTo(location);
+	void Truck::setEmpty() {
+		m_capacity = 0;
+		m_currentCargoLoad = 0;
+	}
+	Truck::Truck(const char plateNum[], const int year, const double capacity, const char location[]) : MotorVehicle(plateNum, year)
+	{  
+		setEmpty();
+		bool valid = plateNum[0] != '\0' && year != 0 && capacity != 0 && location[0] != '\0';
+		if (valid) {
+			m_capacity = capacity;
+			m_currentCargoLoad = 0;
+			moveTo(location);
+		}
 	}
 	bool Truck::addCargo(double cargo) 
 	{
@@ -43,22 +50,21 @@ namespace seneca {
 		MotorVehicle::read(is);
 		cout << "Capacity : ";
 		is >> m_capacity;
-		cout << endl;
 		cout << "Cargo : ";
 		is >> m_currentCargoLoad;
-		cout << endl;
 		return is;
 	}
-	std::istream& Truck::operator>>(std::istream& is, Truck& t) 
+	
+	std::istream& operator>>(std::istream& is, Truck& t)
 	{
 		return t.read(is);
 	}
 
-	std::ostream& Truck::operator<<(std::ostream& os, const Truck& t)
+	std::ostream& operator<<(std::ostream& os, const Truck& t)
 	{
 		return t.write(os);
 	}
-	
+
 }
 
 
