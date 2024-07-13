@@ -42,7 +42,7 @@ namespace seneca {
 	std::ostream& Truck::write(std::ostream& os) const
 	{
 		    MotorVehicle::write(os);
-			os << "|" << m_currentCargoLoad << "/" << m_capacity;
+			os << " | " << m_currentCargoLoad << "/" << m_capacity;
 		return os;
 	}
 	std::istream& Truck::read(std::istream& is)
