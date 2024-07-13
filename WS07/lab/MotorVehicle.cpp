@@ -26,26 +26,29 @@ namespace seneca {
 		}
 	}
 	void MotorVehicle::moveTo(const char* address)
-	{	
-			cout << "|";
+	{
+		char* currentAddress = m_location;
+		/*|[LICENSE_PLATE]| |[CURRENT_ADDRESS] ---> [NEW_ADDRESS]|<ENDL*/
+		if (strcmp(m_location, address) != 0) {
+			strcpy(m_location, address);
+			cout << "| ";
 			cout.width(8);
 			cout.setf(ios::right);
 			cout << m_plateNum;
-			cout << "|";
+			cout << "| |";
 			cout.width(20);
 			cout.setf(ios::right);
-			cout << m_location;
-			cout << " | " << "  ---> ";
+			cout << currentAddress << " ---> ";
 			cout.width(20);
 			cout.setf(ios::left);
-			if (strcmp(m_location, address) != 0) {
-				strcpy(m_location, address);
-				cout << m_location << endl;
-			}
+			cout << m_location;
+			cout.fill(' ');
+			cout << "| " << endl;
+		}
 	}
 	ostream& MotorVehicle::write(ostream& os) const
-	{
-		os << " | " << m_makeYear << " | " << m_plateNum << " | " << m_location;
+	{ /*| [YEAR] | [PLATE] | [ADDRESS]*/
+		os << "| " << m_makeYear << " | " << m_plateNum << " | " << m_location;
 		return os;
 	}
 	std::istream& MotorVehicle::read(std::istream& is)

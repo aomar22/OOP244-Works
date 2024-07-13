@@ -9,11 +9,7 @@ namespace seneca {
         void setEmpty();
     public:
         MotorVehicle();
-        /* license plate number and the year when the vehicle was built.
-        Set the location of the vehicle at Factory*/
-     //   const char* getCurrentLocation();
         MotorVehicle(const char plate[], const int year);
-      //  MotorVehicle(const char licencePlate[], int year, const char location[], double capacity);
         void moveTo(const char* address);
         std::ostream& write(std::ostream& os)const; //query
         std::istream& read(std::istream& is);
