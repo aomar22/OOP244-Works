@@ -54,11 +54,11 @@ namespace seneca {
 	}
 	std::istream& MotorVehicle::read(std::istream& is)
 	{
-		cout << "Built year : ";
+		cout << "Built year: ";
 		is >> m_makeYear;
-		cout << "License plate : ";
+		cout << "License plate: ";
 		is >> m_plateNum;
-		cout << "Current location : ";
+		cout << "Current location: ";
 		is >> m_location;
 		return is;
 	}
