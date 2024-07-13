@@ -16,7 +16,6 @@ namespace seneca {
 	}
 	MotorVehicle::MotorVehicle(const char plate[],const int year)
 	{
-		char currentLocation[] = "Factory";
 		setEmpty();
 		if (m_plateNum && m_location) {
 			strncpy(m_plateNum, plate, strlen(plate)+1);
