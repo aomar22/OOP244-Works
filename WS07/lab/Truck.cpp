@@ -33,6 +33,7 @@ namespace seneca {
 				return false;
 			}
 		}
+		return false;
 	}
 	bool Truck::unloadCargo()
 	{
