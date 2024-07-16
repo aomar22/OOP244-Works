@@ -174,6 +174,7 @@ namespace seneca {
 		if (valid) {
 			displayTitle();
 			//cout << ":" << endl;
+			cout << endl;
 		}
 		unsigned i = 0;
 		while (i < m_noOfItems) {

@@ -1,6 +1,7 @@
 #ifndef SENECA_LIBAPP_H
 #define SENECA_LIBAPP_H
 #include "Menu.h"
+
 namespace seneca {
    class LibApp {
        /*A flag to keep track of changes made to the application data. This flag is initially set to false.
@@ -31,7 +32,7 @@ and then populated with the following menu items:
 "Save changes and exit"
 "Cancel and go back to the main menu"
 */
-       Menu m_exitMenu;
+       Menu m_exitMenu = "Changes have been made to the data, what would you like to do?";
        bool confirm(const char* message);
        void load();  // prints: "Loading Data"<NEWLINE>
        void save();  // prints: "Saving Data"<NEWLINE>
@@ -43,7 +44,7 @@ and then populated with the following menu items:
                               sets m_changed to true;
                           */
       // Methods with confirmation
-
+   public:
            void newPublication();
            void removePublication();
            void checkOutPub();
