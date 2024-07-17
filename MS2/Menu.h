@@ -28,16 +28,16 @@ namespace seneca {
 		MenuItem();
 		MenuItem(const char* itemContent);
 		void setEmpty();
-		MenuItem(MenuItem& item);
-		MenuItem& operator=(MenuItem& item);
+		MenuItem(MenuItem& item) = delete;
+		MenuItem& operator=(MenuItem& item) = delete;
 		~MenuItem();
 		operator bool()const;
 		operator const char* ()const;
 		std::ostream& displayMenuItem(std::ostream& os)const;
 	};
 	class Menu {
-		Menu(Menu& m) = delete;
-		Menu& operator=(Menu& m) = delete;
+		Menu(Menu& m);
+		Menu& operator=(Menu& m);
 		MenuItem* m_menuItems[MAX_MENU_ITEMS]{ nullptr };
 		unsigned int m_noOfItems;
 		void setEmpty();
