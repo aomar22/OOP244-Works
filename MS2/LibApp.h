@@ -33,6 +33,7 @@ and then populated with the following menu items:
 "Cancel and go back to the main menu"
 */
        Menu m_exitMenu = "Changes have been made to the data, what would you like to do?";
+      
        bool confirm(const char* message);
        void load();  // prints: "Loading Data"<NEWLINE>
        void save();  // prints: "Saving Data"<NEWLINE>
@@ -55,9 +56,13 @@ and then populated with the following menu items:
                Initializes the attributes(see the attribute section)
                populates the Menu attributes
                calls the `load()`` method*/
+           //copy constructor:
+           //virtual LibApp(const LibApp& L);
+       //    virtual LibApp& operator=(const LibApp& L);
+       //    virtual ~LibApp();
            LibApp();
            void run();
-
+           unsigned int getMM(int n, int m);
 
    };
 }
