@@ -1,5 +1,5 @@
 /* Citation and Sources...
-Final Project Milestone 1
+Final Project Milestone 2
 Module: Menu
 Filename: Menu.cpp
 Version 1.0
@@ -100,7 +100,6 @@ namespace seneca {
 
 		displayAllMenu();
 		cin >> selection;
-		//cout << endl;
 		while (cin.fail() || selection < 0 || (unsigned int)(selection) > m_noOfItems) {
 			if (cin.fail() || selection < 0 || (unsigned int)(selection) > m_noOfItems) {
 				cout << "Invalid Selection, try again: ";
