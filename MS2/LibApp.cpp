@@ -71,7 +71,7 @@ namespace seneca {
     void LibApp::checkOutPub()
     {
         search();
-        confirm("Check out publication?");
+       // confirm("Check out publication?");
         if (confirm("Check out publication?")) {
             m_changed = true;
             cout << "Publication checked out" << endl;
@@ -87,7 +87,7 @@ namespace seneca {
     //LibApp::~LibApp()
     //{
     //}
-    LibApp::LibApp() /*: m_mainMenu = "Seneca Library Application", m_exitMenu = "Changes have been made to the data, what would you like to do?";*/
+    LibApp::LibApp() : m_mainMenu("Seneca Library Application"), m_exitMenu("Changes have been made to the data, what would you like to do?"), m_changed(false)
     {
       //  m_mainMenu << "Seneca Library Application";
         m_mainMenu << "Add New Publication";
@@ -99,7 +99,7 @@ namespace seneca {
       //  m_exitMenu << "Changes have been made to the data, what would you like to do?";
         m_exitMenu << "Save changes and exit";
         m_exitMenu << "Cancel and go back to the main menu";
-        m_changed = false;
+       // m_changed = false;
         load();
     }
     /*When the user selects exit, the value of m_changed is examined.
@@ -119,45 +119,54 @@ user has the selection of saving and exiting, cancelling and going back to the m
        //     m_mainMenu.run();
             unsigned int userSelection = m_mainMenu.run();
            // userSelection = getMM(0, 20);
+           // cout << endl;
            
             switch (userSelection) {
             
             case 1:
                 newPublication();
+                cout << endl;
                 // save();
                 break;
             case 2:
                 removePublication();
+                cout << endl;
                 //   m_mainMenu.run();
                 break;
             case 3:
                 checkOutPub();
+                cout << endl;
                 break;
             case 4:
                 returnPub();
+                cout << endl;
                 break;
             case 0:
                 if (m_changed) {
                     userSelection = m_exitMenu.run();
+                    //cout << endl;
                     if (userSelection == 1) {
                         save();
+                        cout << endl;
                         done = false;
                         
                     }
                     else if (userSelection == 0) {
                         confirm("This will discard all the changes are you sure?");
+                        cout << endl;
                         if (userSelection == 0) {
                             done = false;
                             
                         }
                     }
-                    else if (userSelection == 2) {
-                        cout << endl;
-                    }
+                  /*  else if (userSelection == 2) {
+                        
+                    }*/
                     
                 }
                 else {
                     done = false;
+                    cout << endl;
                     
                 }
                 break;
