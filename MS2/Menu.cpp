@@ -28,6 +28,11 @@ namespace seneca {
 			m_itemContent = nullptr;
 		}
 	}
+	MenuItem& MenuItem::operator=(MenuItem& item)
+	{
+		// TODO: insert return statement here
+		return *this;
+	}
 	MenuItem::~MenuItem()
 	{
 		delete[] m_itemContent;

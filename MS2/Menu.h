@@ -28,8 +28,8 @@ namespace seneca {
 		MenuItem();
 		MenuItem(const char* itemContent);
 		void setEmpty();
-		MenuItem(MenuItem& item) = delete;
-		MenuItem& operator=(MenuItem& item) = delete;
+		MenuItem(MenuItem& item);
+		MenuItem& operator=(MenuItem& item);
 		~MenuItem();
 		operator bool()const;
 		operator const char* ()const;
