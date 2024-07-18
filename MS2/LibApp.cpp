@@ -22,7 +22,7 @@ using namespace std;
 namespace seneca {
     bool LibApp::confirm(const char* message) {
         Menu m = message; 
-        m << "yes";
+        m << "Yes";
         if (m.run()==1) {
             return true;
         }
