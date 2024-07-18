@@ -22,18 +22,17 @@ that my professor provided to complete my workshops and assignments.
 namespace seneca {
    class LibApp {
        bool m_changed;
-       Menu m_mainMenu = "Seneca Library Application";
-       Menu m_exitMenu = "Changes have been made to the data, what would you like to do?";
-      
+       Menu m_mainMenu;
+       Menu m_exitMenu;
        bool confirm(const char* message);
        void load();  
        void save();  
        void search();  
        void returnPub();  
+       void newPublication();
+       void removePublication();
+       void checkOutPub();
    public:
-           void newPublication();
-           void removePublication();
-           void checkOutPub();
            LibApp();
            void run();
    };
