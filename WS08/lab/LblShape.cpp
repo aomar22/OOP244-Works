@@ -1,5 +1,7 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <cstring>
+#include <iomanip>
 #include "LblShape.h"
 /*Inherit an abstract class from 
 the interface Shape called LblShape. This class adds a label to a Shape.
@@ -11,19 +13,23 @@ namespace seneca {
 	char LblShape::label() const
 	{
 		/*Add a query called label that returns the unmodifiable value of m_label member variable.*/
-		return 0;
+		return *m_label;
 	}
 	LblShape::~LblShape()
 	{
+		delete m_label;
 		/*Deletes the memory pointed by m_label member variable.
-	deleted actions
-
-	The copy constructor and assignment operator are deleted to prevent copying
-	or assignment of instances of this class.*/
+	deleted actions*/
 	}
 
 	void LblShape::getSpecs(std::istream& is)
 	{
+		char line[500];
+		is.getline(line,500);
+		is.ignore(',');
+		delete m_label;
+		m_label = new char[strlen(line) + 1];
+		strcpy(m_label, line);
 		/*Reads a comma-delimited Cstring form istream:
 	Override the Shape::getSpecs pure virtual function to
 	receive a Cstring (a label) from istream up to the ',' character
@@ -34,13 +40,18 @@ namespace seneca {
 
 	LblShape::LblShape()
 	{
+		m_label = nullptr;
 		//Sets the label pointer to null. (You don't need to do this if the m_label is already initialized to null)
 		//One argument constructor
 	}
 
-	LblShape::LblShape(char* str)
+	LblShape::LblShape(char* label)
 	{
-		/*Allocates memory large enough to hold the incoming Cstring argument pointed by the m_label member variable. Then copies the Cstring
+		m_label = new char[strlen(label) + 1];
+		strcpy(m_label, label);
+
+		/*Allocates memory large enough to hold the incoming Cstring argument pointed by the m_label member variable.
+		Then copies the Cstring
 		argument to the newly allocated memory.*/
 	}
 	//LblShape& LblShape::operator&()

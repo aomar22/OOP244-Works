@@ -13,12 +13,14 @@ namespace seneca {
 		
 		//methods:
 		LblShape();
-		LblShape(char* str);
+		LblShape(char* label);
 		~LblShape();
 		//deleted
+		//The copy constructor and assignment operator are deleted to prevent copying
+		//or assignment of instances of this class.* /
 		LblShape(LblShape& lShape) = delete;
 		LblShape& operator=(LblShape& lShape) = delete;
-		virtual void getSpecs(std::istream& is); //override shape getspecs
+		void getSpecs(std::istream& is); //override shape getspecs
 		
 		//LblShape& operator&();
 		//void set();

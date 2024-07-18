@@ -1,4 +1,7 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+#include <cstring>
+#include <iomanip>
 #include "Shape.h"
 using namespace std;
 namespace seneca {

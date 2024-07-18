@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="LblShape.cpp" />
     <ClCompile Include="Line.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Shape.cpp" />
   </ItemGroup>

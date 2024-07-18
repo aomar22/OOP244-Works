@@ -6,9 +6,9 @@ namespace seneca {
 	class Line : public LblShape { //concrete class
 		//Line inherits the LblShape class to
 		// create a horizontal line with a label.
-		char m_length;//m_length to hold the length of the Line in characters
+		size_t m_length = 0;//m_length to hold the length of the Line in characters
 		Line();
-		Line(char str, char length);
+		Line(char* str, size_t length);
 		//virtual ~Line() = 0; This class has no destructor implemented
 		void getSpecs(std::istream& is);//override
 		void draw(std::ostream& os) const;
