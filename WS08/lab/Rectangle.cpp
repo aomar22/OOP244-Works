@@ -1,18 +1,19 @@
+/*Name: Amany Omar
+  Email: aomar22@myseneca.ca
+  ID# 126127166
+  Completed on July 18th, 2024.
+  Citation: I have done all the coding by myself and only copied the code that my professor
+provided to complete my project milestones and I needed help from the professor in debugging the code.*/
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <cstring>
 #include <string>
 #include "Rectangle.h"
 #include "Line.h"
-//Concrete class
-//The Rectangle class inherits the LblShape class to create a frame with a label inside.
+
 using namespace std;
 namespace seneca {
 	Rectangle::Rectangle() : LblShape(), m_height(0), m_width(0){
-		/*m_height = 0;
-		m_width = 0;*/
-		
-	
 	}
 	Rectangle::Rectangle(const char* label, int width, int height) : LblShape(label), m_height(height), m_width(width) {
 
@@ -36,7 +37,6 @@ namespace seneca {
 			os.width(m_width - 2);
 			os.fill('-');
 			os << '+' << endl;
-
 			//2nd line
 			os << '|';
 			os.width(m_width - 3);
@@ -52,7 +52,7 @@ namespace seneca {
 				os.unsetf(ios::left);
 				os << '|' << endl;
 			}
-				////Last line: exactly like first line.
+			//last line
 			os << '+';
 			os.width(m_width - 2);
 			os.fill('-');
