@@ -129,7 +129,6 @@
   <ItemGroup>
     <ClCompile Include="LblShape.cpp" />
     <ClCompile Include="Line.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Shape.cpp" />
   </ItemGroup>
@@ -141,7 +140,7 @@
     <Text Include="correct_output.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LbIShape.h" />
+    <ClInclude Include="LblShape.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Shape.h" />
