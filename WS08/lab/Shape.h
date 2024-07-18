@@ -6,6 +6,7 @@
 provided to complete my project milestones and I needed help from the professor in debugging the code.*/
 #ifndef SHAPE_H
 #define SHAPE_H
+#include <iostream>
 namespace seneca {
 	class Shape {
 	public:
