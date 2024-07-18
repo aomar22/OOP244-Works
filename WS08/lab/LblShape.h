@@ -2,7 +2,7 @@
 #define LBLSHAPE_H
 #include <iostream>
 #include "Shape.h"
-
+//ABSTRACT
 namespace seneca {
 	class LblShape : public Shape { //labeled shape class
 		char* m_label = nullptr; //hold dynamically allocated label for  the Shape
@@ -13,14 +13,14 @@ namespace seneca {
 		
 		//methods:
 		LblShape();
-		LblShape(char* label);
+		LblShape(const char* label);
 		~LblShape();
 		//deleted
 		//The copy constructor and assignment operator are deleted to prevent copying
 		//or assignment of instances of this class.* /
 		LblShape(LblShape& lShape) = delete;
 		LblShape& operator=(LblShape& lShape) = delete;
-		void getSpecs(std::istream& is); //override shape getspecs
+		void getSpecs(std::istream& is); //we don't override shape getspecs
 		
 		//LblShape& operator&();
 		//void set();

@@ -1,7 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <cstring>
-#include <iomanip>
+#include <string>
 #include "Rectangle.h"
 #include "Line.h"
 //Concrete class
@@ -15,8 +15,10 @@ namespace seneca {
 		/*Sets the width and height member variables to zero. It will also invoke
 		the default constructor of the base class.*/
 	}
-	Rectangle::Rectangle(char* label, size_t height, size_t width) : LblShape(label), m_height(height), m_width(width) {
+	Rectangle::Rectangle(const char* label, int height, int width) : LblShape(label), m_height(height), m_width(width) {
 		
+		/*m_height = height;
+		m_width = width;*/
 		if (m_height < 3 || m_width < (LblShape::label() + 2)) {
 			m_height = 0;
 			m_width = 0;

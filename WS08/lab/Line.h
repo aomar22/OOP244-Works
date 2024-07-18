@@ -1,18 +1,23 @@
 #ifndef LINE_H
 #define LINE_H
+#include <iostream>
 #include "LblShape.h"
 //concrete class
 namespace seneca {
 	class Line : public LblShape { //concrete class
 		//Line inherits the LblShape class to
 		// create a horizontal line with a label.
-		size_t m_length = 0;//m_length to hold the length of the Line in characters
+		int m_length = 0;//m_length to hold the length of the Line in characters
+	public:
 		Line();
-		Line(char* str, size_t length);
+		Line(const char* str, int length);
 		//virtual ~Line() = 0; This class has no destructor implemented
 		void getSpecs(std::istream& is);//override
 		void draw(std::ostream& os) const;
 	};
 }
 
-#endif //LINE_H
+#endif //LINE_
+
+//lefthand side if there is virtual
+// if no virtual choose right hand sideH

@@ -9,10 +9,12 @@ namespace seneca {
 	private:
 		// hold the width and the height of
 		// a rectangular frame (number of characters).
-		size_t m_height = 0;//char m_height;
-		size_t m_width = 0;//char m_width;
+		int m_height = 0;//char m_height;
+		int m_width = 0;//char m_width;
+		
+	public:
 		Rectangle();
-		Rectangle(char* label, size_t height, size_t width);
+		Rectangle(const char* label, int height, int width);
 		//virtual ~Rectangle() = 0; // This class has no destructor implemented.
 		//bool isValid();
 		//methods:
@@ -22,3 +24,4 @@ namespace seneca {
 }
 
 #endif //RECTANGLE_H
+/**/

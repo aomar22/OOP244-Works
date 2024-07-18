@@ -21,13 +21,15 @@ namespace seneca {
 			required in this case, as the compiler automatically generates it.This is a good practice in object 
 			- oriented programming in C++.*/
 
-		virtual ~Shape() = default; //no implementation is needed
-		virtual void draw(std::ostream& os) const = 0;//This pure virtual function can not modify the current object.
+		/*CORRECT*/virtual ~Shape() = default; //no implementation is needed
+	/*CORRECT*/	virtual void draw(std::ostream& os) const = 0;//This pure virtual function can not modify the current object.
 		virtual void getSpecs(std::istream& is) = 0; //Returns void and receives a reference to istream as an argument
 		//Helper functions
-		std::ostream& operator<<(std::ostream& os);
-		std::istream& operator>>(std::istream& is);
+		/*std::ostream& operator<<(std::ostream& os, Shape& s);
+		std::istream& operator>>(std::istream& is, Shape& s);*/
 	};
+	std::ostream& operator<<(std::ostream& os, Shape& s);
+	std::istream& operator>>(std::istream& is, Shape& s);
 }
 
 #endif //SHAPE_H

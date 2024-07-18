@@ -45,7 +45,7 @@ namespace seneca {
 		//One argument constructor
 	}
 
-	LblShape::LblShape(char* label)
+	LblShape::LblShape(const char* label)
 	{
 		m_label = new char[strlen(label) + 1];
 		strcpy(m_label, label);
