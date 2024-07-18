@@ -7,29 +7,32 @@
 //Line inherits the LblShape class to create a horizontal line with a label
 using namespace std;
 namespace seneca {
-	Line::Line() : LblShape(){
-		m_length = 0;
-		cout << "invokes default constructor of the base class" << endl;// to be removed later
+	//Line::Line() : LblShape(), m_length(0){
+		//m_length = 0;
+		//cout << "invokes default constructor of the base class" << endl;// to be removed later
 		/*Sets the m_length member variable to zero, and invokes
 		the default constructor of the base class.*/
-	}
-	Line::Line(const char* str, int length) : LblShape(str), m_length(length) {
-	
+	//}
+	//Line::Line(const char* str, int length) : LblShape(str), m_length(length) {
+
+		/*char* line;
+		line = new char(m_length+1);
+		strcpy(line, str);*/
+
 		/*Receives a Cstring and a value for
 		the length of the line. Passes the Cstring to the
 		constructor of the base class and sets the m_length member variable
 		to the value of the second argument.*/
-	}
+	//}
 
-	void Line::draw(std::ostream& os) const
+	void Line::draw(std::ostream& os) const 
 	{
-		if (m_length > 0 && label()) {
+		if (m_length > 0 && label()){
 			os << label();
 			os << '\n';
 			for (int i = 0; i < m_length; i++) {
 				os << '=';
 			}
-			os << '\n';
 		}
 	}
 		
