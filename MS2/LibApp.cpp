@@ -80,7 +80,7 @@ namespace seneca {
         }
     }
 
-    LibApp::LibApp() : m_mainMenu("Seneca Library Application"), m_exitMenu("Changes have been made to the data, what would you like to do?"), m_changed(false)
+    LibApp::LibApp() : m_changed(false), m_mainMenu("Seneca Library Application"), m_exitMenu("Changes have been made to the data, what would you like to do?")
     {
         m_mainMenu << "Add New Publication";
         m_mainMenu << "Remove Publication";
