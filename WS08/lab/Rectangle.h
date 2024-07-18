@@ -11,12 +11,14 @@ namespace seneca {
 	class Rectangle : public LblShape {
 	private:
 		int m_height = 0;
-		int m_width = 0;	
+		int m_width = 0;
 	public:
 		Rectangle();
 		Rectangle(const char* label, int height, int width);
 		void getSpecs(std::istream& is);
-		void draw(std::ostream& os)const; 
+		void draw(std::ostream& os)const;
+		operator int()const;
 	};
 }
+	
 #endif //RECTANGLE_H

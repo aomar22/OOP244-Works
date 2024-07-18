@@ -17,7 +17,7 @@ namespace seneca {
 	}
 	Rectangle::Rectangle(const char* label, int width, int height) : LblShape(label), m_height(height), m_width(width) {
 
-		if (m_height < 3 || m_width < (int)(strlen(label) + 2)) {
+		if (m_height < 3 || m_width < ((int)(strlen(label)) + 2)) {
 			m_height = 0;
 			m_width = 0;
 		}
@@ -61,7 +61,7 @@ namespace seneca {
 	}
 	Rectangle::operator int() const
 	{
-		int num;
+		int num = 0;
 		return num;
 	}
 }
