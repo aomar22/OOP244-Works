@@ -17,7 +17,7 @@ namespace seneca {
 	}
 	LblShape::~LblShape()
 	{
-		delete m_label;
+		delete [] m_label;
 	}
 
 	void LblShape::getSpecs(std::istream& is)
