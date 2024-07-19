@@ -13,11 +13,9 @@ provided to complete my project milestones and I needed help from the professor 
 
 using namespace std;
 namespace seneca {
-	Rectangle::Rectangle() : LblShape(), m_height(0), m_width(0){
-	}
-	Rectangle::Rectangle(const char* label, int width, int height) : LblShape(label), m_height(height), m_width(width) {
+	Rectangle::Rectangle(const char* label, int width, int height) : LblShape(label), m_width(width), m_height(height) {
 
-		if (m_height < 3 || m_width < ((int)(strlen(label)) + 2)) {
+		if (m_height < 3 || m_width < ((int)(strlen(label)+2))) {
 			m_height = 0;
 			m_width = 0;
 		}
@@ -25,23 +23,25 @@ namespace seneca {
 	void Rectangle::getSpecs(std::istream& is)
 	{
 		LblShape::getSpecs(is);
-		char comma = ',';
-		is >> m_width >> comma >> m_height;
+		is >> m_width;
+		is.ignore();
+		is >> m_height;
 		is.ignore(10000, '\n');
 	}
 	void Rectangle::draw(std::ostream& os) const
 	{
 		if (m_width != 0 && m_height != 0) {
 			//1st line
-			os << '+';
+			os << '+'; 
 			os.width(m_width - 2);
 			os.fill('-');
+			os << '-';
 			os << '+' << endl;
 			//2nd line
 			os << '|';
-			os.width(m_width - 3);
-			os.setf(ios::left);
+			os.width(m_width - 2);
 			os.fill(' ');
+			os.setf(ios::left);
 			os << label();
 			os << '|' << endl;
 			//In next (m_height - 3) lines:
@@ -50,12 +50,14 @@ namespace seneca {
 				os.fill(' ');
 				os.width(m_width - 2);
 				os.unsetf(ios::left);
+				os << ' ';
 				os << '|' << endl;
 			}
 			//last line
 			os << '+';
 			os.width(m_width - 2);
 			os.fill('-');
+			os << '-';
 			os << '+';	
 		}
 	}

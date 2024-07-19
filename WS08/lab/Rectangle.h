@@ -13,7 +13,7 @@ namespace seneca {
 		int m_height = 0;
 		int m_width = 0;
 	public:
-		Rectangle();
+		Rectangle() : LblShape(), m_height(0), m_width(0) {};
 		Rectangle(const char* label, int height, int width);
 		void getSpecs(std::istream& is);
 		void draw(std::ostream& os)const;
