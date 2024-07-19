@@ -61,9 +61,4 @@ namespace seneca {
 			os << '+';	
 		}
 	}
-	Rectangle::operator int() const
-	{
-		int num = 0;
-		return num;
-	}
 }
