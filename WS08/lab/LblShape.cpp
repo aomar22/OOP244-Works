@@ -24,7 +24,7 @@ namespace seneca {
 	{
 		char line[500];
 		is.getline(line,500, ',');
-		delete m_label;
+		delete[] m_label;
 		m_label = new char[strlen(line) + 1];
 		strcpy(m_label, line);
 	}

@@ -17,7 +17,6 @@ namespace seneca {
 		Rectangle(const char* label, int height, int width);
 		void getSpecs(std::istream& is);
 		void draw(std::ostream& os)const;
-		operator int()const;
 	};
 }
 	
