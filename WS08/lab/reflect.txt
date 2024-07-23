@@ -1,0 +1,36 @@
+/*Name: Amany Omar
+  Email: aomar22@myseneca.ca
+  ID# 126127166
+  Completed on July 18th, 2024.
+  Citation: I have done all the coding by myself and only copied the code that my professor
+provided to complete my project milestones and I needed help from the professor in debugging the code.*/
+___________________________________________________________________________________________
+
+Upon successful completion of this workshop, you will have demonstrated the abilities to:
+
+    define pure virtual functions
+    create abstract base classes
+    implement behaviour using virtual functions
+    explain the difference between an abstract base class and a concrete class
+    describe what you have learned in completing this workshop
+____________________________________________________________________________
+
+Pure virtual functions are functions declared in a base class and have special criteris:
+- virtual keyword: added in front of the function declaration.
+- '=0' setting the prototype to 0. (pure)
+- this function has declaration but has No implementation or definition.
+
+e.g. virtual void draw(std::ostream& os) const = 0;
+virtual void getSpecs(std::istream& is) = 0; 
+
+The virtual keyword is important as it allows the behaviour of polymorphism, which is one of the pillars of object oriented programming. Polymorphism means when there are functions in the derived classes have the exact same declaration of the function declared in the base class allowing for special behavior based on the object called, virtual keyword ensures the implementation of the most proper overriding function implemented based on the object type (dynamic binding). It also means overriding the function that is declared in the base class in the derived classes enabling special implementations. For example, the draw and getSpecs functions declared in the base class Shape (both are virtual and pure and have no implementation in the Shape module). However, they are overridden in Line and Rectangle, and LblShape modules(the derived classes). During running the program, dynamic binding takes places allowing for executing the functions according to the object type called leading to the output of the shapes line, rectangle, labeled rectangles. 
+- - - - - - - - - - - - - - - - - - - -
+Abstract base classes are classes that have at least one virtual pure function.[= 0 indicate pure and no implementation of this function]
+for example, the Shape class has two virtual pure functions and the LblShape has one pure virtual functions (draw function), which makes both classes considered abstract base class. The differ from other classes that abstract base class cannot be instantiated an object directly. (A pointer to the abstract base class can be created to access this class but cannot create an object for example, unable to use Shape s considering s as an object, but can use Shape* s). These pointers access to derived classes' objects that inherit from the ABS. E.g. in the main function: Shape* S[2] = { L, R }; The array of pointer S is created holding pointers to Shape objects(line, rectangle). Also, Shape* sptr; created a pointer pointing to the derived classes that is used later in the code to allocate dynamic memory for inheriting objects sptr = new Line;  sptr = new Rectangle; 
+- - - - - - - - - - - - - - - - - - - - - -  - - - - - - 
+Virtual functions are member functions that are specified by using the keyword "virtual" in front of the declaration (No "=0" and not pure function). It differs from pure virtual function as it does not have "=0" at the end, meaning it is Not pure and it Has Implementation in the source file. Also, it does Not make its class an abstract class, in contrary it can be concrete class and its objects can be instantiated directly. The virtual functions are very important to enable the polymorphism behaviour and the flexibility of getting different output based on the object type called during the running time. It allows overriding and the execution of the appropriate overriding function. [I am not sure why I don't have example in this workshop about virtual function, or if I mistakenly miss it]
+ - - - - - - - - - - - -- -- - - -- - - - - - -- -
+The Abstract base class(ABC) is the class that contains at least one Pure Virtual Function, while the concrete class does not have any pure virtual function. the concrete function can have the Virutal member function.
+ABC is interface and its pure virtual functions will be overridden in its derived classes. the concrete class has implementations to its overriding functions and it can be instantiated. ABC has no implementations to its pure virtual functions, while concrete classes have. Example, the Shape class is ABC because it has two pure virtual functions as mentioned above. The LblShape is also concrete because it has one pure virtual function, which is draw function. Eventhough the getspecs is not pure and is implemented, but since at least one function is pure, it is abstract and cannot be instantiated directly. However, the Line and Rectangle classes are concrete classes implementing overriding functions from their base class and can be instantiated directly. 
+- - - - - - - - - - - - - - - - - - - - - - - - - - - 
+In summary, this workshop helped me clear most of the confusion for me between the concrete and abstract base classes, and between virtual functions and pure virtual functions and their implementation behaviour, and I learned the advantage of virtual functions and their role in enabling polymorphism, dynamic binding, and overriding.
