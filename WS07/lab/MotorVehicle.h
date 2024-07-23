@@ -5,8 +5,8 @@
   Reason of Re-submitting: Adding citation
   Citation: I have done all the coding by myself and only copied the code that my professor
 provided to complete my project milestones and I needed help from the professor in debugging the code.*/
-#ifndef MotorVehicle_H
-#define MotorVehicle_H
+#ifndef MOTORVEHICLE_H
+#define MOTORVEHICLE_H
 #include <iostream>
 namespace seneca {
     class MotorVehicle {
@@ -20,9 +20,10 @@ namespace seneca {
         void moveTo(const char* address);
         std::ostream& write(std::ostream& os)const; //query
         std::istream& read(std::istream& is);
-        friend  std::istream& operator>>(std::istream& is, MotorVehicle& mv);
-        friend  std::ostream& operator<<(std::ostream& os, const MotorVehicle& mv);
+        
     };
+    std::istream& operator>>(std::istream& is, MotorVehicle& mv);
+    std::ostream& operator<<(std::ostream& os, const MotorVehicle& mv);
 }
 
 #endif
