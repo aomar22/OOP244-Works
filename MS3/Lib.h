@@ -11,6 +11,8 @@ const int SENECA_SHELF_ID_LEN = 4;
 // The width in which the shelf id of a publication should be printed on the console
 const int SENECA_LIBRARY_CAPACITY = 5000;
 // Maximum number of publications the library can hold.
+const int MAX_TITLE_LENGTH = 255;
+//Maximum title characters
 
 
 

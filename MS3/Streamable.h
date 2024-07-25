@@ -14,8 +14,8 @@ namespace seneca {
 		virtual ~Streamable();
 	};
 	//Helper functions:
-	std::istream& operator>>(std::istream& is, const Streamable& str);
-	std::ostream& operator<<(std::ostream& os, const Streamable& str);
+	std::ostream& operator>>(std::ostream& os, Streamable& str);
+	std::istream& operator<<(std::istream& is, const Streamable& str);
 }
 
 /*write pure virtual function

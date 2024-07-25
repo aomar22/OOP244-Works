@@ -2,7 +2,7 @@
 #define SENECA_PUBLICATION_H
 #include "Date.h"
 #include "Streamable.h"
-#define MAX_TITLE_LENGTH 255
+
 /*The publication class is a general encapsulation of any periodic publication. Publication inherits from Streamable.
 
     Later by adding an author to the descendant of the Publication class we will encapsulate a Book for the system.
@@ -11,8 +11,9 @@ namespace seneca {
 
 	class Publication : public Streamable {
 		//Attributes:
+	public:
 		char* m_title; //hold a dynamic title for the publication, null by default..
-		char m_shelfId[4 + 1]{ }; //Hold the location of the publication in the library
+		char* m_shelfId; //Hold the location of the publication in the library
 		int m_membership{ 0 }; //hold a 5-digit membership number of members of the library.
 		int m_libRef{ -1 }; //used internally to uniquely identify each publication in the system.
 		/*In periodical publications, this date is used for the publish date of the item.
@@ -21,7 +22,7 @@ namespace seneca {
 			*/
 		Date m_date; //by default, is set to the current date
 		Publication();
-	public:
+	
 
 		//Methods:
 		//Modifiers:
@@ -31,6 +32,7 @@ namespace seneca {
 		// Sets the **libRef** attribute value
 		void resetDate();
 		// Sets the date to the current date of the system.
+		void setEmpty();
 
 		//Quiries:
 		virtual char type()const;
@@ -48,7 +50,7 @@ namespace seneca {
 		//Returns the libRef attirbute.
 
 		//Streamable pure virtual function implementations:
-		bool conIO(ios& io)const;
+		bool conIO(std::ios& io)const;
 		std::ostream& write(std::ostream& os) const;
 		std::istream& read(std::istream& istr);
 		operator bool() const;

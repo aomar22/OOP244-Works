@@ -1,7 +1,9 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+#include <cstring>
 #include "Publication.h"
 #include "Date.h"
-#include <cstring>
+#include "Lib.h"
 
 
 using namespace std;
@@ -9,10 +11,10 @@ namespace seneca {
 
 	Publication::Publication() : m_date(Date()) {
 		m_title[0] = '\0'; //hold a dynamic title for the publication, null by default..
-		 m_shelfId[0] = { '\0' }; //Hold the location of the publication in the library
-		 m_membership = 0; //hold a 5-digit membership number of members of the library.
-		 m_libRef = -1; 
-		
+		m_shelfId[0] = { '\0' }; //Hold the location of the publication in the library
+		m_membership = 0; //hold a 5-digit membership number of members of the library.
+		m_libRef = -1;
+
 	}
 	//used internally to uniquely identify each publication in the system.
 	   /*In periodical publications, this date is used for the publish date of the item.
@@ -99,13 +101,136 @@ namespace seneca {
 			os << m_membership << '\t';
 			os << m_date;
 		}
-		
+		return os;
+	}
+	void Publication::setEmpty() {
+
+		m_title[0] = '\0'; //hold a dynamic title for the publication, null by default..
+		m_shelfId[0] = { '\0' }; //Hold the location of the publication in the library
+		m_membership = 0; //hold a 5-digit membership number of members of the library.
+		m_libRef = -1;
+		m_date = Date();
 	}
 	std::istream& Publication::read(std::istream& istr)
 	{
-		
+		/*char* m_title; //hold a dynamic title for the publication, null by default..
+		char m_shelfId[4 + 1]{ }; //Hold the location of the publication in the library
+		int m_membership{ 0 }; //hold a 5-digit membership number of members of the library.
+		int m_libRef{ -1 };*/
+		char* title = nullptr;
+		char* shelfId = nullptr;
+		int membership = 0;
+		int libRef = -1;
+		Date date;
+		delete[] m_title;
+		setEmpty();
+		if (conIO(istr) && shelfId != nullptr) {
+			cout << "Shelf No: ";
+			for (int i = 0; i < SENECA_SHELF_ID_LEN; i++) {
+				istr >> shelfId[i];
+				if (i != SENECA_SHELF_ID_LEN) {
+					istr.fail();
+				}
+				//cout << endl;
+			}
+			cout << "Title: ";
+			istr >> title;
+
+			cout << "Date: ";
+			date.read(istr);
+			/*istr >> date;*/
+
+			libRef = -1;
+		}
+		else {
+			istr >> libRef;
+			istr.ignore('\t');
+			istr >> shelfId;
+			istr.ignore('\t');
+			istr >> title;
+			istr.ignore('\t');
+			istr >> membership;
+			istr.ignore('\t');
+			date.read(istr);
+		}
+		if (!m_date) {
+			istr.fail();
+		}
+		if (istr) {
+			m_title = new char[SENECA_TITLE_WIDTH + 1];
+			strcpy(m_title, title);
+			strcpy(m_shelfId, shelfId);
+			m_membership = membership;
+			m_date = date;
+			m_libRef = libRef;
+		}
 		return istr;
 	}
+	Publication::operator bool() const
+	{
+		if (m_title != nullptr || m_shelfId != nullptr) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	Publication::Publication(const Publication& p)
+	{
+		if (p) {
+			strncpy(m_shelfId, p.m_shelfId, SENECA_SHELF_ID_LEN);
+			m_membership = p.m_membership;
+			m_libRef = p.m_libRef;
+			m_date = p.m_date;
+			if (m_title != nullptr) {
+				m_title = new char[SENECA_TITLE_WIDTH + 1];
+					strncpy(m_title, p.m_title, SENECA_TITLE_WIDTH);
+			}
+			else {
+				m_title = nullptr;
+			}
+			
+
+		}
+	}
+
+	Publication& Publication::operator=(const Publication& p)
+	{
+		if (this != &p) {
+			m_membership = p.m_membership;
+			m_libRef = p.m_libRef;
+			m_date = p.m_date;
+
+			delete[] m_title;
+			if (p.m_title != nullptr) {
+				m_title = new char[SENECA_TITLE_WIDTH + 1];
+				for (int i = 0; i < SENECA_TITLE_WIDTH; i++) {
+					m_title[i] = p.m_title[i];
+					m_title = nullptr;
+				}
+			}
+			else {
+				m_title = nullptr;
+			}
+		}
+		return *this;
+	}
+
+	Publication::~Publication()
+	{
+		delete[] m_title;
+	}
+
+	/*After the process of reading is done if istr is in a valid state:
+
+    Dynamically store the title in the title attribute
+    copy the shelf ID into the shelfId attribute
+    set the membership
+    set the date
+    set the libRef attribute
+
+At the end return the istr argument.*/
 	/*Read all the values in local variables before setting the attributes to any values.
 
 First, clear all the attributes by freeing the memory and setting everything to their default values.
