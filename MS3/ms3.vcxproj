@@ -140,11 +140,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Date.cpp" />
+    <ClCompile Include="Publication.cpp" />
     <ClCompile Include="Streamable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Date.h" />
     <ClInclude Include="Lib.h" />
+    <ClInclude Include="Publication.h" />
     <ClInclude Include="Streamable.h" />
   </ItemGroup>
   <ItemGroup>
