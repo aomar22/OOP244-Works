@@ -4,12 +4,18 @@
 using namespace std;
 namespace seneca {
 
-	std::ostream& operator>>(std::ostream& os, const Streamable& str) {
+	
+	Streamable::~Streamable()
+	{
+	}
+	std::ostream& operator>>(std::ostream& os, Streamable& str)
+	{
 		if (str) {
-			return str.write(os)
+			return str.write(os);
 		}
 	}
-	std::istream& operator<<(std::istream& os, const Streamable& str) {
+	std::istream& operator<<(std::istream& is, const Streamable& str)
+	{
 		return str.read(is);
 	}
 }

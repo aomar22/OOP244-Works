@@ -5,6 +5,7 @@
 namespace seneca {
 	class Streamable {
 		//pure virtual functions
+	public:
 		virtual std::ostream& write(std::ostream& ostr) = 0;
 		virtual std::istream& read(std::istream& istr)const = 0;
 

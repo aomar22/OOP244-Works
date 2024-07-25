@@ -1,6 +1,8 @@
 #ifndef SENECA_PUBLICATION_H
 #define SENECA_PUBLICATION_H
 #include "Date.h"
+#include "Streamable.h"
+#define MAX_TITLE_LENGTH 255
 /*The publication class is a general encapsulation of any periodic publication. Publication inherits from Streamable.
 
     Later by adding an author to the descendant of the Publication class we will encapsulate a Book for the system.
@@ -9,7 +11,7 @@ namespace seneca {
 
 	class Publication : public Streamable {
 		//Attributes:
-		char* m_title[255 +1]{ Null }; //hold a dynamic title for the publication, null by default..
+		char* m_title; //hold a dynamic title for the publication, null by default..
 		char m_shelfId[4 + 1]{ }; //Hold the location of the publication in the library
 		int m_membership{ 0 }; //hold a 5-digit membership number of members of the library.
 		int m_libRef{ -1 }; //used internally to uniquely identify each publication in the system.
