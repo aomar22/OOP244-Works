@@ -22,6 +22,9 @@ namespace seneca {
 	/*Streamable::~Streamable()
 	{
 	}*/
+	Streamable::~Streamable()
+	{
+	}
 }
 /*Overload the insertion operator so a constant object of type Streamable can 
 be written on an ostream object only if the Streamable object is in a valid state. Otherwise, 

@@ -131,7 +131,7 @@ namespace seneca {
             is.ignore();
             validate();
         }
-        is.clear();
+      //  is.clear();
         return is;
     }
    ostream& Date::write(std::ostream& os) const
