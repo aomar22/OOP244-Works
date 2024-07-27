@@ -1,24 +1,27 @@
 #define _CRT_SECURE_NO_WARNINGS
-#include <iostream>
+//#include <iostream>
+//#include <cstring>
 #include "Streamable.h"
 
 using namespace std;
-namespace seneca {
-
-	
-	Streamable::~Streamable()
+namespace seneca {	
+	ostream& operator<<(ostream& os, const Streamable& ios)
 	{
-	}
-	std::ostream& operator>>(std::ostream& os, Streamable& str)
-	{
-		if (str) {
-			return str.write(os);
+		if (ios) {
+			ios.write(os);
 		}
+	   return os;
 	}
-	std::istream& operator<<(std::istream& is, const Streamable& str)
+	istream& operator>>(istream& is, Streamable& ios)
 	{
-		return str.read(is);
+		if (ios) {
+			ios.read(is);
+		}
+		return is;
 	}
+	/*Streamable::~Streamable()
+	{
+	}*/
 }
 /*Overload the insertion operator so a constant object of type Streamable can 
 be written on an ostream object only if the Streamable object is in a valid state. Otherwise, 

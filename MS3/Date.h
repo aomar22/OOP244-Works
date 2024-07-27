@@ -33,7 +33,7 @@ namespace seneca {
       int m_ErrorCode;
       int m_CUR_YEAR;
       int daysSince0001_1_1()const; 
-      bool validate();             
+      /*bool validate();*/             
       void errCode(int);           
       int systemYear()const;       
       bool bad()const;             
@@ -56,6 +56,7 @@ namespace seneca {
       bool operator>(const Date& RO)const;
       int operator-(const Date& RO) const;
       operator bool();
+      bool validate();
    };
    std::ostream& operator<<(std::ostream& os, const Date& RO);
    std::istream& operator>>(std::istream& is, Date& RO);
