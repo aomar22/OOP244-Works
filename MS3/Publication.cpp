@@ -96,7 +96,7 @@ namespace seneca {
 				os.write(m_title, SENECA_TITLE_WIDTH);
 			}
 			else {
-				os.setf(ios::left);
+				os.setf(ios::right);
 				os.width(SENECA_TITLE_WIDTH);
 				os.fill('.');
 				os << m_title;
