@@ -55,7 +55,12 @@ namespace seneca {
 
 	bool Publication::operator==(const char* title) const
 	{
-		return strstr(m_title, title);	
+		if (strstr(m_title, title)) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	Publication::operator const char* () const
 	{
@@ -127,7 +132,7 @@ namespace seneca {
 	}
 	istream& Publication::read(istream& istr)
 	{
-	char title[SENECA_TITLE_WIDTH + 1]{};
+	char title[255 + 1]{};
 	char shelfId[SENECA_SHELF_ID_LEN + 1]{};
 	int membership = 0;
 	int libRef = -1;
@@ -152,7 +157,7 @@ namespace seneca {
 		}
 
 		cout << "Title: ";
-		istr.getline(title, SENECA_TITLE_WIDTH + 1);
+		istr.getline(title, 255);
 
 		cout << "Date: ";
 		istr >> date;
@@ -168,13 +173,11 @@ namespace seneca {
 		istr >> libRef;
 		istr.ignore(); // Ignore the delimiter after libRef
 		istr.getline(shelfId, SENECA_SHELF_ID_LEN + 1, '\t');
-		istr.getline(title, SENECA_TITLE_WIDTH, '\t');
+		istr.getline(title, 255, '\t');
 		istr >> membership;
 		istr.ignore(); // Ignore the delimiter after membership
 		istr >> date;
-		if (!istr) {
-			istr.setstate(ios::failbit);
-		}
+		
 	}
 
 	// Validate date and handle errors
