@@ -147,6 +147,7 @@ namespace seneca {
            os.fill('0');
            os << m_day;
            os.fill(' ');
+           os.unsetf(ios::right);
 
        }
        return os;
