@@ -6,7 +6,7 @@ namespace seneca {
 	class Book : public Publication {
 		char* m_author{ nullptr };
 	public:
-		friend class Date;
+		
 		Book() : Publication(), m_author(nullptr) {};
 		Book(const Book& book);
 		Book& operator=(const Book& book);
