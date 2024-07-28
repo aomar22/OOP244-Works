@@ -1,3 +1,15 @@
+/*Final Project Milestone 3
+Module: Publication
+Filename : Publication.h
+Version 1.0
+Author	Amany Omar
+Email : aomar22@myseneca.ca
+ID : 126 127 166
+
+---------------------------------------------------------- -
+I have completed the coding by myself and only copied the code
+that my professor provided to complete my workshops and assignments.
+---------------------------------------------------------- - */
 #ifndef SENECA_PUBLICATION_H
 #define SENECA_PUBLICATION_H
 #include "Date.h"
@@ -6,7 +18,6 @@
 namespace seneca {
 
 	class Publication : public Streamable {
-		//Attributes:
 	
 		char* m_title; //hold a dynamic title for the publication, null by default..
 		char m_shelfId[SENECA_SHELF_ID_LEN +1]; //Hold the location of the publication in the library
@@ -19,7 +30,6 @@ namespace seneca {
 		virtual void set(int member_id);
 		void setRef(int value);
 		void resetDate();
-		//void setEmpty();
 		virtual char type()const;
 		bool onLoan()const;
 		Date checkoutDate()const;
@@ -36,14 +46,6 @@ namespace seneca {
 		~Publication();
 
 	};
-
-	/*virtual std::ostream& write(std::ostream& os)const = 0;
-	virtual std::istream& read(std::istream& istr) = 0;
-
-	virtual bool conIO(std::iostream& ios)const = 0;
-	virtual operator bool()const = 0;
-*/
-
 
 }
 #endif //SENECA_PUBLICATION_H

@@ -1,3 +1,15 @@
+/*Final Project Milestone 3
+Module: Publication
+Filename : Publication.cpp
+Version 1.0
+Author	Amany Omar
+Email : aomar22@myseneca.ca
+ID : 126 127 166
+
+---------------------------------------------------------- -
+I have completed the coding by myself and only copied the code
+that my professor provided to complete my workshops and assignments.
+---------------------------------------------------------- - */
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <cstring>
@@ -127,7 +139,6 @@ namespace seneca {
 		m_libRef = -1;
 		
 		if (conIO(istr)) {
-			// Interactive input
 			cout << "Shelf No: ";
 			
 			istr.getline(shelfId, SENECA_SHELF_ID_LEN + 1);
@@ -144,17 +155,16 @@ namespace seneca {
 		}
 		else {
 			istr >> libRef;
-			istr.ignore(1000, '\t'); // Ignore the delimiter after libRef
+			istr.ignore(1000, '\t'); 
 			istr.getline(shelfId, SENECA_SHELF_ID_LEN + 1, '\t');
 			istr.getline(title, 255, '\t');
 			istr >> membership;
-			istr.ignore(1000, '\t'); // Ignore the delimiter after membership
+			istr.ignore(1000, '\t'); 
 			istr >> date;
 		}
 		if (date.validate()==false) {
 			istr.setstate(ios::failbit);
 		}
-		// If input was successful, update the object
 		if (istr.good()) {
 			m_title = new char[strlen(title) + 1];
 			strcpy(m_title, title);
@@ -203,10 +213,8 @@ namespace seneca {
 		}
 
 	Publication::~Publication()
-	{
-		
-		delete[] m_title;
-		
+	{	
+		delete[] m_title;	
 	}
 
 }

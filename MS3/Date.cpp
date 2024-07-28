@@ -127,30 +127,27 @@ namespace seneca {
             is >> m_mon;
             is.ignore();
             is >> m_day;
-            is.ignore();
-
-            /*validate();*/
+           
         }
         validate();
-      //  is.clear();
         return is;
     }
    ostream& Date::write(std::ostream& os) const
    { 
-       if (!bad()) {
-           os << m_year << "/";
-           if (m_mon >= 0 && m_mon <= 9) {
-               os.width(2);
-               os.fill('0');        
-               os << m_mon << "/";
-               os.width(2);
-               os.fill('0');
-               os.fill(' ');
-               os << m_day;     
-           }
+       if (bad()) {
+           os << dateStatus();
        }
        else {
-           os << dateStatus();
+           os << m_year << "/";
+           os.width(2);
+           os.fill('0');
+           os.setf(ios::right);
+           os << m_mon << "/";
+           os.width(2);
+           os.fill('0');
+           os << m_day;
+           os.fill(' ');
+
        }
        return os;
    }   
