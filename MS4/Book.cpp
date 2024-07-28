@@ -1,5 +1,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+#include <cstring>
+#include <string>
+#include <iomanip>
 #include "Book.h"
 
 using namespace std;
@@ -65,12 +68,12 @@ namespace seneca {
         Publication::read(istr);
         delete[] m_author;
         if (conIO(istr)) {
-            istr.ignore('\n');
+            istr.ignore(1000, '\n');
             cout << "Author: ";
             istr.getline(author, 257);
         }
         else {
-            istr.ignore('\t');
+            istr.ignore(1000, '\t');
             istr.getline(author, 257);
         }
         if (!istr.fail()) {

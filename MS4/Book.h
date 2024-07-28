@@ -1,5 +1,6 @@
 #ifndef SENECA_BOOK_H
 #define SENECA_BOOK_H
+#include <iostream>
 #include "Publication.h"
 namespace seneca {
 	class Book : public Publication {
