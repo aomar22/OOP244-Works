@@ -2,21 +2,22 @@
 #define SENECA_STREAMABLE_H
 //Abstract Base Class
 #include <iostream>
+
 namespace seneca {
 	class Streamable {
-		//pure virtual functions
-	 public:
+	public:
 		virtual std::ostream& write(std::ostream& os)const = 0;
 		virtual std::istream& read(std::istream& istr) = 0;
 		virtual bool conIO(std::ios& io)const = 0;
 		virtual operator bool()const = 0;
 		virtual ~Streamable();
-		/*friend std::ostream& operator<<(std::ostream& os, const Streamable& ios);
-		friend std::istream& operator>>(std::istream& istr, Streamable& ios);*/
+
 	};
-	//Helper functions:
 	std::ostream& operator<<(std::ostream& os, const Streamable& ios);
-	std::istream& operator>>(std::istream& is,  Streamable& ios);
+	std::istream& operator>>(std::istream& istr, Streamable& ios);
+}
+	//Helper functions:
+	/*6
 }
 
 /*write pure virtual function
