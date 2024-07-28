@@ -21,7 +21,7 @@ that my professor provided to complete my workshops and assignments.
 using namespace std;
 namespace seneca {
 
-    Book::Book(const Book& book) : Publication(book), m_author(nullptr)  {
+    Book::Book(const Book& book):m_author(nullptr) /*: Publication(book), m_author(nullptr)*/ {
         m_author = nullptr;
         if (this != &book) {
 
@@ -35,8 +35,9 @@ namespace seneca {
     Book& Book::operator=(const Book& book)
     {
         if (this != &book) {
+            
+            Publication::operator=(book);
             delete[] m_author;
-           // m_author = nullptr;
             if (book.m_author != nullptr) {
                 m_author = new char[strlen(book.m_author) + 1];
                 strcpy(m_author, book.m_author);
@@ -44,7 +45,7 @@ namespace seneca {
             else {
                 m_author = nullptr;
             }
-            Publication::operator=(book);
+          //  Publication::operator=(book);
         }
         return *this;
     }
@@ -63,38 +64,44 @@ namespace seneca {
     {
         Publication::write(os);
         if (Publication::conIO(os)) {
+            
             os << ' ';
+            
             if (strlen(m_author) > SENECA_AUTHOR_WIDTH) {
                 for (int i = 0; i < SENECA_AUTHOR_WIDTH; i++) {
                     os << m_author[i];
-                }
-                os << " |";
+                }   
             }
-           
+            else {
+                os.width(SENECA_AUTHOR_WIDTH);
+                os.setf(ios::left);
+                os << m_author;
+            }        
+           os << " |";
         }
         else {
             os << '\t';
             os << m_author;
-            return os;
         }
+       
         return os;
     }
 
     std::istream& Book::read(std::istream& istr)
     {
-        char author[256];
+        char author[256 +1];
         Publication::read(istr);
         delete[] m_author;
         if (Publication::conIO(istr)) {
-            istr.ignore(1000, '\n');
+            istr.ignore(10000, '\n');
             cout << "Author: ";
-            istr.getline(author, 257);
+            istr.getline(author, 257, '\n');
         }
         else {
-            istr.ignore(1000, '\t');
-            istr.getline(author, 257);
+            istr.ignore();
+            istr.get(author, 257, '\n');
         }
-        if (!istr.fail()) {
+        if (istr) {
             m_author = new char[strlen(author) + 1];
             strcpy(m_author, author);
         }
@@ -103,11 +110,11 @@ namespace seneca {
     void Book::set(int member_id)
     {
         Publication::set(member_id);
-        resetDate();
+       Publication::resetDate();
     }
     Book::operator bool() const
     {
-        return m_author != nullptr && Publication::operator bool();
+        return (Publication::operator bool() && m_author && m_author[0] != '\0');
     }
 }
 

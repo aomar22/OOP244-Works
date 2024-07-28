@@ -19,7 +19,7 @@ namespace seneca {
 		char* m_author{ nullptr };
 	public:
 		
-		Book() : Publication(), m_author(nullptr) {};
+		Book() : m_author(nullptr) {};
 		Book(const Book& book);
 		Book& operator=(const Book& book);
 		~Book();

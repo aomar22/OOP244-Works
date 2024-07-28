@@ -25,7 +25,7 @@ namespace seneca {
 		int m_libRef = -1; //used internally to uniquely identify each publication in the system.
 		Date m_date; //by default, is set to the current date
 	public:
-		friend class Date;
+		//friend class Date;
 		Publication();
 		virtual void set(int member_id);
 		void setRef(int value);

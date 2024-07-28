@@ -115,7 +115,7 @@ namespace seneca {
 			os << m_libRef;
 			os << '\t';
 			os << m_shelfId;
-			os << '\t';
+			//os << '\t';
 			os << m_title;
 			os << '\t';
 			onLoan() ? os << m_membership : os << " N/A ";
