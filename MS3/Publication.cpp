@@ -163,7 +163,7 @@ namespace seneca {
 			}
 
 			// Clear newline character remaining in the buffer
-			istr.ignore(numeric_limits<streamsize>::max(), '\n');
+			istr.ignore(1000, '\n');
 		}
 		else {
 			// Non-interactive input
