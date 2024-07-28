@@ -25,15 +25,14 @@ namespace seneca {
       "Bad Day Value"
    };
    const int  MIN_YEAR = 1500;
-   class Date {
+   class Date{
    private:
       int m_year;
       int m_mon;
       int m_day;
       int m_ErrorCode;
       int m_CUR_YEAR;
-      int daysSince0001_1_1()const; 
-      /*bool validate();*/             
+      int daysSince0001_1_1()const;             
       void errCode(int);           
       int systemYear()const;       
       bool bad()const;             
@@ -46,8 +45,8 @@ namespace seneca {
       int errCode()const;         
       const char* dateStatus()const;  
       int currentYear()const;         
-      std::istream& read(std::istream& is = std::cin);
-      std::ostream& write(std::ostream& os = std::cout)const;
+      std::istream& read(std::istream& is);
+      std::ostream& write(std::ostream& os)const;
       bool operator==(const Date& RO)const;
       bool operator!=(const Date& RO)const;
       bool operator>=(const Date& RO)const;

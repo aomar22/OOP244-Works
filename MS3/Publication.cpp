@@ -18,7 +18,7 @@ namespace seneca {
 	}
 	void Publication::set(int member_id)
 	{
-		if (member_id > 9999 && member_id < 99999) {
+		if (member_id >=10000 && member_id < 99999) {
 			m_membership = member_id;
 		}
 		else{
@@ -27,12 +27,12 @@ namespace seneca {
 	}
 	void Publication::setRef(int value)
 	{
-		if (value < 0) { //**
-			m_libRef = 0;
-		}
-		else {
+		//if (value < 0) { //**
+		//	m_libRef = 0;
+		//}
+		//else {
 			m_libRef = value;
-		}
+		//}
 	}
 	void Publication::resetDate()
 	{
@@ -62,7 +62,7 @@ namespace seneca {
 	}
 	Publication::operator const char* () const
 	{
-		return this->m_title;
+		return m_title;
 	}
 	int Publication::getRef() const
 	{
@@ -71,142 +71,91 @@ namespace seneca {
 
 	bool Publication::conIO(ios& io)const
 	{
-		if (io && (&io == &cin || &io == &cout)) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return (&io == &cin || &io == &cout);
 	}
 	
     ostream& Publication::write(std::ostream& os)const
 	{
 		if (conIO(os)) {
-			os.setf(ios::left);
-			os.fill('.');
-
 			os << "| ";
-			os.width(SENECA_SHELF_ID_LEN);
 			os << m_shelfId;
-
 			os << " | ";
-			os.width(SENECA_TITLE_WIDTH);
-			os << m_title;
-			os << " | ";
-
-			if (m_membership != 0) {
-				os << m_membership;
+			if (strlen(m_title) > SENECA_TITLE_WIDTH) {
+				os.write(m_title, SENECA_TITLE_WIDTH);
 			}
 			else {
-				os << " N/A ";
+				os.setf(ios::left);
+				os.width(SENECA_TITLE_WIDTH);
+				os.fill('.');
+				os << m_title;
 			}
 			os << " | ";
-
-			if (!m_date.errCode()) {
-				os << m_date;
-			}
-			else {
-				os << " N/A ";
-			}
+			onLoan() ? os << m_membership : os << " N/A ";
+			os << " | ";
+			os << m_date;
 			os << " |";
-
-			os.fill('.');
-			os.unsetf(ios::left);
-			return os;
 		}
 		else {
-			os << type() << "\t";
+			os << '\n';
+			os << type();
+			os << '\t';
 			os << m_libRef;
-			os << "\t";
+			os << '\t';
 			os << m_shelfId;
-			os << "\t";
+			os << '\t';
 			os << m_title;
-			os << "\t";
-			os << m_membership;
-			os << "\t";
+			os << '\t';
+			onLoan() ? os << m_membership : os << " N/A ";
+			os << '\t';
 			os << m_date;
-
-			return os;
 		}
+		return os;
 	}
 	istream& Publication::read(std::istream& istr)
 	{
 
-		delete[] m_title;
-		m_title = nullptr;
-
-		char title[255 + 1]= {'\0'};
-		char shelfId[SENECA_SHELF_ID_LEN + 1] = { '\0' };
-		/*int membership = 0;*/
-		/*int libRef = -1;*/
+		char title[255];
+		char shelfId[5];
 		int membership = 0;
 		int libRef = -1;
-		Date date = Date();
+		Date date;
 
-		
-		
-
-		// Reset class members
-		/*m_shelfId[0] = '\0';
+		delete[] m_title;
+		m_title = nullptr;
+		strcpy(m_shelfId, "");
 		m_membership = 0;
 		m_libRef = -1;
-		resetDate();*/
-		/*
-    prompt: "Shelf No: "
-    read the shelf number up to its limit (see Lib.h).
-    if the number is not exactly the length it is supposed to be, set the istr to a fail state manually.
-    prompt: "Title: "
-    read the title
-    prompt: "Date: "
-    read the date
-
-    in this case the libRef value is left with its default value.
-*/
+		
 		if (conIO(istr)) {
 			// Interactive input
 			cout << "Shelf No: ";
 			
-			istr.getline(shelfId, SENECA_SHELF_ID_LEN);
+			istr.getline(shelfId, SENECA_SHELF_ID_LEN + 1);
 			if (strlen(shelfId) != SENECA_SHELF_ID_LEN) {
 				istr.setstate(ios::failbit);
 			}
 
 			cout << "Title: ";
-			istr.getline(title, SENECA_TITLE_WIDTH + 1);
-			
+			istr.getline(title, 255);
 			cout << "Date: ";
 			istr >> date;
 			libRef = -1;
-			/*if (!istr) {
-				istr.setstate(ios::failbit);
-			}*/
-
-			// Clear newline character remaining in the buffer
-			//istr.ignore(1000, '\n');
-			if (!date.validate()) {
-				istr.setstate(ios::failbit);
-			}
+			
 		}
 		else {
-			// Non-interactive input
 			istr >> libRef;
-			istr.ignore('\t'); // Ignore the delimiter after libRef
-			istr.getline(shelfId, SENECA_SHELF_ID_LEN, '\t');
-			istr.getline(title, SENECA_TITLE_WIDTH, '\t');
+			istr.ignore(1000, '\t'); // Ignore the delimiter after libRef
+			istr.getline(shelfId, SENECA_SHELF_ID_LEN + 1, '\t');
+			istr.getline(title, 255, '\t');
 			istr >> membership;
-			istr.ignore(); // Ignore the delimiter after membership
+			istr.ignore(1000, '\t'); // Ignore the delimiter after membership
 			istr >> date;
-
-			if (!date.validate()) {
-				istr.setstate(ios::failbit);
-			}
 		}
-		// Validate date and handle errors
-		if (!date.validate()) {
+		if (date.validate()==false) {
 			istr.setstate(ios::failbit);
 		}
 		// If input was successful, update the object
-		if (istr) {
+		if (istr.good()) {
 			m_title = new char[strlen(title) + 1];
 			strcpy(m_title, title);
 			strcpy(m_shelfId, shelfId);
@@ -217,45 +166,29 @@ namespace seneca {
 		}
 		return istr;
 	}
-	/*Otherwise, assume the reading begins with the libRef attribute as if the type 'P' is not in the file.
-
-    read the libRef number
-    skip the tab
-    read the shelf number
-    skip the tab
-    read the title
-    skip the tab
-    read the membership
-    skip the tab
-    read the date
-*/
+	
 	Publication::operator bool() const
 	{
-		return m_title != nullptr && m_shelfId[0] != '\0';
+		return m_title != nullptr && m_title[0] != '\0' && m_shelfId[0] != '\0';
 	}
 
-		Publication::Publication(const Publication & p) {
-			m_title = nullptr;
-			m_date = Date();
+		Publication::Publication(const Publication& p) {
 			m_membership = 0;
-			m_libRef = -1;
+			m_title = nullptr;
 			m_shelfId[0] = '\0';
-
-			if (p.m_title != nullptr) {
+			if (this != &p) {
+				delete[] m_title;
 				m_title = new char[strlen(p.m_title) + 1];
 				strcpy(m_title, p.m_title);
+				strcpy(m_shelfId, p.m_shelfId);
+				m_membership = p.m_membership;
+				m_libRef = p.m_libRef;
+				m_date = p.m_date;
 			}
-			strcpy(m_shelfId, p.m_shelfId);
-			m_membership = p.m_membership;
-			m_libRef = p.m_libRef;
-			m_date = p.m_date;
 		}
 		Publication& Publication::operator=(const Publication& p) {
 			if (this != &p) {
-				// Clean up existing resources
 				delete[] m_title;
-
-				// Copy data from p
 				m_title = nullptr;
 				if (p.m_title != nullptr) {
 					m_title = new char[strlen(p.m_title) + 1];
@@ -269,51 +202,10 @@ namespace seneca {
 			return *this;
 		}
 
-	//Publication& Publication::operator=(const Publication& p)
-	//{
-	//	if (this != &p) {
-	//		m_membership = p.m_membership;
-	//		m_libRef = p.m_libRef;
-	//		m_date = p.m_date;
-	//		strncpy(m_shelfId, p.m_shelfId, SENECA_SHELF_ID_LEN);
-	//			m_shelfId[4] = '\0';
-
-	//			/*m_membership = p.m_membership;
-	//		m_libRef = p.m_libRef;
-	//		m_date = p.m_date;
-	//		m_shelfId[SENECA_SHELF_ID_LEN] = '\0';*/
-
-	//		if (p.m_title != nullptr) {
-	//			delete[] m_title;
-	//			if (p.m_title != nullptr && p.m_title[0] != '\0') {
-	//				m_title = new char[strlen(p.m_title) + 1];
-	//				//for (int i = 0; i < SENECA_TITLE_WIDTH; i++) {
-	//				strcpy(m_title, p.m_title);
-	//				//m_title[i] = p.m_title[i];
-	//				//m_title = nullptr;
-	//			//}
-	//			}
-	//			else {
-	//				m_title = nullptr;
-	//			}
-	//			/*strcpy(m_shelfId, p.m_shelfId);
-	//			m_membership = p.m_membership;
-	//			m_libRef = p.m_libRef;
-	//			m_date = p.m_date;
-
-	//		}
-	//		else {
-	//			m_title = nullptr;*/
-
-	//		}
-	//	}
-	//	return *this;
-	//}
-
 	Publication::~Publication()
 	{
 		
-			delete[] m_title;
+		delete[] m_title;
 		
 	}
 

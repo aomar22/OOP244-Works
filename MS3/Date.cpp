@@ -24,10 +24,9 @@ that my professor provided to complete my workshops and assignments.
 #include <iomanip>
 #include <iostream>
 #include <ctime>
-
 using namespace std;
 #include "Date.h"
-#include "Utils.h"
+//#include "Utils.h"
 namespace seneca {
     bool seneca_test = false;
     int seneca_year = 2024;
@@ -121,7 +120,7 @@ namespace seneca {
         is.ignore();
         if (is.fail()) {
             errCode(CIN_FAILED);
-            is.clear();
+           // is.clear();
            // is.ignore(10000, '\n');
         }
         else {
@@ -129,8 +128,10 @@ namespace seneca {
             is.ignore();
             is >> m_day;
             is.ignore();
-            validate();
+
+            /*validate();*/
         }
+        validate();
       //  is.clear();
         return is;
     }
