@@ -16,11 +16,12 @@ that my professor provided to complete my workshops and assignments.
 #include <string>
 #include <iomanip>
 #include "Book.h"
+#include "Lib.h"
 
 using namespace std;
 namespace seneca {
 
-    Book::Book(const Book& book) {
+    Book::Book(const Book& book) : Publication(book), m_author(nullptr)  {
         m_author = nullptr;
         if (this != &book) {
 
@@ -67,10 +68,11 @@ namespace seneca {
                 for (int i = 0; i < SENECA_AUTHOR_WIDTH; i++) {
                     os << m_author[i];
                 }
+                os << " |";
             }
-            os << " |";
+           
         }
-        else if (!Publication::conIO(os)) {
+        else {
             os << '\t';
             os << m_author;
             return os;

@@ -1,4 +1,4 @@
-/*Final Project Milestone 3
+/*Final Project Milestone 4
 Module: Publication
 Filename : Publication.h
 Version 1.0
