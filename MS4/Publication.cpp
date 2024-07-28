@@ -39,12 +39,9 @@ namespace seneca {
 	}
 	void Publication::setRef(int value)
 	{
-		//if (value < 0) { //**
-		//	m_libRef = 0;
-		//}
-		//else {
+		if (value) {
 			m_libRef = value;
-		//}
+		}
 	}
 	void Publication::resetDate()
 	{
@@ -88,6 +85,7 @@ namespace seneca {
 	
     ostream& Publication::write(std::ostream& os)const
 	{
+		
 		if (conIO(os)) {
 			os << "| ";
 			os << m_shelfId;
@@ -115,7 +113,7 @@ namespace seneca {
 			os << m_libRef;
 			os << '\t';
 			os << m_shelfId;
-			//os << '\t';
+			os << '\t';
 			os << m_title;
 			os << '\t';
 			onLoan() ? os << m_membership : os << " N/A ";
@@ -126,7 +124,7 @@ namespace seneca {
 	}
 	istream& Publication::read(std::istream& istr)
 	{
-
+		
 		char title[255];
 		char shelfId[5];
 		int membership = 0;
@@ -216,6 +214,7 @@ namespace seneca {
 	Publication::~Publication()
 	{	
 		delete[] m_title;	
+		m_title = nullptr;
 	}
 
 }

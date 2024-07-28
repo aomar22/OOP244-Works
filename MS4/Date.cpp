@@ -118,18 +118,22 @@ namespace seneca {
         errCode(NO_ERROR);  
         is >> m_year;
         is.ignore();
+        is >> m_mon;
+        is.ignore();
+        is >> m_day;
         if (is.fail()) {
             errCode(CIN_FAILED);
-           // is.clear();
+         //   is.clear();
            // is.ignore(10000, '\n');
         }
         else {
-            is >> m_mon;
+           /* is >> m_mon;
             is.ignore();
-            is >> m_day;
-           
+            is >> m_day;*/
+            validate();
         }
-        validate();
+        /*validate();*/
+      //  is.clear();
         return is;
     }
    ostream& Date::write(std::ostream& os) const
