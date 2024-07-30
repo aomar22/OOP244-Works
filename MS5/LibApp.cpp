@@ -16,6 +16,7 @@ I have done all the coding by myself and only copied the code
 that my professor provided to complete my workshops and assignments.
 -----------------------------------------------------------*/
 #include <iostream>
+#include <fstream>
 #include "Menu.h"
 #include "LibApp.h"
 using namespace std;
@@ -30,8 +31,28 @@ namespace seneca {
             return false;
         }
     }
+    /*Method Implementations
+
+Create new methods or Modify MS2 methods for the following
+The load method
+
+First print "Loading Data" and then open the data file for reading and read all the publications 
+in dynamic instances pointed by the PPA Array.
+
+Do this by first reading a single character for the type of publication and then dynamically 
+instantiating the corresponding object into the next available PPA element. Then extract the object from
+the file stream and add one to the NOLP. Since the extraction operator calls the proper read function virtually,
+the object will be properly read from the file.
+
+Continue this until the ifstream reading fails.
+
+At the end set the LLRN to the reference number of the last publication read.
+
+    See the pubSel_Tester.cpp that uses a similar logic to load the publications for example...
+*/
     void LibApp::load() {  
         cout << "Loading Data" << endl;
+        fin.open()
     }
 
     void LibApp::save()
