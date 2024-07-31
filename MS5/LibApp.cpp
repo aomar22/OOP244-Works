@@ -214,7 +214,6 @@ namespace seneca {
             delete[] PPA;
             for (int i = 0; i < SENECA_LIBRARY_CAPACITY; i++) {
                 PPA[i] = new Publication[SENECA_LIBRARY_CAPACITY];
-                strcpy()
             }
         }
         //DMA
