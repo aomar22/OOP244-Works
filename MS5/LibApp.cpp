@@ -47,10 +47,10 @@ namespace seneca {
                 fin >> line;
                 fin.ignore(); //ignore tab character
                 if (line == 'P') {
-                    PPA[i] = new Publication;
+                    PPA[i] = new Publication[SENECA_LIBRARY_CAPACITY];
                 }
                 else if (line == 'B') {
-                    PPA[i] = new Book;
+                    PPA[i] = new Book[SENECA_AUTHOR_WIDTH];
                 }
                 if (PPA[i]) {
                     fin >> *PPA[i];
@@ -213,7 +213,8 @@ namespace seneca {
         if (this != &app) {
             delete[] PPA;
             for (int i = 0; i < SENECA_LIBRARY_CAPACITY; i++) {
-                PPA[i] = new Publication[strlen(app.PPA[i])];
+                PPA[i] = new Publication[SENECA_LIBRARY_CAPACITY];
+                strcpy()
             }
         }
         //DMA
