@@ -1,5 +1,5 @@
 /* Citation and Sources...
-Final Project Milestone 2
+Final Project Milestone 5
 Module: Menu
 Filename: Menu.cpp
 Version 1.0
@@ -20,6 +20,9 @@ that my professor provided to complete my workshops and assignments.
 #include <string>
 #include "Menu.h"
 #include "LibApp.h"
+#include "Book.h"
+#include "Publication.h"
+#include "PublicationSelector.h"
 using namespace std;
 namespace seneca {
     bool LibApp::confirm(const char* message) {
@@ -32,46 +35,44 @@ namespace seneca {
             return false;
         }
     }
-    /*Method Implementations
-
-Create new methods or Modify MS2 methods for the following
-The load method
-
-First print "Loading Data" and then open the data file for reading and read all the publications 
-in dynamic instances pointed by the PPA Array.
-
-Do this by first reading a single character for the type of publication and then dynamically 
-instantiating the corresponding object into the next available PPA element. Then extract the object from
-the file stream and add one to the NOLP. Since the extraction operator calls the proper read function virtually,
-the object will be properly read from the file.
-
-Continue this until the ifstream reading fails.
-
-At the end set the LLRN to the reference number of the last publication read.
-
-    See the pubSel_Tester.cpp that uses a similar logic to load the publications for example...
-*/
+    
     void LibApp::load() {  
         cout << "Loading Data" << endl;
         std::ifstream fin;
-        fin.open("LibRecs.txt", std::ios::in);
+        fin.open("LibRecsSmall.txt", std::ios::in);
         if (fin) {
-            for (int i = 0; i < SENECA_LIBRARY_CAPACITY; i++) {
-                char line;
+            for (int i = 0; fin ; i++) {
+            
+                char line{};
                 fin >> line;
+                fin.ignore(); //ignore tab character
                 if (line == 'P') {
-                    PPA = new Publication;
+                    PPA[i] = new Publication;
                 }
                 else if (line == 'B') {
-                    PPA = new Book;
+                    PPA[i] = new Book;
                 }
+                if (PPA[i]) {
+                    fin >> *PPA[i];
+                    NOLP++;
+                    LLRN = PPA[i]->getRef();
+                }
+            
             }
         }
     }
-
     void LibApp::save()
     {
         cout << "Saving Data" << endl;
+        std::ofstream fout;
+        fout.open(m_fileName, std::ios::out);
+        if (fout) {
+            for (int i = 0; i < NOLP; i++) {
+                if (PPA[i]->getRef() != 0) {
+                    fout << *PPA[i] << endl;
+                }
+            }
+        }
     }
 
     void LibApp::search()
@@ -89,13 +90,62 @@ At the end set the LLRN to the reference number of the last publication read.
 
     void LibApp::newPublication()
     {
-        cout << "Adding new publication to library" << endl;
-        if (confirm("Add this publication to library?")) {
-            m_changed = true;
-            cout << "Publication added" << endl;
+        Publication* pub = nullptr;
+        pub = new Publication(); //instantiate a dynamic "Publication"
+        if (NOLP == SENECA_LIBRARY_CAPACITY) {
+            std::cout << "Library is at its maximum capacity!" << endl;
+            m_exitMenu.run();
+        }
+        else {
+            std::cout << "Adding new publication to library" << endl;
+            
+            int userChoice = m_pubType.run();
+            
+            if (userChoice == 1) {
+                std::cout << m_pubType;
+                char type = '\0';
+                cin >> type;
+              
+                if (type == 'P') {
+                    
+                    cin >> *pub; //Read the instantiated object from the cin object.
+                }
+                else if (type == 'B') {
+                    pub = new Book(); //instantiate a dynamic "Book"
+                    cin >> *pub; //Read the instantiated object from the cin object.
+                }
+            } 
+            //If the cin fails, flush the keyboard, print "Aborted!" and exit.
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(1000, '\n');
+               std::cout << "Aborted!";
+                m_exitMenu.run();
+            }
+            if (confirm("Add this publication to library?")) {
+                m_changed = true;
+
+               /* std::cout << "Publication added" << endl;*/
+            }
+            else {
+                std::cout << "Aborted!";
+                m_exitMenu.run();
+            }
+            if (*pub) {
+                LLRN++;
+                pub->setRef(LLRN);
+                pub = PPA[NOLP];
+                NOLP++;
+                m_changed = true;
+                std::cout << "Publication added" << endl;
+            }
+            else {
+                cout << "Failed to add publication!" << endl;
+                delete[] pub;
+            }
+           
         }
     }
-
     void LibApp::removePublication()
     {
         cout << "Removing publication from library" << endl;
@@ -114,6 +164,16 @@ At the end set the LLRN to the reference number of the last publication read.
             cout << "Publication checked out" << endl;
         }
     }
+   
+    Publication* LibApp::getPub(int libRef)
+    { 
+        for (int i = 0; i < NOLP; i++) {
+            if (PPA[i]->getRef() == libRef) {
+               return PPA[i];
+            }
+        }
+        return nullptr;
+    }
 
     LibApp::LibApp() : m_changed(false), m_mainMenu("Seneca Library Application"), m_exitMenu("Changes have been made to the data, what would you like to do?")
     {
@@ -125,6 +185,39 @@ At the end set the LLRN to the reference number of the last publication read.
         m_exitMenu << "Save changes and exit";
         m_exitMenu << "Cancel and go back to the main menu";
         load();
+    }
+    /*Publication::Publication(const Publication& p) {
+			m_membership = 0;
+			m_title = nullptr;
+			m_shelfId[0] = '\0';
+			if (this != &p) {
+				delete[] m_title;
+				m_title = new char[strlen(p.m_title) + 1];
+				strcpy(m_title, p.m_title);
+				strcpy(m_shelfId, p.m_shelfId);
+				m_membership = p.m_membership;
+				m_libRef = p.m_libRef;
+				m_date = p.m_date;
+			}
+		}*/
+    LibApp::LibApp(const LibApp& app)
+    {//inialize attributes
+        m_changed = false;
+        m_mainMenu = "Seneca Library Application";
+        m_exitMenu = "Changes have been made to the data, what would you like to do?";
+        m_pubType = "Choose the type of publication : ";
+        m_fileName[0] = '\0';
+        PPA[0] = {nullptr};
+        NOLP = 0;
+        LLRN = 0;
+        if (this != &app) {
+            delete[] PPA;
+            for (int i = 0; i < SENECA_LIBRARY_CAPACITY; i++) {
+                PPA[i] = new Publication[strlen(app.PPA[i])];
+            }
+        }
+        //DMA
+
     }
     void LibApp::run()
     {
@@ -169,6 +262,13 @@ At the end set the LLRN to the reference number of the last publication read.
         }
             cout << "-------------------------------------------" << endl;
             cout << "Thanks for using Seneca Library Application" << endl;
+    }
+
+    LibApp::~LibApp()
+    {
+        for (int i = 0; i < SENECA_LIBRARY_CAPACITY; i++) {
+            delete[i] PPA;
+        }
     }
                         
 }

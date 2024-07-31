@@ -14,7 +14,6 @@ that my professor provided to complete my workshops and assignments.
 #include <iostream>
 #include <cstring>
 #include <string>
-#include <iomanip>
 #include "Publication.h"
 #include "Date.h"
 #include "Lib.h"

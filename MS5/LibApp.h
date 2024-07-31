@@ -34,6 +34,7 @@ Setup the publication type menu in the constructor as you did for the main and e
 
 namespace seneca {
    class LibApp {
+       
        bool m_changed;
        Menu m_mainMenu;
        Menu m_exitMenu;
@@ -44,8 +45,8 @@ namespace seneca {
            The publication type menu should also provide two selections : "Book" and "Publication".
 
            Setup the publication type menu in the constructor as you did for the main and exit menus.*/
-       Menu m_pubType;
-       char fileName[256 + 1];//
+       Menu m_pubType{ "Choose the type of publication : "};
+       char m_fileName[256 + 1];//
        Publication* PPA[SENECA_LIBRARY_CAPACITY]; //array of Publication pointers to the size of SENECA_LIBRARY_CAPACITY.
       // This array will be populated with all the records of the publication data file when the LibApp is instantiated.
        
@@ -69,6 +70,7 @@ library reference number.
        void newPublication();
        void removePublication();
        void checkOutPub();
+       Publication* getPub(int libRef);
    public:
            LibApp();
            void run();
