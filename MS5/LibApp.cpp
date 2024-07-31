@@ -17,6 +17,7 @@ that my professor provided to complete my workshops and assignments.
 -----------------------------------------------------------*/
 #include <iostream>
 #include <fstream>
+#include <string>
 #include "Menu.h"
 #include "LibApp.h"
 using namespace std;
@@ -52,7 +53,20 @@ At the end set the LLRN to the reference number of the last publication read.
 */
     void LibApp::load() {  
         cout << "Loading Data" << endl;
-        fin.open()
+        std::ifstream fin;
+        fin.open("LibRecs.txt", std::ios::in);
+        if (fin) {
+            for (int i = 0; i < SENECA_LIBRARY_CAPACITY; i++) {
+                char line;
+                fin >> line;
+                if (line == 'P') {
+                    PPA = new Publication;
+                }
+                else if (line == 'B') {
+                    PPA = new Book;
+                }
+            }
+        }
     }
 
     void LibApp::save()
