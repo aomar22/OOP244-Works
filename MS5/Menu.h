@@ -37,16 +37,14 @@ namespace seneca {
 		//std::ostream& operator<<(std::ostream& os);
 	};
 	class Menu {
-		Menu(Menu& m);
-		Menu& operator=(Menu& m);
 		MenuItem* m_menuItems[MAX_MENU_ITEMS]{ nullptr };
 		unsigned int m_noOfItems;
 		void setEmpty();
 	public:
 		MenuItem m_title{};
 		Menu();
-		Menu(const char* menuTitle);
-		Menu& operator=(const Menu& m);
+		Menu(const char* menuTitle) = delete;
+		Menu& operator=(const Menu& m) = delete;
 		~Menu();
 		Menu& operator<<(const char* menuItemContent);
 		unsigned int run() const;
