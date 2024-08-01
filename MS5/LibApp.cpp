@@ -195,7 +195,9 @@ namespace seneca {
         m_exitMenu = "Changes have been made to the data, what would you like to do?";
         m_pubType = "Choose the type of publication : ";
         m_fileName[0] = '\0';
-        PPA[0] = nullptr; // HERE FIX LOOP
+        for (int i = 0; i < SENECA_LIBRARY_CAPACITY; i++) {
+            PPA[i] = nullptr; // HERE FIX LOOP
+        }
         NOLP = 0;
         LLRN = 0;
         if (fileName) {

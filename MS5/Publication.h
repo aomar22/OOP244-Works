@@ -1,4 +1,4 @@
-/*Final Project Milestone 4
+/*Final Project Milestone 5
 Module: Publication
 Filename : Publication.h
 Version 1.0
@@ -23,9 +23,8 @@ namespace seneca {
 		char m_shelfId[SENECA_SHELF_ID_LEN +1]; //Hold the location of the publication in the library
 		int m_membership; //hold a 5-digit membership number of members of the library.
 		int m_libRef = -1; //used internally to uniquely identify each publication in the system.
-		Date m_date; //by default, is set to the current date
+		Date m_date; 
 	public:
-		//friend class Date;
 		Publication();
 		virtual void set(int member_id);
 		void setRef(int value);

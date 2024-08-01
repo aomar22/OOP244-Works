@@ -22,7 +22,6 @@ that my professor provided to complete my workshops and assignments.
 #include "Lib.h"
 namespace seneca {
    class LibApp {
-       
        bool m_changed;
        Menu m_mainMenu;
        Menu m_exitMenu;
