@@ -202,7 +202,7 @@ namespace seneca {
         LLRN = 0;
         if (fileName) {
             
-            strncpy(m_fileName, fileName, strlen(fileName));
+            strcpy(m_fileName, fileName);
         }
         m_mainMenu << "Add New Publication";
         m_mainMenu << "Remove Publication";
