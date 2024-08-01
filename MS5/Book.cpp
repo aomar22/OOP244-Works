@@ -69,15 +69,15 @@ namespace seneca {
             os << ' ';
             
             if (m_author && strlen(m_author) > SENECA_AUTHOR_WIDTH) {
-               /* for (int i = 0; i < SENECA_AUTHOR_WIDTH; i++) {
+                for (int i = 0; i < SENECA_AUTHOR_WIDTH; i++) {
                     os << m_author[i];
-                }  */ 
-                os.write(m_author, SENECA_AUTHOR_WIDTH);
+                }   
+               // os.write(m_author, SENECA_AUTHOR_WIDTH);
             }
             else {
                 os.width(SENECA_AUTHOR_WIDTH);
                 os.setf(ios::left);
-                os << this->m_author;
+                os << m_author;
             }        
            os << " |";
         }
