@@ -43,18 +43,18 @@ namespace seneca {
     void LibApp::load() {
         cout << "Loading Data" << endl;
         std::ifstream fin;
-        fin.open("LibRecsSmall.txt", std::ios::in);
-        if (fin) {
-            for (int i = 0; fin; i++) {
+        fin.open(this->m_fileName, std::ios::in);
+        for ( int i = 0; i < SENECA_LIBRARY_CAPACITY && fin;i++) {
+           // for (int i = 0; fin; i++) {
 
                 char line{};
                 fin >> line;
                 fin.ignore(); //ignore tab character
                 if (line == 'P') {
-                    PPA[i] = new Publication[SENECA_LIBRARY_CAPACITY];
+                    PPA[i] = new Publication;
                 }
                 else if (line == 'B') {
-                    PPA[i] = new Book[SENECA_AUTHOR_WIDTH];
+                    PPA[i] = new Book;
                 }
                 if (PPA[i]) {
                     fin >> *PPA[i];
@@ -62,7 +62,7 @@ namespace seneca {
                     LLRN = PPA[i]->getRef();
                 }
 
-            }
+           // }
         }
     }
     void LibApp::save()
@@ -190,7 +190,7 @@ namespace seneca {
    
     LibApp::LibApp(const char* fileName)
     {
-        this->m_changed = false;
+        m_changed = false;
         m_mainMenu = "Seneca Library Application";
         m_exitMenu = "Changes have been made to the data, what would you like to do?";
         m_pubType = "Choose the type of publication: ";
