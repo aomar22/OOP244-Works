@@ -71,10 +71,7 @@ namespace seneca {
 		}
 		return os;
 	}
-	/*Menu& Menu::operator=(Menu& m)
-	{
-		return *this;
-	}*/
+
 	void Menu::setEmpty()
 	{
 
