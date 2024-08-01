@@ -23,8 +23,8 @@ namespace seneca {
     Book::Book(const Book& book):  m_author(nullptr) {
       //  m_author = nullptr;
         if (this != &book) {
-            delete[] m_author;
-            m_author = nullptr;
+         //   delete[] m_author;
+         //   m_author = nullptr;
             m_author = new char[strlen(book.m_author) + 1];
             strcpy(m_author, book.m_author);
         }
@@ -53,7 +53,7 @@ namespace seneca {
     Book::~Book()
     {
         delete[] m_author;
-        m_author = nullptr;
+       // m_author = nullptr;
     }
 
     char Book::type() const
@@ -106,12 +106,12 @@ namespace seneca {
         if (istr && strlen(author) > 0) {
             m_author = new char[strlen(author) + 1];
             strcpy(m_author, author);
-        }
-        else {
+        } else {
             m_author = nullptr;
         }
         return istr;
     }
+   
     void Book::set(int member_id)
     {
         Publication::set(member_id);
