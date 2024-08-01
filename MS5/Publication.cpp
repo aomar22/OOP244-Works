@@ -140,14 +140,26 @@ namespace seneca {
 			cout << "Shelf No: ";
 			
 			istr.getline(shelfId, SENECA_SHELF_ID_LEN + 1);
+			//istr >> shelfId;
+			//istr.clear();
+			//cout << shelfId;
+			//cout << '\n';
 			if (strlen(shelfId) != SENECA_SHELF_ID_LEN) {
 				istr.setstate(ios::failbit);
 			}
+			/*cout << endl;*/
 
 			cout << "Title: ";
 			istr.getline(title, 255);
+			//istr >> title;
+			//istr.clear();
+		//	cout << '\n';
+
 			cout << "Date: ";
 			istr >> date;
+			//istr.clear();
+			//cout << '\n';
+			
 			libRef = -1;
 			
 		}

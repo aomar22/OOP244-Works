@@ -1,5 +1,5 @@
 /* Citation and Sources...
-Final Project Milestone 2
+Final Project Milestone 5
 Module: Menu
 Filename: Menu.cpp
 Version 1.0
@@ -41,10 +41,9 @@ namespace seneca {
        void checkOutPub();
        Publication* getPub(int libRef);
    public:
-        //   LibApp();
-           LibApp(const char* fileName);
-           void run();
-           ~LibApp();
+       LibApp(const char* fileName);
+       void run();
+       ~LibApp();
    };
 }
 

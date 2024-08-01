@@ -69,7 +69,7 @@ namespace seneca {
         cout << "Saving Data" << endl;
         std::ofstream fout;
         fout.open(m_fileName, std::ios::out);
-        if (fout) {
+        if (fout && PPA != nullptr) {
             for (int i = 0; i < NOLP; i++) {
                 if (PPA[i]->getRef() != 0) {
                     fout << *PPA[i] << endl;
@@ -90,11 +90,8 @@ namespace seneca {
         cout << "Publication returned" << endl;
         m_changed = true;
     }
-     void LibApp::newPublication(){
-
-        
-        Publication* pub = nullptr;
-        pub = new Publication[SENECA_LIBRARY_CAPACITY]; //instantiate a dynamic "Publication"
+     void LibApp::newPublication(){      
+       // pub = new Publication[SENECA_LIBRARY_CAPACITY]; //instantiate a dynamic "Publication"
         if (NOLP >= SENECA_LIBRARY_CAPACITY) {
              std::cout << "Library is at its maximum capacity!" << endl;
                 m_exitMenu.run();
@@ -102,113 +99,53 @@ namespace seneca {
         }
         else {
             std::cout << "Adding new publication to library" << endl;
-            Menu pubMenu("Choose the type of publication: ");
+            Publication* pub = nullptr;
+            //cout << m_pubType << endl;
+          
             int userChoice = m_pubType.run();
+            switch(userChoice){
             
-            if (userChoice == 1) { //Book
-                /*std::cout << m_pubType;*/
-             /*   char type = '\0';
-                cin >> type;*/
-                pub = new Book();
-            }
-            else if (userChoice == 2) {
-                pub = new Publication();
-            }else if(userChoice == 0){
+            case 1: //Book
+                pub = new Book;
+                cin >> *pub;
+                break;
+            case 2: //publication
+                pub = new Publication;
+                cin >> *pub;
+                break;
+            case 0:
                 std::cout << "Aborted!" << endl;
                 m_exitMenu.run();
-                return;
             }
-        }
-//If the cin fails, flush the keyboard, print "Aborted!" and exit.
+
+
+            //If the cin fails, flush the keyboard, print "Aborted!" and exit.
             if (cin.fail()) {
-                 cin.clear();
+                cin.clear();
                 cin.ignore(1000, '\n');
                 std::cout << "Aborted!" << endl;
                 m_exitMenu.run();
                 return;
             }
-            if (confirm("Add this publication to library?")) {
-                m_changed = true;
+            else{
+                if (confirm("Add this publication to library?")) {
+                    if (pub != nullptr) {
 
-                std::cout << "Publication added" << endl;
+                        m_changed = true;
+                        LLRN++;
+                        pub->setRef(LLRN);
+                        PPA[NOLP++] = pub;
+                        NOLP++;
+                        std::cout << "Publication added" << endl;
+                    }
+                    else {
+                        std::cout << "Failed to add publication!" << std::endl;
+                    }
+                }
             }
-            else {
-                std::cout << "Aborted!";
-                m_exitMenu.run();
-            }
-            if (*pub) {
-                LLRN++;
-                pub->setRef(LLRN);
-                PPA[NOLP++] = pub;
-                NOLP++;
-                m_changed = true;
-                std::cout << "Publication added" << std::endl;
-            }
-            else {
-                std::cout << "Failed to add publication!" << std::endl;
-                
-            }
+        }
 
      }
-
-    //void LibApp::newPublication() {
-    //    if (NOLP >= SENECA_LIBRARY_CAPACITY) {
-    //        std::cout << "Library is at its maximum capacity!" << std::endl;
-    //        m_exitMenu.run();
-    //        return;
-    //    }
-
-    //    std::cout << "Adding new publication to library" << std::endl;
-
-    //    char type = '\0';
-    //    std::cout << "Enter type of publication (P for Publication, B for Book): ";
-    //    std::cin >> type;
-
-    //    Publication* pub = nullptr;
-
-    //    // Allocate and instantiate Publication or Book based on type
-    //    if (type == 'P') {
-    //        pub = new Publication();
-    //    }
-    //    else if (type == 'B') {
-    //        pub = new Book();
-    //    }
-    //    else {
-    //        std::cout << "Invalid type!" << std::endl;
-    //        m_exitMenu.run();
-    //        return;
-    //    }
-
-    //    // Read the instantiated object from the cin object
-    //    std::cout << "Enter details of the publication:" << std::endl;
-    //    std::cin >> *pub;
-
-    //    // Check for input failures
-    //    if (std::cin.fail()) {
-    //        std::cin.clear();
-    //        std::cin.ignore(1000, '\n');
-    //        std::cout << "Aborted!" << std::endl;
-    //        
-    //        m_exitMenu.run();
-    //        return;
-    //    }
-
-    //    // Confirm addition
-    //    if (confirm("Add this publication to library?")) {
-    //        m_changed = true;
-
-    //        // Add publication to the array
-    //        pub->setRef(++LLRN);
-    //        PPA[NOLP++] = pub;
-    //        std::cout << "Publication added" << std::endl;
-    //    }
-    //    else {
-    //        std::cout << "Aborted!" << std::endl;
-    //        delete[] pub; 
-    //    }
-    //}
-
-
     void LibApp::removePublication()
     {
         cout << "Removing publication from library" << endl;
@@ -271,6 +208,10 @@ namespace seneca {
 
         m_exitMenu << "Save changes and exit";
         m_exitMenu << "Cancel and go back to the main menu";
+
+        m_pubType << "Book";
+        m_pubType << "Publication";
+
         load();
         
 

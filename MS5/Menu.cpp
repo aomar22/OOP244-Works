@@ -40,7 +40,17 @@ namespace seneca {
 			m_itemContent = new char[strlen(itemContent) + 1];
 			strcpy(m_itemContent, itemContent);
 		}
+		else {
+			m_itemContent = nullptr;
+		}
 	}
+	/*ostream& MenuItem::operator<<(ostream& os) {
+		if (*this && m_itemContent) {
+			os << m_itemContent;
+
+		}
+		return os;
+	}*/
 	MenuItem::operator bool()const
 	{
 		if (m_itemContent) {
@@ -76,6 +86,7 @@ namespace seneca {
 		m_title.m_itemContent = nullptr;
 		m_noOfItems = 0;
 		m_menuItems[0] = { nullptr };
+
 
 	}
 	Menu::Menu(const char* menuTitle)
@@ -128,7 +139,7 @@ namespace seneca {
 	unsigned int Menu::run() const
 	{
 		int selection = 0;
-
+		
 		displayAllMenu();
 		cin >> selection;
 		while (cin.fail() || selection < 0 || (unsigned int)(selection) > m_noOfItems) {
@@ -138,12 +149,13 @@ namespace seneca {
 				cin.ignore(10000, '\n');
 				cin >> selection;
 			}
-			else {
+			/*else {
 				cin.clear();
 				cin.ignore(10000, '\n');
-			}
-			cin.ignore(10000, '\n');
+			}*/
+			//cin.ignore(10000, '\n');
 		}
+		cin.ignore(10000, '\n');
 		return selection;
 	}
 	const char* Menu::operator[](unsigned index)const
@@ -217,7 +229,7 @@ namespace seneca {
 			cout << m_menuItems[i]->m_itemContent << endl;
 			i++;
 		}
-		cout << " " << i % m_noOfItems << "- Exit" << '\n' << "> ";
+		cout << " " << /*i % m_noOfItems*/ "0" << "- Exit" << '\n' << "> ";
 
 		return cout;
 	}

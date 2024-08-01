@@ -34,6 +34,7 @@ namespace seneca {
 		operator bool()const;
 		operator const char* ()const;
 		std::ostream& displayMenuItem(std::ostream& os)const;
+		//std::ostream& operator<<(std::ostream& os);
 	};
 	class Menu {
 		Menu(Menu& m);
