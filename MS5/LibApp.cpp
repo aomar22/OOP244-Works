@@ -107,11 +107,11 @@ namespace seneca {
             switch(userChoice){
             
             case 1: //Book
-                pub = new Book;
+                pub = new Book();
                 cin >> *pub;
                 break;
             case 2: //publication
-                pub = new Publication;
+                pub = new Publication();
                 cin >> *pub;
                 break;
             case 0:
@@ -190,10 +190,10 @@ namespace seneca {
    
     LibApp::LibApp(const char* fileName)
     {
-        m_changed = false;
+        this->m_changed = false;
         m_mainMenu = "Seneca Library Application";
         m_exitMenu = "Changes have been made to the data, what would you like to do?";
-        m_pubType = "Choose the type of publication : ";
+        m_pubType = "Choose the type of publication: ";
         m_fileName[0] = '\0';
         for (int i = 0; i < SENECA_LIBRARY_CAPACITY; i++) {
             PPA[i] = nullptr; // HERE FIX LOOP
