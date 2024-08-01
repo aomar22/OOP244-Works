@@ -29,7 +29,8 @@ that my professor provided to complete my workshops and assignments.
 using namespace std;
 namespace seneca {
     bool LibApp::confirm(const char* message) {
-        Menu m = message;
+        //Menu m = message;
+        Menu m(message);
         m << "Yes";
         if (m.run() == 1) {
             return true;
@@ -69,9 +70,9 @@ namespace seneca {
         cout << "Saving Data" << endl;
         std::ofstream fout;
         fout.open(m_fileName, std::ios::out);
-        if (fout && PPA != nullptr) {
+        if (fout) {
             for (int i = 0; i < NOLP; i++) {
-                if (PPA[i]->getRef() != 0) {
+                if (PPA[i] != nullptr && PPA[i]->getRef() != 0) {
                     fout << *PPA[i] << endl;
                 }
             }
@@ -194,7 +195,7 @@ namespace seneca {
         m_exitMenu = "Changes have been made to the data, what would you like to do?";
         m_pubType = "Choose the type of publication : ";
         m_fileName[0] = '\0';
-        PPA[0] = nullptr;
+        PPA[0] = nullptr; // HERE FIX LOOP
         NOLP = 0;
         LLRN = 0;
         if (fileName) {
