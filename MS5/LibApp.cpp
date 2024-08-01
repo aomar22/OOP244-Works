@@ -15,6 +15,7 @@ Date      Reason
 I have done all the coding by myself and only copied the code
 that my professor provided to complete my workshops and assignments.
 -----------------------------------------------------------*/
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -22,7 +23,9 @@ that my professor provided to complete my workshops and assignments.
 #include "LibApp.h"
 #include "Book.h"
 #include "Publication.h"
-#include "PublicationSelector.h"
+#include "Lib.h"
+#include "Streamable.h"
+//#include "PublicationSelector.h"
 using namespace std;
 namespace seneca {
     bool LibApp::confirm(const char* message) {
@@ -91,7 +94,7 @@ namespace seneca {
     void LibApp::newPublication()
     {
         Publication* pub = nullptr;
-        pub = new Publication(); //instantiate a dynamic "Publication"
+        pub = new Publication[SENECA_LIBRARY_CAPACITY]; //instantiate a dynamic "Publication"
         if (NOLP == SENECA_LIBRARY_CAPACITY) {
             std::cout << "Library is at its maximum capacity!" << endl;
             m_exitMenu.run();
@@ -175,7 +178,7 @@ namespace seneca {
         return nullptr;
     }
 
-    LibApp::LibApp() : m_changed(false), m_mainMenu("Seneca Library Application"), m_exitMenu("Changes have been made to the data, what would you like to do?")
+   /* LibApp::LibApp() : m_changed(false), m_mainMenu("Seneca Library Application"), m_exitMenu("Changes have been made to the data, what would you like to do?")
     {
         m_mainMenu << "Add New Publication";
         m_mainMenu << "Remove Publication";
@@ -185,38 +188,31 @@ namespace seneca {
         m_exitMenu << "Save changes and exit";
         m_exitMenu << "Cancel and go back to the main menu";
         load();
-    }
-    /*Publication::Publication(const Publication& p) {
-			m_membership = 0;
-			m_title = nullptr;
-			m_shelfId[0] = '\0';
-			if (this != &p) {
-				delete[] m_title;
-				m_title = new char[strlen(p.m_title) + 1];
-				strcpy(m_title, p.m_title);
-				strcpy(m_shelfId, p.m_shelfId);
-				m_membership = p.m_membership;
-				m_libRef = p.m_libRef;
-				m_date = p.m_date;
-			}
-		}*/
-    LibApp::LibApp(const LibApp& app)
-    {//inialize attributes
+    }*/
+   
+    LibApp::LibApp(const char* fileName)
+    {
         m_changed = false;
         m_mainMenu = "Seneca Library Application";
         m_exitMenu = "Changes have been made to the data, what would you like to do?";
         m_pubType = "Choose the type of publication : ";
         m_fileName[0] = '\0';
-        PPA[0] = {nullptr};
+        PPA[0] = nullptr;
         NOLP = 0;
         LLRN = 0;
-        if (this != &app) {
-            delete[] PPA;
-            for (int i = 0; i < SENECA_LIBRARY_CAPACITY; i++) {
-                PPA[i] = new Publication[SENECA_LIBRARY_CAPACITY];
-            }
+        if (fileName) {
+            
+            strncpy(m_fileName, fileName, strlen(fileName));
         }
-        //DMA
+        m_mainMenu << "Add New Publication";
+        m_mainMenu << "Remove Publication";
+        m_mainMenu << "Checkout publication from library";
+        m_mainMenu << "Return publication to library";
+
+        m_exitMenu << "Save changes and exit";
+        m_exitMenu << "Cancel and go back to the main menu";
+        load();
+        
 
     }
     void LibApp::run()
@@ -266,8 +262,8 @@ namespace seneca {
 
     LibApp::~LibApp()
     {
-        for (int i = 0; i < SENECA_LIBRARY_CAPACITY; i++) {
-            delete[i] PPA;
+        for (int i = 0; i < NOLP; i++) {
+            delete PPA[i];
         }
     }
                         
