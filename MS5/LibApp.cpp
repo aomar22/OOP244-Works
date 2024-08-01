@@ -18,7 +18,7 @@ that my professor provided to complete my workshops and assignments.
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <fstream>
-#include <string>
+#include <cstring>
 #include "Menu.h"
 #include "LibApp.h"
 #include "Book.h"
@@ -29,23 +29,23 @@ that my professor provided to complete my workshops and assignments.
 using namespace std;
 namespace seneca {
     bool LibApp::confirm(const char* message) {
-        Menu m = message; 
+        Menu m = message;
         m << "Yes";
-        if (m.run()==1) {
+        if (m.run() == 1) {
             return true;
         }
         else {
             return false;
         }
     }
-    
-    void LibApp::load() {  
+
+    void LibApp::load() {
         cout << "Loading Data" << endl;
         std::ifstream fin;
         fin.open("LibRecsSmall.txt", std::ios::in);
         if (fin) {
-            for (int i = 0; fin ; i++) {
-            
+            for (int i = 0; fin; i++) {
+
                 char line{};
                 fin >> line;
                 fin.ignore(); //ignore tab character
@@ -60,7 +60,7 @@ namespace seneca {
                     NOLP++;
                     LLRN = PPA[i]->getRef();
                 }
-            
+
             }
         }
     }
@@ -90,45 +90,47 @@ namespace seneca {
         cout << "Publication returned" << endl;
         m_changed = true;
     }
+     void LibApp::newPublication(){
 
-    void LibApp::newPublication()
-    {
+        
         Publication* pub = nullptr;
         pub = new Publication[SENECA_LIBRARY_CAPACITY]; //instantiate a dynamic "Publication"
-        if (NOLP == SENECA_LIBRARY_CAPACITY) {
-            std::cout << "Library is at its maximum capacity!" << endl;
-            m_exitMenu.run();
+        if (NOLP >= SENECA_LIBRARY_CAPACITY) {
+             std::cout << "Library is at its maximum capacity!" << endl;
+                m_exitMenu.run();
+                return;
         }
         else {
             std::cout << "Adding new publication to library" << endl;
-            
+            Menu pubMenu("Choose the type of publication: ");
             int userChoice = m_pubType.run();
             
-            if (userChoice == 1) {
-                std::cout << m_pubType;
-                char type = '\0';
-                cin >> type;
-              
-                if (type == 'P') {
-                    
-                    cin >> *pub; //Read the instantiated object from the cin object.
-                }
-                else if (type == 'B') {
-                    pub = new Book(); //instantiate a dynamic "Book"
-                    cin >> *pub; //Read the instantiated object from the cin object.
-                }
-            } 
-            //If the cin fails, flush the keyboard, print "Aborted!" and exit.
-            if (cin.fail()) {
-                cin.clear();
-                cin.ignore(1000, '\n');
-               std::cout << "Aborted!";
+            if (userChoice == 1) { //Book
+                /*std::cout << m_pubType;*/
+             /*   char type = '\0';
+                cin >> type;*/
+                pub = new Book();
+            }
+            else if (userChoice == 2) {
+                pub = new Publication();
+            }else if(userChoice == 0){
+                std::cout << "Aborted!" << endl;
                 m_exitMenu.run();
+                return;
+            }
+        }
+//If the cin fails, flush the keyboard, print "Aborted!" and exit.
+            if (cin.fail()) {
+                 cin.clear();
+                cin.ignore(1000, '\n');
+                std::cout << "Aborted!" << endl;
+                m_exitMenu.run();
+                return;
             }
             if (confirm("Add this publication to library?")) {
                 m_changed = true;
 
-               /* std::cout << "Publication added" << endl;*/
+                std::cout << "Publication added" << endl;
             }
             else {
                 std::cout << "Aborted!";
@@ -137,18 +139,76 @@ namespace seneca {
             if (*pub) {
                 LLRN++;
                 pub->setRef(LLRN);
-                pub = PPA[NOLP];
+                PPA[NOLP++] = pub;
                 NOLP++;
                 m_changed = true;
-                std::cout << "Publication added" << endl;
+                std::cout << "Publication added" << std::endl;
             }
             else {
-                cout << "Failed to add publication!" << endl;
-                delete[] pub;
+                std::cout << "Failed to add publication!" << std::endl;
+                
             }
-           
-        }
-    }
+
+     }
+
+    //void LibApp::newPublication() {
+    //    if (NOLP >= SENECA_LIBRARY_CAPACITY) {
+    //        std::cout << "Library is at its maximum capacity!" << std::endl;
+    //        m_exitMenu.run();
+    //        return;
+    //    }
+
+    //    std::cout << "Adding new publication to library" << std::endl;
+
+    //    char type = '\0';
+    //    std::cout << "Enter type of publication (P for Publication, B for Book): ";
+    //    std::cin >> type;
+
+    //    Publication* pub = nullptr;
+
+    //    // Allocate and instantiate Publication or Book based on type
+    //    if (type == 'P') {
+    //        pub = new Publication();
+    //    }
+    //    else if (type == 'B') {
+    //        pub = new Book();
+    //    }
+    //    else {
+    //        std::cout << "Invalid type!" << std::endl;
+    //        m_exitMenu.run();
+    //        return;
+    //    }
+
+    //    // Read the instantiated object from the cin object
+    //    std::cout << "Enter details of the publication:" << std::endl;
+    //    std::cin >> *pub;
+
+    //    // Check for input failures
+    //    if (std::cin.fail()) {
+    //        std::cin.clear();
+    //        std::cin.ignore(1000, '\n');
+    //        std::cout << "Aborted!" << std::endl;
+    //        
+    //        m_exitMenu.run();
+    //        return;
+    //    }
+
+    //    // Confirm addition
+    //    if (confirm("Add this publication to library?")) {
+    //        m_changed = true;
+
+    //        // Add publication to the array
+    //        pub->setRef(++LLRN);
+    //        PPA[NOLP++] = pub;
+    //        std::cout << "Publication added" << std::endl;
+    //    }
+    //    else {
+    //        std::cout << "Aborted!" << std::endl;
+    //        delete[] pub; 
+    //    }
+    //}
+
+
     void LibApp::removePublication()
     {
         cout << "Removing publication from library" << endl;

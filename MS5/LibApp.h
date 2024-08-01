@@ -26,7 +26,7 @@ namespace seneca {
        bool m_changed;
        Menu m_mainMenu;
        Menu m_exitMenu;
-       Menu m_pubType{ "Choose the type of publication : "};
+       Menu m_pubType;
        char m_fileName[256 + 1];
        Publication* PPA[SENECA_LIBRARY_CAPACITY]; 
        int NOLP; 

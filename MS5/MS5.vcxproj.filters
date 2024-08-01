@@ -27,9 +27,6 @@
     <ClCompile Include="Publication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PublicationSelector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Date.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -37,6 +34,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LibAppMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PublicationSelector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,9 +53,6 @@
     <ClInclude Include="Publication.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PublicationSelector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Lib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -63,6 +60,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Streamable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PublicationSelector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

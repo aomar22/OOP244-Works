@@ -61,10 +61,10 @@ namespace seneca {
 		}
 		return os;
 	}
-	Menu& Menu::operator=(Menu& m)
+	/*Menu& Menu::operator=(Menu& m)
 	{
 		return *this;
-	}
+	}*/
 	void Menu::setEmpty()
 	{
 
@@ -84,15 +84,40 @@ namespace seneca {
 
 		if (menuTitle != nullptr) {
 			m_title.m_itemContent = new char[strlen(menuTitle) + 1];
+			
 			strcpy(m_title.m_itemContent, menuTitle);
 			m_noOfItems = 0;
 		}
 		else {
 			setEmpty();
 		}
+		for (unsigned int i = 0; i < MAX_MENU_ITEMS; i++) {
+			m_menuItems[i] = nullptr;
+		}
 	}
-	Menu::Menu(const Menu& m)
+	
+	Menu& Menu::operator=(const Menu& m)
 	{
+		if (this != &m) { // Avoid self-assignment
+				// Release any existing resources
+			delete[] m_title.m_itemContent;
+
+			if (m.m_title.m_itemContent != nullptr) {
+				m_title.m_itemContent = new char[strlen(m.m_title.m_itemContent) + 1];
+				strcpy(m_title.m_itemContent, m.m_title.m_itemContent);
+			}
+			else {
+				m_title.m_itemContent = nullptr;
+			}
+
+			m_noOfItems = m.m_noOfItems;
+
+			for (unsigned int i = 0; i < MAX_MENU_ITEMS; i++) {
+				m_menuItems[i] = m.m_menuItems[i]; 
+			}
+		}
+		return *this;
+		
 	}
 	Menu::~Menu()
 	{

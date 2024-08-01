@@ -37,7 +37,6 @@ namespace seneca {
 	};
 	class Menu {
 		Menu(Menu& m);
-		Menu& operator=(Menu& m);
 		MenuItem* m_menuItems[MAX_MENU_ITEMS]{ nullptr };
 		unsigned int m_noOfItems;
 		void setEmpty();
@@ -45,7 +44,6 @@ namespace seneca {
 		MenuItem m_title{};
 		Menu();
 		Menu(const char* menuTitle);
-		Menu(const Menu& m);
 		Menu& operator=(const Menu& m);
 		~Menu();
 		Menu& operator<<(const char* menuItemContent);
@@ -58,9 +56,10 @@ namespace seneca {
 		std::ostream& displayTitle() const;
 		std::ostream& displayAllMenu()const;
 		const char* getMenuTitle() const;
-		friend 	std::ostream& operator<<(std::ostream& om, const Menu& m);
+		//friend 	std::ostream& operator<<(std::ostream& om, const Menu& m);
 
 	};
+	std::ostream& operator<<(std::ostream& om, const Menu& m);
 }
 
 
