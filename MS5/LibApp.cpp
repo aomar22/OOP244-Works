@@ -99,7 +99,7 @@ namespace seneca {
                 return;
         }
         else {
-            std::cout << "Adding new publication to library" << endl;
+            std::cout << "Adding new publication to the library" << endl;
             Publication* pub = nullptr;
             //cout << m_pubType << endl;
           
@@ -129,7 +129,7 @@ namespace seneca {
                 return;
             }
             else{
-                if (confirm("Add this publication to library?")) {
+                if (confirm("Add this publication to the library?")) {
                     if (pub != nullptr) {
 
                         m_changed = true;

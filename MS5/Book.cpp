@@ -20,12 +20,11 @@ that my professor provided to complete my workshops and assignments.
 using namespace std;
 namespace seneca {
 
-    Book::Book(const Book& book): /*Publication(book),*/ m_author(nullptr) {
+    Book::Book(const Book& book):  m_author(nullptr) {
       //  m_author = nullptr;
         if (this != &book) {
-
             delete[] m_author;
-           // m_author = nullptr;
+            m_author = nullptr;
             m_author = new char[strlen(book.m_author) + 1];
             strcpy(m_author, book.m_author);
         }
