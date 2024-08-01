@@ -1,5 +1,5 @@
 /* Citation and Sources...
-Final Project Milestone 2
+Final Project Milestone 5
 Module: Menu
 Filename: Menu.cpp
 Version 1.0
@@ -86,8 +86,6 @@ namespace seneca {
 		m_title.m_itemContent = nullptr;
 		m_noOfItems = 0;
 		m_menuItems[0] = { nullptr };
-
-
 	}
 	Menu::Menu(const char* menuTitle)
 	{

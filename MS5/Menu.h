@@ -37,7 +37,6 @@ namespace seneca {
 		//std::ostream& operator<<(std::ostream& os);
 	};
 	class Menu {
-		Menu();
 		Menu(Menu& m);
 		MenuItem* m_menuItems[MAX_MENU_ITEMS]{ nullptr };
 		unsigned int m_noOfItems;
