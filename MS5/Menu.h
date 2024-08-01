@@ -43,8 +43,8 @@ namespace seneca {
 	public:
 		MenuItem m_title{};
 		Menu();
-		Menu(const char* menuTitle) = delete;
-		Menu& operator=(const Menu& m) = delete;
+		Menu(const char* menuTitle);
+		Menu& operator=(const Menu& m);
 		~Menu();
 		Menu& operator<<(const char* menuItemContent);
 		unsigned int run() const;
