@@ -104,8 +104,8 @@ namespace seneca {
 	
 	Menu& Menu::operator=(const Menu& m)
 	{
-		if (this != &m) { // Avoid self-assignment
-				// Release any existing resources
+		if (this != &m) { 
+			
 			delete[] m_title.m_itemContent;
 
 			if (m.m_title.m_itemContent != nullptr) {
