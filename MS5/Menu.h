@@ -1,5 +1,5 @@
 /* Citation and Sources...
-Final Project Milestone 2
+Final Project Milestone 5
 Module: Menu
 Filename: Menu.cpp
 Version 1.0
@@ -37,6 +37,7 @@ namespace seneca {
 		//std::ostream& operator<<(std::ostream& os);
 	};
 	class Menu {
+		Menu();
 		Menu(Menu& m);
 		MenuItem* m_menuItems[MAX_MENU_ITEMS]{ nullptr };
 		unsigned int m_noOfItems;
