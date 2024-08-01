@@ -21,21 +21,18 @@ using namespace std;
 namespace seneca {
 
     Book::Book(const Book& book):  m_author(nullptr) {
-      //  m_author = nullptr;
+     
         if (this != &book) {
          //   delete[] m_author;
          //   m_author = nullptr;
             m_author = new char[strlen(book.m_author) + 1];
             strcpy(m_author, book.m_author);
-        }
-        
-        
+        }  
     }
-
     Book& Book::operator=(const Book& book)
     {
         if (this != &book) {
-            
+
             Publication::operator=(book);
             delete[] m_author;
             if (book.m_author != nullptr) {
@@ -45,7 +42,6 @@ namespace seneca {
             else {
                 m_author = nullptr;
             }
-          //  Publication::operator=(book);
         }
         return *this;
     }
@@ -60,14 +56,12 @@ namespace seneca {
     {
         return 'B';
     }
-
     std::ostream& Book::write(std::ostream& os) const
     {
         Publication::write(os);
         if (conIO(os)) {
             
-            os << ' ';
-            
+            os << ' ';    
             if (m_author && strlen(m_author) > SENECA_AUTHOR_WIDTH) {
                 for (int i = 0; i < SENECA_AUTHOR_WIDTH; i++) {
                     os << m_author[i];
@@ -84,8 +78,7 @@ namespace seneca {
         else {
             os << '\t';
             os << m_author;
-        }
-       
+        } 
         return os;
     }
 
