@@ -39,7 +39,7 @@ int main() {
    Collection<Employee>Eres;
 
    // Call the  listArrayElements to list all cars, Title: "All the cars:"
-   listArrayElements(.........................);
+   listArrayElements("All the cars:", C, 8);
    cout << "Searching for Tesla cars: " << endl;
    // Call the search function to search the array C 
    // and store the matches in Cres passing "Tesla" as the key argument
@@ -55,7 +55,7 @@ int main() {
    cout << endl;
 
    // Call the  listArrayElements to list all the students, Title: "All students:"
-   listArrayElements(..................................);
+   listArrayElements("All students:", S, 6);
 
    cout << "Searching for students with 4.0 Gpa:" << endl;
    // Call the search function to search the array S 
@@ -72,7 +72,7 @@ int main() {
    cout << endl;
 
    // Call the  listArrayElements to list all the employees, Title: "All employees:"
-   listArrayElements(...................................);
+   listArrayElements("All employees:", E, 6);
 
    cout << "Searching for employees who share office number 111:" << endl;
    // Call the search function to search the array E 
@@ -106,6 +106,6 @@ int main() {
    // Call the  listArrayElements to list all the integers in the array a
    // Title: "INTEGERS"
 
-   listArrayElements(...........................);
+   listArrayElements("INTEGERS", a, 6);
    return 0;
 }
