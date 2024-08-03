@@ -22,7 +22,7 @@ namespace seneca {
     {
         cout << m_title << endl;
         for (int i = 0; i < arraySize; ++i) {
-            cout << i+1 << ":" << objArray[i] << endl;
+            cout << i+1 << ": " << objArray[i] << endl;
         }
     }
 }
