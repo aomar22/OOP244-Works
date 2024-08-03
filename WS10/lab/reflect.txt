@@ -28,3 +28,13 @@ The listArrayElements function is meant to print out a title going through all t
     }
     The operator<< overload function works on derived classes which inherit this method from ReadWrite base class.
     For example, all the derived classes: car, Student, and Employee inherit from the base class ReadWrite
+
+Calling template functions in the main:
+Example on Car class:
+
+Collection<Car> Cres; inistantiating template class collection. Cres is the class collection that is necessary ot hold the 'Car' objects.
+
+1_ calling  listArrayelements("All the cars:", C, 7); where "All the cars:" is the m_title, C is the object of car class m_objArray, 7 is the size of the m_objArray.
+
+2_calling search(Cres, C, 7, "Tesla"); where Cres is the instantiated template class collection, C is the object of car class m_objArray, 7 is the size of the m_objArray (car[7]), and "Tesla" is the second type of template (key) that the search is applied to. 
+ **I used 7 because the actual number of elements in car array is 7 and it gave me wrong output when I used 8.

@@ -1,3 +1,9 @@
+/*Amany Omar
+aomar22@myseneca.ca
+ID# 126 127 166
+Date: August 3, 2024
+I have done all the coding by myself and only copied the code
+that my professor provided to complete my workshops and assignments.*/
 #ifndef SENECA_SEARCHNLIST_H
 #define SENECA_SEARCHNLIST_H
 #include <iostream>
@@ -6,12 +12,12 @@ using namespace std;
 namespace seneca {
     
     template<typename T, typename K>
-    bool search(Collection<T>& collection, T* m_data, int arraySize, K key)
+    bool search(Collection<T>& collection, T* m_objArray, int arraySize, K key)
     {
         bool result = false;
         for (int i = 0; i < arraySize; ++i) {
-            if (m_data[i] == key) {
-                collection.add(m_data[i]);
+            if (m_objArray[i] == key) {
+                collection.add(m_objArray[i]);
                 result = true;
             }
         }
@@ -25,11 +31,11 @@ namespace seneca {
       Each of the classes Car, Student, Employee have the operator assignment function which enables executing this template.*/
 
     template<typename T>
-    void listArrayElements(const char* m_title, const T* m_data, int arraySize)
+    void listArrayElements(const char* m_title, const T* m_objArray, int arraySize)
     {
         cout << m_title << endl;
         for (int i = 0; i < arraySize; ++i) {
-            cout << i+1 << ": " << m_data[i] << endl;
+            cout << i+1 << ": " << m_objArray[i] << endl;
         }
     }
     /*The listArrayElements function is meant to print out a title going through all the array elements.

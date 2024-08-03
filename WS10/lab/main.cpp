@@ -43,7 +43,7 @@ int main() {
    cout << "Searching for Tesla cars: " << endl;
    // Call the search function to search the array C 
    // and store the matches in Cres passing "Tesla" as the key argument
-   if (search(Cres, C, 8, "Tesla")) {
+   if (search(Cres, C, 7, "Tesla")) {
       cout << Cres.size() << " match" << (Cres.size() == 1 ? "" : "es") << " found:" << endl;
       for (int i = 0; i < Cres.size(); i++) {
          cout << (i + 1) << ": " << Cres[i] << endl;
