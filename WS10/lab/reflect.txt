@@ -1,0 +1,30 @@
+/*Amany Omar, aomar22@myseneca.ca, ID# 126 127 166, Date: August 3, 2024.
+I have done all the coding by myself and only copied the code that my professor provided to complete my workshops and assignments.*/
+
+Templates:
+it is one of the forms of polymorphism that allows for reusing code without the need to duplicating the code in every class in the project.
+The idea of using templates is having a single function that receives multiple different argument types, but the function functions the same way regardless its arguments types. A template function requires "template" keyword and typename/class and arguments. 
+template <typename T> ->  <include parameter definitions for templates>
+  function(T arguments)
+of
+template <typename T[..,..,..]>  [arg1, arg2, arg3]
+For the template to work, it must support the methods needed for the logic that is defined in its classes and/or inherit those functions from the base class as shown in the two examples explained below.
+
+1- Template function search:
+The search template suppose to search the m_data array looking for matching words(key)
+    and if they are found, must be added to the collection. The requirements needed are:
+    template declaration: template<typename T, typename K>. Thus it requires type T and type key to find the matches using '=='.
+    (m_data[i]==key) also requires an 'operator==' to be able to apply this logic, which is present in the car methods:
+      bool Car::operator==(const char* mmSubstr)const;
+      Each of the classes Car, Student, Employee have the operator assignment function which enables executing this template.
+
+** when I used return true and return false, the function returned the fisrt search found only. When modified to variable of type bool result, it returns all the matched searches.
+
+2- Template function listArrayElements:
+The listArrayElements function is meant to print out a title going through all the array elements.
+    For this logic it requires only one type T and extraction operator 'operator<<'.
+    For example, ostream& operator<<(ostream& os, const ReadWrite& c) {
+      return c.display(os);
+    }
+    The operator<< overload function works on derived classes which inherit this method from ReadWrite base class.
+    For example, all the derived classes: car, Student, and Employee inherit from the base class ReadWrite
