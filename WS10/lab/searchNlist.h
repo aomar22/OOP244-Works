@@ -5,24 +5,24 @@
 using namespace std;
 namespace seneca {
     
-    template<typename templateType1, typename templateType2>
-    bool search(Collection<templateType1>& collection, templateType1 objArray[], int arraySize, templateType2 key)
+    template<typename T, typename K>
+    bool search(Collection<T>& collection, T* m_data, int arraySize, K key)
     {
         for (int i = 0; i < arraySize; ++i) {
-            if (objArray[i] == key) {
-                collection.add(objArray[i]);
+            if (m_data[i] == key) {
+                collection.add(m_data[i]);
                 return true;
             }
         }
         return false;
     }
 
-    template<typename templateType>
-    void listArrayElements(const char* m_title, const templateType objArray[], int arraySize)
+    template<typename T>
+    void listArrayElements(const char* m_title, const T* m_data, int arraySize)
     {
         cout << m_title << endl;
         for (int i = 0; i < arraySize; ++i) {
-            cout << i+1 << ": " << objArray[i] << endl;
+            cout << i+1 << ": " << m_data[i] << endl;
         }
     }
 }
