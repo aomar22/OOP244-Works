@@ -8,16 +8,18 @@ namespace seneca {
     template<typename T, typename K>
     bool search(Collection<T>& collection, T* m_data, int arraySize, K key)
     {
+        bool result = false;
         for (int i = 0; i < arraySize; ++i) {
             if (m_data[i] == key) {
                 collection.add(m_data[i]);
-                return true;
+                result = true;
             }
         }
-        return false;
+        return result;
     }
 
     template<typename T>
+
     void listArrayElements(const char* m_title, const T* m_data, int arraySize)
     {
         cout << m_title << endl;
