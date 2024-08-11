@@ -149,17 +149,17 @@ namespace seneca {
         }
         if (ps) {
             ps.sort();
-            int libRef = ps.run();
-            return libRef;
+           /* int libRef = ps.run();*/
+            
         }
         else {
             cout << "No matches found!";
-        }
-        
+        }  
+        int libRef = ps.run();
+        return libRef;
     }
     void LibApp::returnPub()
     {
-        int loanDays = 0;
         cout << "Return publication to the library" << endl;
         int libRef = search(SENECA_SEARCH_ON_LOAN);
         if (confirm("Return Publication?")) {
@@ -168,7 +168,6 @@ namespace seneca {
                 int noOfLateDays = (loanDays - SENECA_MAX_LOAN_DAYS);
                 double lateCharge = noOfLateDays * 0.50;
                 cout << "Please pay $";
-                cout.fixed;
                 cout.precision(2);
                 cout << lateCharge;
                 cout << "penalty for being ";
@@ -233,10 +232,11 @@ namespace seneca {
      }
     void LibApp::removePublication()
     {
+        Publication* pub;
         cout << "Removing publication from library" << endl;
         search(SENECA_ALL_SEARCH);
         if (confirm("Remove this publication from the library?")) {
-            int removeLibRef = 0;
+            pub->setRef(0);
             m_changed = true;
             cout << "Publication removed" << endl;
         }
@@ -251,7 +251,7 @@ namespace seneca {
                 cout << "Invalid membership number, try again: ";
                 cin >> LLRN;
             }
-            int membership = LLRN;
+           
             m_changed = true;
             cout << "Publication checked out" << endl;
         }
