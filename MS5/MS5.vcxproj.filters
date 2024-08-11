@@ -84,5 +84,8 @@
     <None Include="m51_correct_output.md">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="m52_correct_output.md">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

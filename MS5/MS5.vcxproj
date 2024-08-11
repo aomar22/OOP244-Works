@@ -154,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="m51_correct_output.md" />
+    <None Include="m52_correct_output.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

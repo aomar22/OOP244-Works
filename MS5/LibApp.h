@@ -19,6 +19,7 @@ that my professor provided to complete my workshops and assignments.
 #define SENECA_LIBAPP_H
 #include "Menu.h"
 #include "Publication.h"
+#include "PublicationSelector.h"
 #include "Lib.h"
 namespace seneca {
    class LibApp {
@@ -33,7 +34,7 @@ namespace seneca {
        bool confirm(const char* message);
        void load();  
        void save();  
-       void search();  
+       int search(int searchMode);
        void returnPub();  
        void newPublication();
        void removePublication();

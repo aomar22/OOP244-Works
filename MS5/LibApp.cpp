@@ -19,15 +19,47 @@ that my professor provided to complete my workshops and assignments.
 #include <iostream>
 #include <fstream>
 #include <cstring>
+#include <string>
 #include "Menu.h"
 #include "LibApp.h"
 #include "Book.h"
 #include "Publication.h"
+//#include "PublicationSelector.h"
 #include "Lib.h"
 #include "Streamable.h"
 
 using namespace std;
 namespace seneca {
+
+    LibApp::LibApp(const char* fileName)
+    {
+        m_changed = false;
+        m_mainMenu = "Seneca Library Application";
+        m_exitMenu = "Changes have been made to the data, what would you like to do?";
+        m_pubType = "Choose the type of publication: ";
+        m_fileName[0] = '\0';
+        for (int i = 0; i < SENECA_LIBRARY_CAPACITY; i++) {
+            PPA[i] = nullptr;
+        }
+        NOLP = 0;
+        LLRN = 0;
+        if (fileName) {
+
+            strcpy(m_fileName, fileName);
+        }
+        m_mainMenu << "Add New Publication";
+        m_mainMenu << "Remove Publication";
+        m_mainMenu << "Checkout publication from library";
+        m_mainMenu << "Return publication to library";
+
+        m_exitMenu << "Save changes and exit";
+        m_exitMenu << "Cancel and go back to the main menu";
+
+        m_pubType << "Book";
+        m_pubType << "Publication";
+
+        load();
+    }
     bool LibApp::confirm(const char* message) {
         //Menu m = message;
         Menu m(message);
@@ -75,17 +107,78 @@ namespace seneca {
         }
     }
 
-    void LibApp::search()
+    int LibApp::search(int searchMode)
     {
         cout << "Searching for publication" << endl;
-    }
+        //get publication type from the user
+        int userTypeSelection = m_pubType.run();
+        
+        //Get the title to search for
+        cout << "Publication Title: ";
+        char userEnteredTitle[265];
+        cin.getline(userEnteredTitle, 256);
 
+        //create a publicationSelector object with prompt and page size
+        PublicationSelector ps("Select one of the following found matches:", 15);
+        
+        switch (searchMode) {
+
+        case SENECA_ALL_SEARCH:
+            for (int i = 0; i < NOLP; i++) { //searchAll
+                if (ps && PPA[i]->operator==(userEnteredTitle) && PPA[i]->type()==userTypeSelection) {
+                    ps << PPA[i];
+                }
+            }
+            break;
+        case SENECA_SEARCH_ON_LOAN:
+            for (int i = 0; i < NOLP; i++) { //onLoan
+                if (ps && PPA[i]->operator==(userEnteredTitle) && PPA[i]->type() == userTypeSelection && PPA[i]->onLoan()) {
+                    ps << PPA[i];
+                }
+            }
+            break;
+        case SENECA_SEARCH_AVAILABLE_ITEMS:
+            for (int i = 0; i < NOLP; i++) { //available items
+                if (ps && PPA[i]->operator==(userEnteredTitle) && PPA[i]->type() == userTypeSelection && !PPA[i]->onLoan()) {
+                    ps << PPA[i];
+                }
+            }
+            break;
+        case 0:
+            cout << "Abort!";
+        }
+        if (ps) {
+            ps.sort();
+            int libRef = ps.run();
+            return libRef;
+        }
+        else {
+            cout << "No matches found!";
+        }
+        
+    }
     void LibApp::returnPub()
     {
-        search();
-        cout << "Returning publication" << endl;
-        cout << "Publication returned" << endl;
+        int loanDays = 0;
+        cout << "Return publication to the library" << endl;
+        int libRef = search(SENECA_SEARCH_ON_LOAN);
+        if (confirm("Return Publication?")) {
+            int loanDays = Date() - getPub(libRef)->checkoutDate();
+            if (loanDays > SENECA_MAX_LOAN_DAYS) {
+                int noOfLateDays = (loanDays - SENECA_MAX_LOAN_DAYS);
+                double lateCharge = noOfLateDays * 0.50;
+                cout << "Please pay $";
+                cout.fixed;
+                cout.precision(2);
+                cout << lateCharge;
+                cout << "penalty for being ";
+                cout << noOfLateDays;
+                cout << "days late!" << endl;
+            }
+        }
+        libRef = 0;
         m_changed = true;
+        cout << "Publication returned" << endl;  
     }
      void LibApp::newPublication(){      
         if (NOLP >= SENECA_LIBRARY_CAPACITY) {
@@ -141,17 +234,24 @@ namespace seneca {
     void LibApp::removePublication()
     {
         cout << "Removing publication from library" << endl;
-        search();
+        search(SENECA_ALL_SEARCH);
         if (confirm("Remove this publication from the library?")) {
+            int removeLibRef = 0;
             m_changed = true;
             cout << "Publication removed" << endl;
         }
     }
-
+    
     void LibApp::checkOutPub()
     {
-        search();
+        search(SENECA_SEARCH_AVAILABLE_ITEMS);
         if (confirm("Check out publication?")) {
+            cin >> LLRN;
+            while (!cin >> LLRN) {
+                cout << "Invalid membership number, try again: ";
+                cin >> LLRN;
+            }
+            int membership = LLRN;
             m_changed = true;
             cout << "Publication checked out" << endl;
         }
@@ -166,35 +266,7 @@ namespace seneca {
         }
         return nullptr;
     }
-    LibApp::LibApp(const char* fileName)
-    {
-        m_changed = false;
-        m_mainMenu = "Seneca Library Application";
-        m_exitMenu = "Changes have been made to the data, what would you like to do?";
-        m_pubType = "Choose the type of publication: ";
-        m_fileName[0] = '\0';
-        for (int i = 0; i < SENECA_LIBRARY_CAPACITY; i++) {
-            PPA[i] = nullptr; 
-        }
-        NOLP = 0;
-        LLRN = 0;
-        if (fileName) {
-            
-            strcpy(m_fileName, fileName);
-        }
-        m_mainMenu << "Add New Publication";
-        m_mainMenu << "Remove Publication";
-        m_mainMenu << "Checkout publication from library";
-        m_mainMenu << "Return publication to library";
-
-        m_exitMenu << "Save changes and exit";
-        m_exitMenu << "Cancel and go back to the main menu";
-
-        m_pubType << "Book";
-        m_pubType << "Publication";
-
-        load();
-    }
+   
     void LibApp::run()
     {
         bool done = true;   
