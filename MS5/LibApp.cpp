@@ -337,7 +337,7 @@ namespace seneca {
     {
         Publication* pub = nullptr;
         cout << "Removing publication from the library" << endl;
-       int libRef = search(SENECA_ALL_SEARCH);
+      // int libRef = search(SENECA_ALL_SEARCH);
         if (confirm("Remove this publication from the library?")) {
             pub->setRef(0);
             m_changed = true;
