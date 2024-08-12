@@ -17,8 +17,10 @@ that my professor provided to complete my workshops and assignments.
 -----------------------------------------------------------*/
 #ifndef SENECA_LIBAPP_H
 #define SENECA_LIBAPP_H
+#include <iostream>
 #include "Menu.h"
 #include "Publication.h"
+#include "Book.h"
 #include "PublicationSelector.h"
 #include "Lib.h"
 namespace seneca {
@@ -41,9 +43,11 @@ namespace seneca {
        void checkOutPub();
        Publication* getPub(int libRef);
    public:
+       LibApp();
        LibApp(const char* fileName);
        void run();
        ~LibApp();
+       
    };
 }
 

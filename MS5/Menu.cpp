@@ -131,7 +131,7 @@ namespace seneca {
 			delete m_menuItems[i];
 		}
 	}
-	unsigned int Menu::run() const 
+	unsigned int Menu::run() 
 	{
 		int selection = 0;
 		
@@ -165,7 +165,7 @@ namespace seneca {
 		}
 	}
 
-	 unsigned int Menu::operator~() const {
+	 unsigned int Menu::operator~() {
 		return run();
 	 }
 

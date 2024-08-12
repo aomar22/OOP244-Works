@@ -19,18 +19,42 @@ that my professor provided to complete my workshops and assignments.
 #include <iostream>
 #include <fstream>
 #include <cstring>
-#include <string>
-#include "Menu.h"
+//#include <string>
+//#include "Menu.h"
 #include "LibApp.h"
-#include "Book.h"
-#include "Publication.h"
+//#include "Book.h"
+//#include "Publication.h"
 //#include "PublicationSelector.h"
-#include "Lib.h"
-#include "Streamable.h"
+//#include "Lib.h"
+//#include "Streamable.h"
 
 using namespace std;
 namespace seneca {
+    LibApp::LibApp() {
+        m_changed = false;
+        m_mainMenu = "Seneca Library Application";
+        m_exitMenu = "Changes have been made to the data, what would you like to do?";
+        m_pubType = "Choose the type of publication: ";
+        m_fileName[0] = '\0';
+        for (int i = 0; i < SENECA_LIBRARY_CAPACITY; i++) {
+            PPA[i] = nullptr;
+        }
+        NOLP = 0;
+        LLRN = 0;
+        
+        m_mainMenu << "Add New Publication";
+        m_mainMenu << "Remove Publication";
+        m_mainMenu << "Checkout publication from library";
+        m_mainMenu << "Return publication to library";
 
+        m_exitMenu << "Save changes and exit";
+        m_exitMenu << "Cancel and go back to the main menu";
+
+        m_pubType << "Book";
+        m_pubType << "Publication";
+
+        load();
+    }
     LibApp::LibApp(const char* fileName)
     {
         m_changed = false;
@@ -108,161 +132,56 @@ namespace seneca {
     }
 
     
-    int LibApp::search(int searchMode)
-    {
-       // ifstream infile("LibRecsSmall.txt");
-       // Publication* p[1000]{};
+    int LibApp::search(int searchMode) {
         PublicationSelector ps("Select one of the following found matches:", 15);
-        char* userEnteredTitle{};
-        int refNumber{};
-        int userTypeSelection{};
-        bool ok{};
-     
-        userEnteredTitle = new char[256];
+        char userEnteredTitle[256];
+        int refNumber = 0;
+        char userTypeSelection;
+        bool matchFound = false;
+
+        // Get the type of publication to search for
         userTypeSelection = m_pubType.run();
-        
-        //Get the title to search for
-        
 
-        //create a publicationSelector object with prompt and page size
-        cout << "Publication Title: ";
-
-        cin.getline(userEnteredTitle, 265);
-      //  if(searchMode == 1){
-           //serTypeSelection = m_pubType.run();
-        switch (userTypeSelection) {
-
-        case 1:
-            //cin.ignore();
-            
-            for (int i = 0; i < NOLP; i++) { //searchAll
-                if (PPA[i]->getRef() && *PPA[i]==(userEnteredTitle) && PPA[i]->type() == userTypeSelection) {
-                    ok = true;
-                    ps << *PPA[i];
-                    
-                }
-            }
-            /*if (ok) {
-                ps.sort();
-                refNumber = ps.run();
-                if (refNumber == 0) {
-                    cout << "Aborted!" << endl;
-                }
-            }
-            else {
-                cout << "No matches found!" << endl;*/
-                break;
-        case 2:
-          //  cin.ignore();
-            /*cout << "Publication Title: ";
-            cin.getline(userEnteredTitle, 256);*/
-            for (int i = 0; i < NOLP; i++) { //searchAll
-                if (PPA[i]->getRef() && *PPA[i] == userEnteredTitle && PPA[i]->type() == userTypeSelection && PPA[i]->getRef()) {
-                    ok = true;
-                    ps << *PPA[i];
-
-                }
-            }
-            /*if (ok) {
-                ps.sort();
-                refNumber = ps.run();
-                if (refNumber == 0) {
-                    cout << "Aborted!" << endl;
-                }
-            }
-            else {
-                cout << "No matches found!" << endl;*/
-            
-            break;
-        case 3:
-
-            for (int i = 0; i < NOLP; i++) { //available items
-                if (PPA[i]->getRef() && *PPA[i]==userEnteredTitle && PPA[i]->type() == userTypeSelection && !PPA[i]->onLoan()) {
-                    ps << PPA[i];
-                    ok = true;
-
-                }
-            }
-            break;
-        case 0:
-            cin.ignore();
-            cout << "Aborted!" << endl;
-          //  ok = false;       
+        if (userTypeSelection == 0) { // Exit scenario
+            std::cout << "Aborted!" << std::endl;
+            return 0;
         }
-        if (ok) {
+
+        // Get the title to search for
+        std::cout << "Publication Title: ";
+        std::cin.getline(userEnteredTitle, 256);
+
+        // Iterate over all publications
+        for (int i = 0; i < NOLP; i++) {
+            if (PPA[i] != nullptr && PPA[i]->type() == userTypeSelection && strstr(*PPA[i], userEnteredTitle)) {
+                if ((searchMode == SENECA_ALL_SEARCH) ||
+                    (searchMode == SENECA_SEARCH_ON_LOAN && PPA[i]->onLoan()) ||
+                    (searchMode == SENECA_SEARCH_AVAILABLE_ITEMS && !PPA[i]->onLoan())) {
+
+                    ps << PPA[i]; // Add matching publication to the selector
+                    matchFound = true;
+                }
+            }
+        }
+
+        if (matchFound) {
             ps.sort();
             refNumber = ps.run();
+            if (refNumber == 0) {
+                std::cout << "Aborted!" << std::endl;
+            }
         }
         else {
-            cout << "No matches found!" << endl;
+            std::cout << "No matches found!" << std::endl;
         }
-            delete[]  userEnteredTitle;
-        return  refNumber;
-        }
-    //int LibApp::search(int searchMode) {
-    // //   cout << "Searching for publication" << endl;
 
-    //    // Get publication type from the user
-    //    int userTypeSelection = m_pubType.run();
-
-    //    // If the user selects to exit (0), abort the search
-    //    if (userTypeSelection == 0) {
-    //        cout << "Aborted!" << endl;
-    //        return 0; // Indicate an aborted search
-    //    }
-
-    //    // Get the title to search for
-    //    cout << "Publication Title: ";
-    //    char userEnteredTitle[265];
-    //    cin.getline(userEnteredTitle, 256);
-
-    //    // Create a PublicationSelector object with prompt and page size
-    //    PublicationSelector ps("Select one of the following found matches:", 15);
-
-    //    // Loop through all the publications and apply the search filter
-    //    for (int i = 0; i < NOLP; i++) {
-    //        // Ensure the publication is not deleted and matches the user's criteria
-    //        if (PPA[i]!=nullptr && PPA[i]->type() == userTypeSelection && PPA[i]->operator==(userEnteredTitle)) {
-    //            switch (searchMode) {
-    //            case SENECA_ALL_SEARCH:
-    //                ps << PPA[i]; // Search all items
-    //                break;
-    //            case SENECA_SEARCH_ON_LOAN:
-    //                if (PPA[i]->onLoan()) {
-    //                    ps << PPA[i]; // Search only items on loan
-    //                }
-    //                break;
-    //            case SENECA_SEARCH_AVAILABLE_ITEMS:
-    //                if (!PPA[i]->onLoan()) {
-    //                    ps << PPA[i]; // Search only available items
-    //                }
-    //                break;
-    //            }
-    //        }
-    //    }
-
-    //    // Check if matches were found
-    //    if (ps) {
-    //        ps.sort();  // Sort the matched publications
-    //        int libRef = ps.run();  // Display matches and get user selection
-    //        if (libRef > 0) {
-    //            return libRef; // Return the selected library reference number
-    //        }
-    //        else {
-    //            cout << "Aborted!" << endl;
-    //            return 0; // Indicate an aborted selection
-    //        }
-    //    }
-    //    else {
-    //        cout << "No matches found!" << endl;
-    //        return 0; // Indicate no matches found
-    //    }
-    //}
+        return refNumber;
+    }
 
     void LibApp::returnPub()
     {
         
-        cout << "Return publication to the library" << endl;
+        std::cout << "Return publication to the library" << endl;
         int libRef = search(2);
         Publication* retPub = getPub(libRef);
         if (confirm("Return Publication?")) {

@@ -47,8 +47,8 @@ namespace seneca {
 		Menu& operator=(const Menu& m);
 		~Menu();
 		Menu& operator<<(const char* menuItemContent);
-		unsigned int run() const;
-		unsigned int operator~()const;
+		unsigned int run();
+		unsigned int operator~();
 		operator int()const;
 		operator unsigned int()const;
 		operator bool()const;
@@ -56,7 +56,7 @@ namespace seneca {
 		std::ostream& displayTitle() const;
 		std::ostream& displayAllMenu()const;
 		const char* getMenuTitle() const;
-		//friend 	std::ostream& operator<<(std::ostream& om, const Menu& m);
+	//	friend 	std::ostream& operator<<(std::ostream& om, const Menu& m);
 
 	};
 	std::ostream& operator<<(std::ostream& om, const Menu& m);
