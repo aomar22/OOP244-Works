@@ -119,7 +119,7 @@ namespace seneca {
         bool ok{};
      
         userEnteredTitle = new char[256];
-        //userTypeSelection = m_pubType.run();
+        userTypeSelection = m_pubType.run();
         
         //Get the title to search for
         
@@ -129,7 +129,7 @@ namespace seneca {
 
         cin.getline(userEnteredTitle, 265);
       //  if(searchMode == 1){
-            userTypeSelection = m_pubType.run();
+           //serTypeSelection = m_pubType.run();
         switch (userTypeSelection) {
 
         case 1:
@@ -263,7 +263,7 @@ namespace seneca {
     {
         
         cout << "Return publication to the library" << endl;
-        int libRef = search(SENECA_SEARCH_ON_LOAN);
+        int libRef = search(2);
         Publication* retPub = getPub(libRef);
         if (confirm("Return Publication?")) {
             int loanDays = Date() - getPub(libRef)->checkoutDate();
@@ -280,26 +280,26 @@ namespace seneca {
         }
         retPub->set(0);
         m_changed = true;
-        cout << "Publication returned" << endl;  
+        cout << "Publication returned" << endl;
     }
-     void LibApp::newPublication(){      
+    void LibApp::newPublication() {
         if (NOLP >= SENECA_LIBRARY_CAPACITY) {
-             std::cout << "Library is at its maximum capacity!" << endl;
-                m_exitMenu.run();
-                return;
+            std::cout << "Library is at its maximum capacity!" << endl;
+            m_exitMenu.run();
+            return;
         }
         else {
             std::cout << "Adding new publication to the library" << endl;
             Publication* pub = nullptr;
-          
+
             int userChoice = m_pubType.run();
-            switch(userChoice){
-            
-            case 1: 
+            switch (userChoice) {
+
+            case 1:
                 pub = new Book();
                 cin >> *pub;
                 break;
-            case 2: 
+            case 2:
                 pub = new Publication();
                 cin >> *pub;
                 break;
@@ -314,7 +314,7 @@ namespace seneca {
                 m_exitMenu.run();
                 return;
             }
-            else{
+            else {
                 if (confirm("Add this publication to the library?")) {
                     if (pub != nullptr) {
 
@@ -332,33 +332,64 @@ namespace seneca {
             }
         }
 
-     }
+    }
     void LibApp::removePublication()
     {
-        Publication* pub = nullptr;
+        int retVal;
+        int index = -1;
+
         cout << "Removing publication from the library" << endl;
-      // int libRef = search(SENECA_ALL_SEARCH);
-        if (confirm("Remove this publication from the library?")) {
-            pub->setRef(0);
-            m_changed = true;
-            cout << "Publication removed" << endl;
+        retVal = search(1);
+        if (retVal > 0) {
+            for (int i = 0; i < NOLP; i++) {
+                if (PPA[i]->getRef() == retVal) {
+                    index = i;
+                }
+            }
+            if (index > -1) {
+                cout << *PPA[index] << endl;
+                if (confirm("Remove this publication from the library?")) {
+                    PPA[index]->setRef(0);
+                    m_changed = true;
+                    delete PPA[index];  // Free memory
+                    PPA[index] = nullptr;  // Avoid dangling pointer
+
+                    cout << "Publication removed" << endl;
+                }
+            }
         }
     }
     
     void LibApp::checkOutPub()
     {
-        search(SENECA_SEARCH_AVAILABLE_ITEMS);
-        if (confirm("Check out publication?")) {
-            cin >> LLRN;
-            while (!cin >> LLRN) {
-                cout << "Invalid membership number, try again: ";
-                cin >> LLRN;
+        int membership{};
+        int membershipLength{};
+        int index{};
+        cout << "Checkout publication from the library" << endl;
+        int retVal = search(3);
+        if (retVal > 0 && /*PPA->m_pubType == 'P*/ confirm("Check out publication ? ")) {
+            for (int i = 0; i < NOLP; i++) {
+                if (PPA[i]->getRef() == retVal) {
+                    index = i;
+                }
+                if (index > -1) {
+                    cout << *PPA[index] << endl;
+                }
+                if (confirm("Check out publication?")) {
+                    cout << "Enter Membership number: ";
+                    do {
+                        cin >> membership;
+                
+                        if (membershipLength != 5) cout << "Invalid membership number, try again:  ";
+                    } while (membershipLength != 5);
+                    PPA[index]->set(membershipLength);
+                    m_changed = true;
+                    cout << "Publication checked out" << endl;
+                }
             }
-           
-            m_changed = true;
-            cout << "Publication checked out" << endl;
         }
     }
+   
    
     Publication* LibApp::getPub(int libRef)
     { 

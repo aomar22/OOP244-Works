@@ -47,7 +47,7 @@ Seneca Library Application
  0- Exit
 > 2
 Removing publication from the library
-Choose the type of publication:
+ of publication:
  1- Book
  2- Publication
  0- Exit
