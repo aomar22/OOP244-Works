@@ -160,8 +160,10 @@ namespace seneca {
     }
     void LibApp::returnPub()
     {
+        
         cout << "Return publication to the library" << endl;
         int libRef = search(SENECA_SEARCH_ON_LOAN);
+        Publication* retPub = getPub(libRef);
         if (confirm("Return Publication?")) {
             int loanDays = Date() - getPub(libRef)->checkoutDate();
             if (loanDays > SENECA_MAX_LOAN_DAYS) {
@@ -175,7 +177,7 @@ namespace seneca {
                 cout << "days late!" << endl;
             }
         }
-        libRef = 0;
+        retPub->set(0);
         m_changed = true;
         cout << "Publication returned" << endl;  
     }
@@ -232,7 +234,7 @@ namespace seneca {
      }
     void LibApp::removePublication()
     {
-        Publication* pub;
+        Publication* pub = nullptr;
         cout << "Removing publication from library" << endl;
         search(SENECA_ALL_SEARCH);
         if (confirm("Remove this publication from the library?")) {
