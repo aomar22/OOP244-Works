@@ -119,7 +119,7 @@ namespace seneca {
     }
     void LibApp::save()
     {
-        cout << "Saving Data" << endl;
+        std::cout << "Saving Data" << endl;
         std::ofstream fout;
         fout.open(m_fileName, std::ios::out);
         if (fout) {
@@ -130,73 +130,203 @@ namespace seneca {
             }
         }
     }
+    char getType(unsigned int num) {
+        char ch = 'X';
+        switch (num) {
+        case 1:
+            ch = 'B';
+            break;
+        case 2:
+            ch = 'P';
+            break;
+        default:
+            ch = 'X';
+            break;
+        }
+        return ch;
+    }
+    //int LibApp::search(int searchMode)
+    //{
+    //    // ifstream infile("LibRecsSmall.txt");
+    //    // Publication* p[1000]{};
+    //    PublicationSelector ps("Select one of the following found matches:", 15);
+    //    char* userEnteredTitle{};
+    //    int refNumber{};
+    //    int userTypeSelection{};
+    //    bool ok{};
+
+    //    userEnteredTitle = new char[256];
+    //    userTypeSelection = m_pubType.run();
+
+    //    //Get the title to search for
+
+
+    //    //create a publicationSelector object with prompt and page size
+    //    cout << "Publication Title: ";
+
+    //    cin.getline(userEnteredTitle, 265);
+    //    //  if(searchMode == 1){
+    //         //serTypeSelection = m_pubType.run();
+    //    switch (userTypeSelection) {
+
+    //    case 1:
+    //        //cin.ignore();
+
+    //        for (int i = 0; i < NOLP; i++) { //searchAll
+    //            if (PPA[i]->getRef() && *PPA[i] == (userEnteredTitle) && PPA[i]->type() == userTypeSelection) {
+    //                ok = true;
+    //                ps << *PPA[i];
+
+    //            }
+    //        }
+    //        /*if (ok) {
+    //            ps.sort();
+    //            refNumber = ps.run();
+    //            if (refNumber == 0) {
+    //                cout << "Aborted!" << endl;
+    //            }
+    //        }
+    //        else {
+    //            cout << "No matches found!" << endl;*/
+    //        break;
+    //    case 2:
+    //        //  cin.ignore();
+    //          /*cout << "Publication Title: ";
+    //          cin.getline(userEnteredTitle, 256);*/
+    //        for (int i = 0; i < NOLP; i++) { //searchAll
+    //            if (PPA[i]->getRef() && *PPA[i] == userEnteredTitle && PPA[i]->type() == userTypeSelection && PPA[i]->getRef()) {
+    //                ok = true;
+    //                ps << *PPA[i];
+
+    //            }
+    //        }
+    //        /*if (ok) {
+    //            ps.sort();
+    //            refNumber = ps.run();
+    //            if (refNumber == 0) {
+    //                cout << "Aborted!" << endl;
+    //            }
+    //        }
+    //        else {
+    //            cout << "No matches found!" << endl;*/
+
+    //        break;
+    //    case 3:
+
+    //        for (int i = 0; i < NOLP; i++) { //available items
+    //            if (PPA[i]->getRef() && *PPA[i] == userEnteredTitle && PPA[i]->type() == userTypeSelection && !PPA[i]->onLoan()) {
+    //                ps << PPA[i];
+    //                ok = true;
+
+    //            }
+    //        }
+    //        break;
+    //    case 0:
+    //        cin.ignore();
+    //        cout << "Aborted!" << endl;
+    //        //  ok = false;
+    //    }
+    //    if (ok) {
+    //        ps.sort();
+    //        refNumber = ps.run();
+    //    }
+    //    else {
+    //        cout << "No matches found!" << endl;
+    //    }
+    //    delete[]  userEnteredTitle;
+    //    return  refNumber;
+    //}
 
  
     int LibApp::search(int searchMode) {
         PublicationSelector ps("Select one of the following found matches:", 15);
-        Publication* p[1000];
-        char userEnteredTitle[256];
-        int refNumber = 0;
-        char userTypeSelection = 'P';
-        bool matchFound = false;
-        ifstream infile("LibRecsSmall.txt");
-        // Get the type of publication to search for
-        userTypeSelection = m_pubType.run();
-        for (int i = 0; i < NOLP; i++) {
-            //  userTypeSelection = getPubType((int)m_pubType.run());
-            if (userTypeSelection == 'P')
-                PPA[i] = new Publication;
-            else if (userTypeSelection == 'B')
-                PPA[i] = new Book;
-            if (PPA[i]) {
-                infile >> *PPA[i];
+        char userEnteredTitle[257]{};
+        int refNum{};
+        //get the type of publication to search for from the user. (user the type selection Menu of the class)
+       unsigned int pubType = m_pubType.run();
+        //char userTypeSelected{};
+        char type = getType(pubType);
+        bool matchFound = true;
+       /* if (userTypeSelected == 'X') {
+            std::cout << "Aborted!" << endl;
+            refNum = -1;
+        }*/
+      //  else {
+            cout << "Publication Title: ";
+            cin.getline(userEnteredTitle, 257);
+            
+            for (int i = 0; i < NOLP; i++) {
+               // if (PPA[i]) {
+                    switch (searchMode) {
+                    case SENECA_ALL_SEARCH:
+                        if (PPA[i] && type == PPA[i]->type()/*userTypeSelected*/ && strstr(*PPA[i], (const char*)userEnteredTitle) && PPA[i]->getRef())/* && (PPA[i]->onLoan() || !PPA[i]->onLoan())*/ {
+                            /*if (type == 'P') {
+                                PPA[i] = new Publication();
+                            }
+                            else if (type == 'B') {
+                                PPA[i] = new Book();
+                            }*/
+                            matchFound = true;
+                            ps << PPA[i];
+                           
+                        }
+                        
+                        /*if (PPA[i]) {
+                            ps << PPA[i];
+                        }*/
+                        break;
+                    case SENECA_SEARCH_ON_LOAN:
+                        if (PPA[i] && type == PPA[i]->type()/*userTypeSelected*/ && strstr(*PPA[i], (const char*)userEnteredTitle) && PPA[i]->onLoan()) {
+                            /*if (type == 'P') {
+                                PPA[i] = new Publication();
+                            }
+                            else if (type == 'B') {
+                                PPA[i] = new Book();
+                            }*/
+                            matchFound = true;
+                            ps << PPA[i];
+                           
+                        }
+                        /*if (PPA[i]) {
+                            ps << PPA[i];
+                        }*/
+                        break;
+                    case SENECA_SEARCH_AVAILABLE_ITEMS:
+                        if (PPA[i] && type == PPA[i]->type()/*userTypeSelected*/ && strstr(*PPA[i], (const char*)userEnteredTitle) && !PPA[i]->onLoan()) {
+                           /* if (type == 'P') {
+                                PPA[i] = new Publication();
+                            }
+                            else if (type == 'B') {
+                                PPA[i] = new Book();
+                            }
+                            if (PPA[i]) {
+                                ps << PPA[i];
+                            }*/
+                            matchFound = true;
+                            ps << PPA[i];
+                            
+                        }
+                        break;                  
+                    }
+               // }
             }
-            if (userTypeSelection == 0) { // Exit scenario
+        //}
+        
+        //if (ps) {
+        if (matchFound == true) {
+            ps.sort();
+            refNum = ps.run();
+            ps.reset();
+            if (refNum == 0) {
                 std::cout << "Aborted!" << std::endl;
                 return -2;
             }
-            
         }
-        
-
-        //if (userTypeSelection == 0) { // Exit scenario
-        //    std::cout << "Aborted!" << std::endl;
-        //    return -2;
-        //}
-
-        // Get the title to search for
-        std::cout << "Publication Title: ";
-        std::cin.getline(userEnteredTitle, 257);
-
-        // Iterate over all publications
-        for (int i = 0; i < NOLP; i++) {
-            if (PPA[i] != nullptr && PPA[i]->type() == userTypeSelection && strstr(*PPA[i], userEnteredTitle)) {
-                if ((searchMode == SENECA_ALL_SEARCH) ||
-                    (searchMode == SENECA_SEARCH_ON_LOAN && PPA[i]->onLoan()) ||
-                    (searchMode == SENECA_SEARCH_AVAILABLE_ITEMS && !PPA[i]->onLoan())) {
-
-                    ps << PPA[i]; // Add matching publication to the selector
-                    matchFound = true;
-                }
-            }
+        else {
+            matchFound == false;
+            std::cout << "No matches found!" << std::endl;
         }
-     
-        if (ps) {
-            if (matchFound) {
-                ps.sort();
-                refNumber = ps.run();
-                ps.reset();
-                if (refNumber == 0) {
-                    std::cout << "Aborted!" << std::endl;
-                    return -2;
-                }
-            }
-            else {
-                std::cout << "No matches found!" << std::endl;
-            }
-
-            return refNumber;
-        }
+        return refNum;       
     }
 
 

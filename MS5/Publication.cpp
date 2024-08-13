@@ -100,7 +100,7 @@ namespace seneca {
 				os << m_title;
 			}
 			os << " | ";
-			onLoan() ? os << m_membership : os << " 0 ";
+			onLoan() ? os << m_membership : os << " N/A"; /*0*/ 
 			os << " | ";
 			os << m_date;
 			os << " |";
@@ -115,7 +115,7 @@ namespace seneca {
 			os << '\t';
 			os << m_title;
 			os << '\t';
-			onLoan() ? os << m_membership : os << " 0 ";
+			onLoan() ? os << m_membership : os << " N/A "; /*0*/ 
 			os << '\t';
 			os << m_date;
 		}
