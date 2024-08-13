@@ -68,7 +68,7 @@ namespace seneca {
         NOLP = 0;
         LLRN = 0;
         if (fileName) {
-
+           
             strcpy(m_fileName, fileName);
         }
         m_mainMenu << "Add New Publication";
@@ -131,25 +131,42 @@ namespace seneca {
         }
     }
 
-    
+ 
     int LibApp::search(int searchMode) {
         PublicationSelector ps("Select one of the following found matches:", 15);
+        Publication* p[1000];
         char userEnteredTitle[256];
         int refNumber = 0;
-        char userTypeSelection;
+        char userTypeSelection = 'P';
         bool matchFound = false;
-
+        ifstream infile("LibRecsSmall.txt");
         // Get the type of publication to search for
         userTypeSelection = m_pubType.run();
-
-        if (userTypeSelection == 0) { // Exit scenario
-            std::cout << "Aborted!" << std::endl;
-            return 0;
+        for (int i = 0; i < NOLP; i++) {
+            //  userTypeSelection = getPubType((int)m_pubType.run());
+            if (userTypeSelection == 'P')
+                PPA[i] = new Publication;
+            else if (userTypeSelection == 'B')
+                PPA[i] = new Book;
+            if (PPA[i]) {
+                infile >> *PPA[i];
+            }
+            if (userTypeSelection == 0) { // Exit scenario
+                std::cout << "Aborted!" << std::endl;
+                return -2;
+            }
+            
         }
+        
+
+        //if (userTypeSelection == 0) { // Exit scenario
+        //    std::cout << "Aborted!" << std::endl;
+        //    return -2;
+        //}
 
         // Get the title to search for
         std::cout << "Publication Title: ";
-        std::cin.getline(userEnteredTitle, 256);
+        std::cin.getline(userEnteredTitle, 257);
 
         // Iterate over all publications
         for (int i = 0; i < NOLP; i++) {
@@ -163,20 +180,26 @@ namespace seneca {
                 }
             }
         }
-
-        if (matchFound) {
-            ps.sort();
-            refNumber = ps.run();
-            if (refNumber == 0) {
-                std::cout << "Aborted!" << std::endl;
+     
+        if (ps) {
+            if (matchFound) {
+                ps.sort();
+                refNumber = ps.run();
+                ps.reset();
+                if (refNumber == 0) {
+                    std::cout << "Aborted!" << std::endl;
+                    return -2;
+                }
             }
-        }
-        else {
-            std::cout << "No matches found!" << std::endl;
-        }
+            else {
+                std::cout << "No matches found!" << std::endl;
+            }
 
-        return refNumber;
+            return refNumber;
+        }
     }
+
+
 
     void LibApp::returnPub()
     {
@@ -189,17 +212,17 @@ namespace seneca {
             if (loanDays > SENECA_MAX_LOAN_DAYS) {
                 int noOfLateDays = (loanDays - SENECA_MAX_LOAN_DAYS);
                 double lateCharge = noOfLateDays * 0.50;
-                cout << "Please pay $";
-                cout.precision(2);
-                cout << lateCharge;
-                cout << "penalty for being ";
-                cout << noOfLateDays;
-                cout << "days late!" << endl;
+                std::cout << "Please pay $";
+                std::cout.precision(2);
+                std::cout << lateCharge;
+                std::cout << "penalty for being ";
+                std::cout << noOfLateDays;
+                std::cout << "days late!" << std::endl;
             }
         }
         retPub->set(0);
         m_changed = true;
-        cout << "Publication returned" << endl;
+        std::cout << "Publication returned" << std::endl;
     }
     void LibApp::newPublication() {
         if (NOLP >= SENECA_LIBRARY_CAPACITY) {
