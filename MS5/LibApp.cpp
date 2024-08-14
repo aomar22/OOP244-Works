@@ -61,6 +61,7 @@ namespace seneca {
         m_mainMenu = "Seneca Library Application";
         m_exitMenu = "Changes have been made to the data, what would you like to do?";
         m_pubType = "Choose the type of publication: ";
+      //  m_mainMenu = "Choose the type of publication: ";
         m_fileName[0] = '\0';
         for (int i = 0; i < SENECA_LIBRARY_CAPACITY; i++) {
             PPA[i] = nullptr;
@@ -243,15 +244,16 @@ namespace seneca {
         char userEnteredTitle[257]{};
         int refNum{};
         //get the type of publication to search for from the user. (user the type selection Menu of the class)
-       unsigned int pubType = m_pubType.run();
+      unsigned int pubType = m_pubType.run();
+      //  unsigned int pubType = m_mainMenu.run();
         //char userTypeSelected{};
-        char type = getType(pubType);
+       char type = getType(pubType);
         bool matchFound = true;
-       /* if (userTypeSelected == 'X') {
+        /*if (type == 'X') {
             std::cout << "Aborted!" << endl;
             refNum = -1;
-        }*/
-      //  else {
+        }
+        else {*/
             cout << "Publication Title: ";
             cin.getline(userEnteredTitle, 257);
             
@@ -259,6 +261,8 @@ namespace seneca {
                // if (PPA[i]) {
                     switch (searchMode) {
                     case SENECA_ALL_SEARCH:
+                     //   cin.clear();
+                     //   cin.ignore();
                         if (PPA[i] && type == PPA[i]->type()/*userTypeSelected*/ && strstr(*PPA[i], (const char*)userEnteredTitle) && PPA[i]->getRef())/* && (PPA[i]->onLoan() || !PPA[i]->onLoan())*/ {
                             /*if (type == 'P') {
                                 PPA[i] = new Publication();
@@ -276,6 +280,8 @@ namespace seneca {
                         }*/
                         break;
                     case SENECA_SEARCH_ON_LOAN:
+                      //  cin.clear();
+                        //cin.ignore();
                         if (PPA[i] && type == PPA[i]->type()/*userTypeSelected*/ && strstr(*PPA[i], (const char*)userEnteredTitle) && PPA[i]->onLoan()) {
                             /*if (type == 'P') {
                                 PPA[i] = new Publication();
@@ -292,6 +298,8 @@ namespace seneca {
                         }*/
                         break;
                     case SENECA_SEARCH_AVAILABLE_ITEMS:
+                       // cin.clear();
+                        //cin.ignore();
                         if (PPA[i] && type == PPA[i]->type()/*userTypeSelected*/ && strstr(*PPA[i], (const char*)userEnteredTitle) && !PPA[i]->onLoan()) {
                            /* if (type == 'P') {
                                 PPA[i] = new Publication();
@@ -309,8 +317,8 @@ namespace seneca {
                         break;                  
                     }
                // }
+           // }
             }
-        //}
         
         //if (ps) {
         if (matchFound == true) {
@@ -318,6 +326,8 @@ namespace seneca {
             refNum = ps.run();
             ps.reset();
             if (refNum == 0) {
+               /* cin.clear();
+                cin.ignore();*/
                 std::cout << "Aborted!" << std::endl;
                 return -2;
             }
@@ -364,7 +374,7 @@ namespace seneca {
             std::cout << "Adding new publication to the library" << endl;
             Publication* pub = nullptr;
 
-            int userChoice = m_pubType.run();
+            int userChoice = m_pubType.run(); //m_pubType
             switch (userChoice) {
 
             case 1:

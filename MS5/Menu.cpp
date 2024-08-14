@@ -224,7 +224,7 @@ namespace seneca {
 			cout << m_menuItems[i]->m_itemContent << endl;
 			i++;
 		}
-		cout << " " << /*i % m_noOfItems*/ "0" << "- Exit" << '\n' << "> ";
+		cout /*<< " "*/ << /*i % m_noOfItems*/ " 0" << "- Exit" << '\n' << "> ";
 
 		return cout;
 	}

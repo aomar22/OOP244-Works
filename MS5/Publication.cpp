@@ -98,9 +98,18 @@ namespace seneca {
 				os.fill('.');
 				os.setf(ios::left);
 				os << m_title;
+				os.unsetf(ios::left);
 			}
 			os << " | ";
-			onLoan() ? os << m_membership : os << " N/A"; /*0*/ 
+			if (onLoan()) {
+				os << m_membership;
+			}
+			else {
+				//os.width(5);
+				os.fill(' ');
+				os << " N/A ";
+			}
+		//	onLoan() ? os << m_membership: os.width(7) <<"N/A"; /*0*/
 			os << " | ";
 			os << m_date;
 			os << " |";
@@ -115,7 +124,15 @@ namespace seneca {
 			os << '\t';
 			os << m_title;
 			os << '\t';
-			onLoan() ? os << m_membership : os << " N/A "; /*0*/ 
+			if (onLoan()) {
+				os << m_membership;
+			}
+			else {
+				//os.width(5);
+				os.fill(' ');
+				os << " N/A ";
+			}
+			//onLoan() ? os << m_membership : os << " N/A "; /*0*/ 
 			os << '\t';
 			os << m_date;
 		}
