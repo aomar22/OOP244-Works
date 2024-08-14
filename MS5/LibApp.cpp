@@ -333,7 +333,7 @@ namespace seneca {
             }
         }
         else {
-            matchFound == false;
+          //  matchFound == false;
             std::cout << "No matches found!" << std::endl;
         }
         return refNum;       
