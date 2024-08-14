@@ -424,7 +424,7 @@ namespace seneca {
         retVal = search(1);
         if (retVal > 0) {
             for (int i = 0; i < NOLP; i++) {
-                if (PPA[i]->getRef() == retVal) {
+                if (PPA[i] && PPA[i]->getRef() == retVal) {
                     index = i;
                 }
             }
