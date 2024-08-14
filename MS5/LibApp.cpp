@@ -1,5 +1,5 @@
 /* Citation and Sources...
-Final Project Milestone 52
+Final Project Milestone 53
 Module: Menu
 Filename: Menu.cpp
 Version 1.0
@@ -170,7 +170,7 @@ namespace seneca {
                      break;                  
             }
         }
-        if (matchFound == true) {
+        if (ps && matchFound == true) {
             ps.sort();
             refNum = ps.run();
             ps.reset();
@@ -286,28 +286,30 @@ namespace seneca {
     void LibApp::checkOutPub()
     {
         int membership{};
-        int membershipLength{};
+       // int membershipLength{};
         int index{};
         cout << "Checkout publication from the library" << endl;
         int retVal = search(3);
-        if (retVal > 0 && confirm("Check out publication ? ")) {
+        if (retVal > 0) {
             for (int i = 0; i < NOLP; i++) {
-                if (PPA[i]->getRef() == retVal) {
+                if (PPA[i] && PPA[i]->getRef() == retVal) {
                     index = i;
                 }
-                if (index > -1) {
-                    cout << *PPA[index] << endl;
-                }
-                if (confirm("Check out publication?")) {
-                    cout << "Enter Membership number: ";
-                    do {
-                        cin >> membership;               
-                        if (membershipLength != 5) cout << "Invalid membership number, try again:  ";
-                    } while (membershipLength != 5);
-                    PPA[index]->set(membershipLength);
+            }
+            if (index > -1) {
+               cout << *PPA[index] << endl;
+               if (confirm("Check out publication?")) {
+                   cout << "Enter Membership number: ";
+                   do {
+                       cin >> membership;               
+                       if (membership < 10000 || membership > 99999) {
+                          cout << "Invalid membership number, try again:  ";
+                       }
+                   } while (membership < 10000 || membership > 99999);
+                    PPA[index]->set(membership);
                     m_changed = true;
                     cout << "Publication checked out" << endl;
-                }
+               }
             }
         }
     } 
