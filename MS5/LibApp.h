@@ -32,7 +32,7 @@ namespace seneca {
        char m_fileName[256 + 1];
        Publication* PPA[SENECA_LIBRARY_CAPACITY]; 
        int NOLP; 
-       int LLRN;//last library reference number read from the data file
+       int LLRN;
        bool confirm(const char* message);
        void load();  
        void save();  

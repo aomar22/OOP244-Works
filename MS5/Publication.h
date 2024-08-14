@@ -19,10 +19,10 @@ namespace seneca {
 
 	class Publication : public Streamable {
 	
-		char* m_title; //hold a dynamic title for the publication, null by default..
-		char m_shelfId[SENECA_SHELF_ID_LEN +1]; //Hold the location of the publication in the library
-		int m_membership; //hold a 5-digit membership number of members of the library.
-		int m_libRef = -1; //used internally to uniquely identify each publication in the system.
+		char* m_title; 
+		char m_shelfId[SENECA_SHELF_ID_LEN +1]; 
+		int m_membership;
+		int m_libRef = -1; 
 		Date m_date; 
 	public:
 		Publication();
@@ -43,8 +43,6 @@ namespace seneca {
 		Publication(const Publication& p);
 		Publication& operator=(const Publication& p);
 		~Publication();
-
 	};
-
 }
 #endif //SENECA_PUBLICATION_H

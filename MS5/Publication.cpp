@@ -1,4 +1,4 @@
-/*Final Project Milestone 4
+/*Final Project Milestone 52
 Module: Publication
 Filename : Publication.cpp
 Version 1.0
@@ -22,9 +22,9 @@ using namespace std;
 namespace seneca {
 
 	Publication::Publication(): m_date(Date()) {
-		m_title = nullptr; //hold a dynamic title for the publication, null by default..
-		m_shelfId[0] = {'\0'}; //Hold the location of the publication in the library
-		m_membership = 0; //hold a 5-digit membership number of members of the library.
+		m_title = nullptr;
+		m_shelfId[0] = {'\0'}; 
+		m_membership = 0; 
 		m_libRef = -1;
 	}
 	void Publication::set(int member_id)
@@ -104,18 +104,15 @@ namespace seneca {
 			if (onLoan()) {
 				os << m_membership;
 			}
-			else {
-				//os.width(5);
+			else{
 				os.fill(' ');
 				os << " N/A ";
 			}
-		//	onLoan() ? os << m_membership: os.width(7) <<"N/A"; /*0*/
 			os << " | ";
 			os << m_date;
 			os << " |";
 		}
 		else {
-			//os << '\n';
 			os << type();
 			os << '\t';
 			os << m_libRef;
@@ -128,19 +125,16 @@ namespace seneca {
 				os << m_membership;
 			}
 			else {
-				//os.width(5);
 				os.fill(' ');
-				os << " N/A ";
+				os << " 0 ";
 			}
-			//onLoan() ? os << m_membership : os << " N/A "; /*0*/ 
 			os << '\t';
 			os << m_date;
 		}
 		return os;
 	}
 	istream& Publication::read(std::istream& istr)
-	{
-		
+	{	
 		char title[255];
 		char shelfId[5];
 		int membership = 0;
@@ -157,28 +151,17 @@ namespace seneca {
 			cout << "Shelf No: ";
 			
 			istr.getline(shelfId, SENECA_SHELF_ID_LEN + 1);
-			//istr >> shelfId;
-			//istr.clear();
-			//cout << shelfId;
-			//cout << '\n';
+		
 			if (strlen(shelfId) != SENECA_SHELF_ID_LEN) {
 				istr.setstate(ios::failbit);
 			}
-			/*cout << endl;*/
-
+			
 			cout << "Title: ";
 			istr.getline(title, 255);
-			//istr >> title;
-			//istr.clear();
-		//	cout << '\n';
-
+			
 			cout << "Date: ";
 			istr >> date;
-			//istr.clear();
-			//cout << '\n';
-			
-			libRef = -1;
-			
+			libRef = -1;		
 		}
 		else {
 			istr >> libRef;

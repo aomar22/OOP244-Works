@@ -29,7 +29,4 @@ const int SENECA_ALL_SEARCH = 1;
 const int SENECA_SEARCH_ON_LOAN = 2;
 const int SENECA_SEARCH_AVAILABLE_ITEMS = 3;
 
-
-
-
 #endif  //SENECA_LIB_H

@@ -51,7 +51,6 @@ namespace seneca {
         delete[] m_author;
        // m_author = nullptr;
     }
-
     char Book::type() const
     {
         return 'B';

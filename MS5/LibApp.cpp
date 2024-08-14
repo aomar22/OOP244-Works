@@ -151,24 +151,21 @@ namespace seneca {
         for (int i = 0; i < NOLP; i++) {
             switch (searchMode) {
                  case SENECA_ALL_SEARCH:
-                     if (PPA[i] && type == PPA[i]->type() && strstr(*PPA[i], (const char*)userEnteredTitle) && PPA[i]->getRef())/* && (PPA[i]->onLoan() || !PPA[i]->onLoan())*/ {
+                     if (PPA[i] && type == PPA[i]->type() && strstr(*PPA[i], (const char*)userEnteredTitle) && PPA[i]->getRef()) {
                           matchFound = true;
-                          ps << PPA[i];
-                           
+                          ps << PPA[i];                         
                      }
                      break;
                 case SENECA_SEARCH_ON_LOAN:
-                     if (PPA[i] && type == PPA[i]->type() && strstr(*PPA[i], (const char*)userEnteredTitle) && PPA[i]->onLoan()) {
+                     if (PPA[i] && type == PPA[i]->type() && strstr(*PPA[i], (const char*)userEnteredTitle) && PPA[i]->onLoan() && PPA[i]->getRef()) {
                           matchFound = true;
-                          ps << PPA[i];
-                           
+                          ps << PPA[i];                           
                      }
                      break;
                 case SENECA_SEARCH_AVAILABLE_ITEMS:
-                     if (PPA[i] && type == PPA[i]->type()/*userTypeSelected*/ && strstr(*PPA[i], (const char*)userEnteredTitle) && !PPA[i]->onLoan()) {
+                     if (PPA[i] && type == PPA[i]->type() && strstr(*PPA[i], (const char*)userEnteredTitle) && !PPA[i]->onLoan() && PPA[i]->getRef()) {
                           matchFound = true;
-                          ps << PPA[i];
-                            
+                          ps << PPA[i];                          
                      }
                      break;                  
             }
@@ -373,6 +370,5 @@ namespace seneca {
         for (int i = 0; i < NOLP; i++) {
             delete PPA[i];
         }
-    }
-                        
+    }                       
 }
