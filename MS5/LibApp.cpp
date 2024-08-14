@@ -215,8 +215,8 @@ namespace seneca {
     void LibApp::newPublication() {
         if (NOLP >= SENECA_LIBRARY_CAPACITY) {
             std::cout << "Library is at its maximum capacity!" << endl;
-            m_exitMenu.run();
-            return;
+           // m_exitMenu.run();
+           // return;
         }
         else {
             std::cout << "Adding new publication to the library" << endl;
@@ -246,7 +246,7 @@ namespace seneca {
             }
             else {
                 if (confirm("Add this publication to the library?")) {
-                    if (pub != nullptr) {
+                    if (pub) {
 
                         m_changed = true;
                         LLRN++;
@@ -254,6 +254,7 @@ namespace seneca {
                         PPA[NOLP++] = pub;
                         NOLP++;
                         std::cout << "Publication added" << endl;
+                        return;
                     }
                     else {
                         std::cout << "Failed to add publication!" << std::endl;
