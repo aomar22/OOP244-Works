@@ -189,16 +189,22 @@ namespace seneca {
         std::cout << "Return publication to the library" << endl;
         int libRef = search(2);
         Publication* retPub = getPub(libRef);
-        if (confirm("Return Publication?")) {
+        if (retPub)
+        {
+            cout << *retPub << endl;
+        }
+        if(confirm("Return Publication?")) {
+           
             int loanDays = Date() - getPub(libRef)->checkoutDate();
             if (loanDays > SENECA_MAX_LOAN_DAYS) {
                 int noOfLateDays = (loanDays - SENECA_MAX_LOAN_DAYS);
                 double lateCharge = noOfLateDays * 0.50;
                 std::cout << "Please pay $";
+                std::cout.setf(std::ios::fixed);
                 std::cout.precision(2);
-                std::cout << lateCharge;
+                std::cout << lateCharge << " ";
                 std::cout << "penalty for being ";
-                std::cout << noOfLateDays;
+                std::cout << noOfLateDays << " ";
                 std::cout << "days late!" << std::endl;
             }
         }
