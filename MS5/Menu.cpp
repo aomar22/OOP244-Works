@@ -1,5 +1,5 @@
 /* Citation and Sources...
-Final Project Milestone 5
+Final Project Milestone 52
 Module: Menu
 Filename: Menu.cpp
 Version 1.0
@@ -44,13 +44,6 @@ namespace seneca {
 			m_itemContent = nullptr;
 		}
 	}
-	/*ostream& MenuItem::operator<<(ostream& os) {
-		if (*this && m_itemContent) {
-			os << m_itemContent;
-
-		}
-		return os;
-	}*/
 	MenuItem::operator bool()const
 	{
 		if (m_itemContent) {
@@ -71,10 +64,8 @@ namespace seneca {
 		}
 		return os;
 	}
-
 	void Menu::setEmpty()
 	{
-
 		m_menuItems[0] = { nullptr };
 		m_noOfItems = 0;
 	}
@@ -100,14 +91,11 @@ namespace seneca {
 		for (unsigned int i = 0; i < MAX_MENU_ITEMS; i++) {
 			m_menuItems[i] = nullptr;
 		}
-	}
-	
+	}	
 	Menu& Menu::operator=(const Menu& m)
 	{
-		if (this != &m) { 
-			
+		if (this != &m) { 			
 			delete[] m_title.m_itemContent;
-
 			if (m.m_title.m_itemContent != nullptr) {
 				m_title.m_itemContent = new char[strlen(m.m_title.m_itemContent) + 1];
 				strcpy(m_title.m_itemContent, m.m_title.m_itemContent);
@@ -115,15 +103,12 @@ namespace seneca {
 			else {
 				m_title.m_itemContent = nullptr;
 			}
-
 			m_noOfItems = m.m_noOfItems;
-
 			for (unsigned int i = 0; i < MAX_MENU_ITEMS; i++) {
 				m_menuItems[i] = m.m_menuItems[i]; 
 			}
 		}
-		return *this;
-		
+		return *this;	
 	}
 	Menu::~Menu()
 	{
@@ -144,11 +129,6 @@ namespace seneca {
 				cin.ignore(10000, '\n');
 				cin >> selection;
 			}
-			/*else {
-				cin.clear();
-				cin.ignore(10000, '\n');
-			}*/
-			//cin.ignore(10000, '\n');
 		}
 		cin.ignore(10000, '\n');
 		return selection;
@@ -164,11 +144,9 @@ namespace seneca {
 			return nullptr;
 		}
 	}
-
 	 unsigned int Menu::operator~() {
 		return run();
 	 }
-
 	Menu& Menu::operator<<(const char* menuItemContent)
 	{
 		if (menuItemContent && m_noOfItems < MAX_MENU_ITEMS) {
@@ -182,16 +160,13 @@ namespace seneca {
 	{
 		return m_noOfItems;
 	}
-
 	Menu::operator unsigned int() const
 	{
 		return m_noOfItems;
 	}
-
 	Menu::operator bool()const
 	{
 		return m_noOfItems >= 1;
-
 	}
 	const char* Menu::getMenuTitle() const {
 		return m_title.m_itemContent ? m_title.m_itemContent : " ";
@@ -204,7 +179,6 @@ namespace seneca {
 		}
 		return cout;
 	}
-
 	std::ostream& Menu::displayAllMenu() const
 	{
 		bool valid = m_title.m_itemContent != nullptr && m_menuItems != nullptr && m_noOfItems >= 1;
