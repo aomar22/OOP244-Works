@@ -194,7 +194,7 @@ namespace seneca {
 
 	}
 	const char* Menu::getMenuTitle() const {
-		return m_title.m_itemContent ? m_title.m_itemContent : "";
+		return m_title.m_itemContent ? m_title.m_itemContent : " ";
 	}
 	std::ostream& Menu::displayTitle() const
 	{
@@ -224,7 +224,7 @@ namespace seneca {
 			cout << m_menuItems[i]->m_itemContent << endl;
 			i++;
 		}
-		cout /*<< " "*/ << /*i % m_noOfItems*/ " 0" << "- Exit" << '\n' << "> ";
+		cout << " 0" << "- Exit" << '\n' << "> ";
 
 		return cout;
 	}
