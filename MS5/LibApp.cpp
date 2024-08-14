@@ -113,14 +113,14 @@ namespace seneca {
     {
         std::cout << "Saving Data" << endl;
         std::ofstream fout;
-        fout.open(m_fileName, std::ios::out);
+        fout.open(m_fileName);
         if (fout) {
             for (int i = 0; i < NOLP; i++) {
-                if (PPA[i] != nullptr && PPA[i]->getRef() != 0) {
+                if (PPA[i] && PPA[i]->getRef() != 0) {
                     fout << *PPA[i] << endl;
                 }
             }
-        }
+        } fout.close();
     }
     char getType(unsigned int num) {
         char ch = 'X';
@@ -293,7 +293,6 @@ namespace seneca {
     void LibApp::checkOutPub()
     {
         int membership{};
-       // int membershipLength{};
         int index{};
         cout << "Checkout publication from the library" << endl;
         int retVal = search(3);
@@ -323,7 +322,7 @@ namespace seneca {
     Publication* LibApp::getPub(int libRef)
     { 
         for (int i = 0; i < NOLP; i++) {
-            if (PPA[i]->getRef() == libRef) {
+            if (PPA[i] && PPA[i]->getRef() == libRef) {//PPA[i]
                return PPA[i];
             }
         }
@@ -340,6 +339,7 @@ namespace seneca {
             
             case 1:
                 newPublication();
+                
                 break;
             case 2:
                 removePublication();
@@ -355,7 +355,7 @@ namespace seneca {
                     userSelection = m_exitMenu.run();
                     if (userSelection == 1) {
                         save();
-                        done = false;
+                        done = true;
                     }
                     else if (userSelection == 0) {
                         confirm("This will discard all the changes are you sure?");
@@ -365,7 +365,7 @@ namespace seneca {
                     }
                 }
                 else {
-                    done = false;
+                    done = true;
                 }
                 break;
             }

@@ -30,7 +30,7 @@ namespace seneca {
        Menu m_exitMenu;
        Menu m_pubType;
        char m_fileName[256 + 1];
-       Publication* PPA[SENECA_LIBRARY_CAPACITY]; 
+       Publication* PPA[SENECA_LIBRARY_CAPACITY]{};
        int NOLP; 
        int LLRN;
        bool confirm(const char* message);

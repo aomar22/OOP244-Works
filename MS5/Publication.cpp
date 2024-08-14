@@ -73,7 +73,7 @@ namespace seneca {
 		return m_title;
 	}
 	int Publication::getRef() const
-	{
+	{   
 		return m_libRef;
 	}
 
@@ -164,6 +164,7 @@ namespace seneca {
 			libRef = -1;		
 		}
 		else {
+			
 			istr >> libRef;
 			istr.ignore(1000, '\t'); 
 			istr.getline(shelfId, SENECA_SHELF_ID_LEN + 1, '\t');
@@ -175,11 +176,18 @@ namespace seneca {
 		if (date.validate()==false) {
 			istr.setstate(ios::failbit);
 		}
-		if (istr.good()) {
-			m_title = new char[strlen(title) + 1];
-			strcpy(m_title, title);
-			strcpy(m_shelfId, shelfId);
-			m_shelfId[SENECA_SHELF_ID_LEN] = '\0';
+		if (istr.good() /*!istr.fail()*/) {
+			if (title[0] != '\0') {
+				delete[] m_title;
+				m_title = nullptr;
+				m_title = new char[strlen(title) + 1];
+				strcpy(m_title, title);
+				strcpy(m_shelfId, shelfId);
+			}
+			if (shelfId[0] != '\0') {
+				//_shelfId[SENECA_SHELF_ID_LEN] = '\0';
+				strcpy(m_shelfId, shelfId);
+			}
 			m_membership = membership;
 			m_libRef = libRef;
 			m_date = date;
