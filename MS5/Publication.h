@@ -22,7 +22,7 @@ namespace seneca {
 		char* m_title; 
 		char m_shelfId[SENECA_SHELF_ID_LEN +1]; 
 		int m_membership;
-		int m_libRef = -1; 
+		int m_libRef = -1;
 		Date m_date; 
 	public:
 		Publication();
@@ -44,5 +44,7 @@ namespace seneca {
 		Publication& operator=(const Publication& p);
 		~Publication();
 	};
+	std::ostream& operator<<(std::ostream& os, const Publication& P);
+	std::istream& operator>>(std::istream& istr, Publication& P);
 }
 #endif //SENECA_PUBLICATION_H

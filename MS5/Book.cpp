@@ -114,5 +114,12 @@ namespace seneca {
     {
         return (Publication::operator bool() && m_author && m_author[0] != '\0');
     }
+    std::ostream& operator<<(std::ostream& os, const Book& B)
+    {
+        return B.write(os);
+    }
+    std::istream& operator>>(std::istream& is, Book& B) {
+        return B.read(is);
+    }
 }
 

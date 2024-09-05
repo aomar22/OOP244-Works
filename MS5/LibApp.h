@@ -25,14 +25,14 @@ that my professor provided to complete my workshops and assignments.
 #include "Lib.h"
 namespace seneca {
    class LibApp {
-       bool m_changed;
+       bool m_changed{};
        Menu m_mainMenu;
        Menu m_exitMenu;
        Menu m_pubType;
-       char m_fileName[256 + 1];
+       char m_fileName[257]{};
        Publication* PPA[SENECA_LIBRARY_CAPACITY]{};
-       int NOLP; 
-       int LLRN;
+       int NOLP{};
+       int LLRN{};
        bool confirm(const char* message);
        void load();  
        void save();  

@@ -236,4 +236,12 @@ namespace seneca {
 		m_title = nullptr;
 	}
 
+	std::ostream& operator<<(std::ostream& os, const Publication& P)
+	{
+		return P.write(os);
+	}
+	std::istream& operator>>(std::istream& is, Publication& P) {
+		return P.read(is);
+	}
+
 }

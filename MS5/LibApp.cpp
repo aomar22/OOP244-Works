@@ -91,7 +91,7 @@ namespace seneca {
        std:: cout << "Loading Data" << endl;
         std::ifstream fin;
         fin.open(this->m_fileName, std::ios::in);
-        for ( int i = 0; i < SENECA_LIBRARY_CAPACITY && fin;i++) {
+       for ( int i = 0; i < SENECA_LIBRARY_CAPACITY && fin;i++) {
            
             char line{};
             fin >> line;
@@ -106,21 +106,29 @@ namespace seneca {
                fin >> *PPA[i];
                NOLP++;
                LLRN = PPA[i]->getRef();
-            }
-        }
+            } 
+       } if (PPA[NOLP]) {
+           fin >> *PPA[NOLP];
+           LLRN = PPA[NOLP]->getRef();
+       }
     }
     void LibApp::save()
     {
         std::cout << "Saving Data" << endl;
-        std::ofstream fout;
-        fout.open(m_fileName);
+        std::ofstream fout(m_fileName);
+        std::ifstream infile(m_fileName);
         if (fout) {
-            for (int i = 0; i < NOLP; i++) {
-                if (PPA[i] && PPA[i]->getRef() != 0) {
-                    fout << *PPA[i] << endl;
+            for (int i = 0; i < NOLP; ++i) {
+                if (PPA[i]) { 
+                    int ref = PPA[i]->getRef(); 
+                    if (ref != 0) {
+                        infile >> *PPA[i];
+                         
+                        fout << *PPA[i] << std::endl; 
+                    }
                 }
-            }
-        } fout.close();
+            } fout.close();
+        }
     }
     char getType(unsigned int num) {
         char ch = 'X';
@@ -151,19 +159,19 @@ namespace seneca {
         for (int i = 0; i < NOLP; i++) {
             switch (searchMode) {
                  case SENECA_ALL_SEARCH:
-                     if (PPA[i] && type == PPA[i]->type() && strstr(*PPA[i], (const char*)userEnteredTitle) && PPA[i]->getRef()) {
+                     if (PPA[i] && type == PPA[i]->type() && strstr(*PPA[i], (const char*)userEnteredTitle) /*&& PPA[i]->getRef()*/) {
                           matchFound = true;
                           ps << PPA[i];                         
                      }
                      break;
                 case SENECA_SEARCH_ON_LOAN:
-                     if (PPA[i] && type == PPA[i]->type() && strstr(*PPA[i], (const char*)userEnteredTitle) && PPA[i]->onLoan() && PPA[i]->getRef()) {
+                     if (PPA[i] && type == PPA[i]->type() && strstr(*PPA[i], (const char*)userEnteredTitle) && PPA[i]->onLoan() /*&& PPA[i]->getRef()*/) {
                           matchFound = true;
                           ps << PPA[i];                           
                      }
                      break;
                 case SENECA_SEARCH_AVAILABLE_ITEMS:
-                     if (PPA[i] && type == PPA[i]->type() && strstr(*PPA[i], (const char*)userEnteredTitle) && !PPA[i]->onLoan() && PPA[i]->getRef()) {
+                     if (PPA[i] && type == PPA[i]->type() && strstr(*PPA[i], (const char*)userEnteredTitle) && !PPA[i]->onLoan() /*&& PPA[i]->getRef()*/) {
                           matchFound = true;
                           ps << PPA[i];                          
                      }
@@ -339,7 +347,7 @@ namespace seneca {
             
             case 1:
                 newPublication();
-                
+                cout << endl;
                 break;
             case 2:
                 removePublication();
@@ -355,7 +363,8 @@ namespace seneca {
                     userSelection = m_exitMenu.run();
                     if (userSelection == 1) {
                         save();
-                        done = true;
+                        cout << endl;
+                       done = true;
                     }
                     else if (userSelection == 0) {
                         confirm("This will discard all the changes are you sure?");

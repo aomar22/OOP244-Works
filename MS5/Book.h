@@ -30,6 +30,8 @@ namespace seneca {
 		void set(int member_id);
 		operator bool() const;
 	};
+	std::ostream& operator<<(std::ostream& os, const Book& B);
+	std::istream& operator>>(std::istream& istr, Book& B);
 }
 
 #endif
